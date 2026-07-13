@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" class="[scrollbar-gutter:stable]">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content={get_csrf_token()} />
+    <.live_title
+      default="BetaSigma"
+      prefix={chat_title_prefix(assigns)}
+      suffix=" · Software, AI & Automation"
+    >
+      {assigns[:page_title]}
+    </.live_title>
+
+    <%!-- SEO Meta Tags --%>
+    <meta
+      name="description"
+      content="Vumbuzi — Custom software development, AI integration, and business automation. We design and build web platforms, mobile apps, and internal tools for businesses across East Africa."
+    />
+    <meta
+      name="keywords"
+      content="Vumbuzi, software development, web systems, AI integration, business automation, mobile apps, ERP, Nairobi, Kenya, technology"
+    />
+    <link rel="canonical" href="https://www.vumbuzi-ai.com" />
+
+    <%!-- Open Graph / Facebook --%>
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.vumbuzi-ai.com" />
+    <meta property="og:title" content="BetaSigma — Software, AI & Automation" />
+    <meta
+      property="og:description"
+      content="Custom software, web platforms, and AI-powered tools for businesses across East Africa and beyond."
+    />
+    <link id="app-favicon" rel="icon" type="image/png" href="/images/logobg.png" />
+    <meta property="og:image" content="/images/logobg.png" />
+
+    <%!-- Twitter --%>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://www.vumbuzi-ai.com" />
+    <meta name="twitter:title" content="BetaSigma — Software, AI & Automation" />
+    <meta
+      name="twitter:description"
+      content="Custom software, web platforms, and AI-powered tools for businesses across East Africa and beyond."
+    />
+    <meta name="twitter:image" content="/images/logobg.png" />
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js">
+    </script>
+    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
+    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
+    </script>
+  </head>
+  <body class="min-h-screen bg-stone-100 text-slate-950 antialiased">
+    {@inner_content}
+  </body>
+</html>
