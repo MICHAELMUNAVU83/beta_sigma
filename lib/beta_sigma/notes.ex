@@ -8,6 +8,7 @@ defmodule BetaSigma.Notes do
   alias BetaSigma.Accounts.User
   alias BetaSigma.Notes.Note
   alias BetaSigma.Repo
+  alias BetaSigma.Uploads
 
   def list_notes(%User{} = user, filters \\ []) do
     Note
@@ -35,12 +36,35 @@ defmodule BetaSigma.Notes do
   end
 
   def update_note(%Note{} = note, attrs) do
-    note
-    |> Note.changeset(attrs)
-    |> Repo.update()
+    previous_attachments = note.attachments || []
+
+    case note |> Note.changeset(attrs) |> Repo.update() do
+      {:ok, updated_note} ->
+        removed_urls =
+          Enum.map(previous_attachments, & &1["url"]) --
+            Enum.map(updated_note.attachments || [], & &1["url"])
+
+        Enum.each(removed_urls, &Uploads.delete_local_upload/1)
+
+        {:ok, updated_note}
+
+      error ->
+        error
+    end
   end
 
-  def delete_note(%Note{} = note), do: Repo.delete(note)
+  def delete_note(%Note{} = note) do
+    case Repo.delete(note) do
+      {:ok, deleted_note} = result ->
+        attachments = deleted_note.attachments || []
+        Enum.each(attachments, &Uploads.delete_local_upload(&1["url"]))
+
+        result
+
+      error ->
+        error
+    end
+  end
 
   def change_note(%Note{} = note, attrs \\ %{}) do
     Note.changeset(note, attrs)

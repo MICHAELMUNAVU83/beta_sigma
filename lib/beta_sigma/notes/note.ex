@@ -6,6 +6,7 @@ defmodule BetaSigma.Notes.Note do
     field :title, :string
     field :body, :string
     field :visibility, Ecto.Enum, values: [:personal, :shared], default: :personal
+    field :attachments, {:array, :map}, default: []
 
     belongs_to :project, BetaSigma.Projects.Project
     belongs_to :task, BetaSigma.Projects.Task
@@ -16,7 +17,15 @@ defmodule BetaSigma.Notes.Note do
 
   def changeset(note, attrs) do
     note
-    |> cast(attrs, [:title, :body, :visibility, :project_id, :task_id, :created_by_id])
+    |> cast(attrs, [
+      :title,
+      :body,
+      :visibility,
+      :project_id,
+      :task_id,
+      :created_by_id,
+      :attachments
+    ])
     |> validate_required([:title, :visibility, :created_by_id])
     |> validate_length(:title, max: 200)
     |> foreign_key_constraint(:project_id)

@@ -17,8 +17,14 @@ defmodule BetaSigmaWeb.NotesLive.Index do
      |> assign(:selected_note_id, nil)
      |> assign(:note_mode, :new)
      |> assign(:note_project_id, nil)
+     |> assign(:note_attachments, [])
      |> assign(:note_changeset, Notes.change_note(%Note{}))
      |> assign_catalog()
+     |> allow_upload(:note_files,
+       accept: ~w(.pdf .doc .docx),
+       max_entries: 5,
+       max_file_size: 25_000_000
+     )
      |> load_notes()}
   end
 
@@ -58,6 +64,7 @@ defmodule BetaSigmaWeb.NotesLive.Index do
     if note.created_by_id == socket.assigns.current_user.id do
       {:noreply,
        socket
+       |> reset_note_uploads()
        |> assign(:selected_note_id, note.id)
        |> assign_note_editor(note, {:edit, note.id})
        |> assign(:active_modal, :note)}
@@ -69,6 +76,7 @@ defmodule BetaSigmaWeb.NotesLive.Index do
   def handle_event("new_note", _params, socket) do
     {:noreply,
      socket
+     |> reset_note_uploads()
      |> assign_note_editor(%Note{}, :new)
      |> assign(:active_modal, :note)}
   end
@@ -76,8 +84,18 @@ defmodule BetaSigmaWeb.NotesLive.Index do
   def handle_event("close_modal", %{"modal" => "note"}, socket) do
     {:noreply,
      socket
+     |> reset_note_uploads()
      |> assign_note_editor(%Note{}, :new)
      |> assign(:active_modal, nil)}
+  end
+
+  def handle_event("cancel_note_upload", %{"ref" => ref}, socket) do
+    {:noreply, cancel_upload(socket, :note_files, ref)}
+  end
+
+  def handle_event("remove_note_attachment", %{"url" => url}, socket) do
+    remaining = Enum.reject(socket.assigns.note_attachments, &(&1["url"] == url))
+    {:noreply, assign(socket, :note_attachments, remaining)}
   end
 
   def handle_event("validate_note", %{"note" => params}, socket) do
@@ -95,6 +113,20 @@ defmodule BetaSigmaWeb.NotesLive.Index do
   end
 
   def handle_event("save_note", %{"note" => params}, socket) do
+    new_attachments =
+      consume_uploaded_entries(socket, :note_files, fn %{path: path}, entry ->
+        url = BetaSigma.Uploads.persist_upload!("notes", %{path: path}, entry.client_name)
+
+        {:ok,
+         %{
+           "url" => url,
+           "filename" => entry.client_name,
+           "content_type" => entry.client_type
+         }}
+      end)
+
+    params = Map.put(params, "attachments", socket.assigns.note_attachments ++ new_attachments)
+
     case persist_note(socket, params) do
       {:ok, note} ->
         {:noreply,
@@ -318,6 +350,12 @@ defmodule BetaSigmaWeb.NotesLive.Index do
                   <.markdown_viewer body={@selected_note.body} empty_copy="No body content yet." />
                 </article>
 
+                <.note_attachment_list
+                  :if={@selected_note.attachments != []}
+                  attachments={@selected_note.attachments}
+                  note_id={@selected_note.id}
+                />
+
                 <div class="mt-6 grid gap-4 lg:grid-cols-3">
                   <div class="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
                     <p class="text-sm font-medium text-neutral-500">
@@ -392,6 +430,66 @@ defmodule BetaSigmaWeb.NotesLive.Index do
             options={@task_options}
           />
           <.input field={@note_form[:body]} type="textarea" label="Body" rows="10" />
+
+          <div>
+            <p class="text-sm font-medium leading-6 text-neutral-800">Attachments</p>
+            <p class="mt-1 text-xs text-neutral-500">Attach PDF or Word documents (max 25 MB each).</p>
+
+            <div :if={@note_attachments != []} class="mt-3 space-y-2">
+              <div
+                :for={attachment <- @note_attachments}
+                class="flex items-center gap-2 rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2"
+              >
+                <.icon name="hero-document" class="h-5 w-5 shrink-0 text-neutral-500" />
+                <span class="min-w-0 flex-1 truncate text-sm text-neutral-700">
+                  {attachment["filename"]}
+                </span>
+                <button
+                  type="button"
+                  phx-click="remove_note_attachment"
+                  phx-value-url={attachment["url"]}
+                  class="shrink-0 rounded-md p-1 text-neutral-400 hover:bg-neutral-100 hover:text-red-600"
+                  title="Remove attachment"
+                >
+                  <.icon name="hero-x-mark" class="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+
+            <div :if={@uploads.note_files.entries != []} class="mt-3 space-y-2">
+              <div
+                :for={entry <- @uploads.note_files.entries}
+                class="flex items-center gap-2 rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2"
+              >
+                <.icon name="hero-paper-clip" class="h-5 w-5 shrink-0 text-neutral-500" />
+                <span class="min-w-0 flex-1 truncate text-sm text-neutral-700">
+                  {entry.client_name}
+                </span>
+                <button
+                  type="button"
+                  phx-click="cancel_note_upload"
+                  phx-value-ref={entry.ref}
+                  class="shrink-0 rounded-md p-1 text-neutral-400 hover:bg-neutral-100 hover:text-red-600"
+                  title="Cancel upload"
+                >
+                  <.icon name="hero-x-mark" class="h-4 w-4" />
+                </button>
+                <p :for={err <- upload_errors(@uploads.note_files, entry)} class="text-xs text-red-600">
+                  {upload_error_msg(err)}
+                </p>
+              </div>
+            </div>
+
+            <label class="mt-3 flex w-fit cursor-pointer items-center gap-1.5 rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50">
+              <.icon name="hero-paper-clip" class="h-4 w-4" />
+              <span>Attach file</span>
+              <.live_file_input upload={@uploads.note_files} class="sr-only" />
+            </label>
+            <p :for={err <- upload_errors(@uploads.note_files)} class="mt-1 text-xs text-red-600">
+              {upload_error_msg(err)}
+            </p>
+          </div>
+
           <:actions>
             <button
               type="button"
@@ -408,6 +506,66 @@ defmodule BetaSigmaWeb.NotesLive.Index do
     </div>
     """
   end
+
+  attr :attachments, :list, required: true
+  attr :note_id, :integer, required: true
+
+  defp note_attachment_list(assigns) do
+    assigns =
+      assign(assigns, :attachments, Enum.with_index(assigns.attachments))
+
+    ~H"""
+    <div class="mt-6 space-y-2">
+      <p class="text-sm font-medium text-neutral-500">Attachments</p>
+      <div :for={{attachment, idx} <- @attachments} class="rounded-lg border border-neutral-200">
+        <div class="flex items-center gap-2 px-3 py-2">
+          <.icon name="hero-document" class="h-5 w-5 shrink-0 text-neutral-500" />
+          <a
+            href={attachment["url"]}
+            target="_blank"
+            rel="noopener noreferrer"
+            download={attachment["filename"]}
+            class="min-w-0 flex-1 truncate text-sm font-medium text-[#f26334] underline underline-offset-2 hover:text-[#d9532a]"
+          >
+            {attachment["filename"] || "Download file"}
+          </a>
+          <button
+            type="button"
+            phx-click={JS.toggle(to: "#note-attachment-preview-#{@note_id}-#{idx}")}
+            class="shrink-0 rounded-md p-1 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-700"
+            title="Preview"
+          >
+            <.icon name="hero-eye" class="h-4 w-4" />
+          </button>
+        </div>
+        <div id={"note-attachment-preview-#{@note_id}-#{idx}"} class="hidden border-t border-neutral-200">
+          <iframe
+            src={attachment_preview_src(attachment)}
+            class="h-[32rem] w-full rounded-b-lg bg-white"
+            title={attachment["filename"] || "Attachment preview"}
+          >
+          </iframe>
+        </div>
+      </div>
+    </div>
+    """
+  end
+
+  defp attachment_preview_src(attachment) do
+    filename = attachment["filename"] || attachment["url"] || ""
+
+    if String.ends_with?(String.downcase(filename), ".pdf") do
+      attachment["url"]
+    else
+      absolute_url = BetaSigmaWeb.Endpoint.url() <> attachment["url"]
+      "https://docs.google.com/viewer?embedded=true&url=#{URI.encode_www_form(absolute_url)}"
+    end
+  end
+
+  defp upload_error_msg(:too_large), do: "File too large (max 25 MB)"
+  defp upload_error_msg(:not_accepted), do: "Only PDF and Word documents are allowed"
+  defp upload_error_msg(:too_many_files), do: "Too many files (max 5)"
+  defp upload_error_msg(_), do: "Upload error"
 
   defp assign_catalog(socket) do
     projects = Projects.list_projects()
@@ -474,7 +632,14 @@ defmodule BetaSigmaWeb.NotesLive.Index do
     socket
     |> assign(:note_mode, mode)
     |> assign(:note_project_id, note.project_id)
+    |> assign(:note_attachments, note.attachments || [])
     |> assign(:note_changeset, Notes.change_note(note))
+  end
+
+  defp reset_note_uploads(socket) do
+    Enum.reduce(socket.assigns.uploads.note_files.entries, socket, fn entry, socket ->
+      cancel_upload(socket, :note_files, entry.ref)
+    end)
   end
 
   defp pick_selected_note(notes, nil) do
