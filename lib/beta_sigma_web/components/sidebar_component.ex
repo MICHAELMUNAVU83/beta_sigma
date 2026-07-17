@@ -12,8 +12,6 @@ defmodule BetaSigmaWeb.SidebarComponent do
   alias BetaSigma.Accounts.User
   alias BetaSigma.Pages
 
-  alias BetaSigmaWeb.UserSettingsLive
-
   attr :current_user, :map, required: true
   attr :unread_count, :integer, default: 0
   attr :chat_unread_count, :integer, default: 0
@@ -27,8 +25,11 @@ defmodule BetaSigmaWeb.SidebarComponent do
         :workspace_links,
         workspace_links(assigns.current_user, assigns.unread_count, assigns.chat_unread_count)
       )
+      |> assign(
+        :conversation_links,
+        conversation_links(assigns.current_user, assigns.chat_unread_count)
+      )
       |> assign(:management_sections, management_sections(assigns.current_user))
-      |> assign(:account_links, account_links(assigns.current_user))
       |> assign(:current_view, assigns.current_view)
       |> assign(:live_action, assigns.live_action)
 
@@ -42,20 +43,15 @@ defmodule BetaSigmaWeb.SidebarComponent do
 
     <aside
       id="app-sidebar"
-      class="fixed inset-y-0 left-0 z-50 flex h-screen w-[min(18rem,calc(100vw-1.5rem))] -translate-x-full border-r border-neutral-200 bg-white text-neutral-900 shadow-md transition-transform duration-300 lg:z-30 lg:w-72 lg:translate-x-0 lg:shadow-none lg:overflow-hidden"
+      class="fixed inset-y-0 left-0 z-50 flex h-screen w-[min(18rem,calc(100vw-1.5rem))] -translate-x-full border-r border-[color:var(--page-accent-border)] bg-[color:var(--page-bg-soft)] text-[color:var(--page-ink)] shadow-md transition-transform duration-300 lg:z-30 lg:w-72 lg:translate-x-0 lg:shadow-none lg:overflow-hidden"
     >
-      <div class="flex h-full flex-col">
+      <div class="flex h-full w-full flex-col">
         <%!-- Toggle button row --%>
-        <div class="flex items-center justify-between border-b border-neutral-200 px-3 py-3">
-          <img
-            id="sidebar-logo"
-            src={~p"/images/logo.png"}
-            alt="Vumbuzi Logo"
-            class="sidebar-logo mr-auto h-10 w-auto"
-          />
+        <div class="flex items-center justify-end px-5 py-4">
+          <span id="sidebar-logo" class="hidden" aria-hidden="true"></span>
           <button
             phx-click={close_mobile_sidebar()}
-            class="rounded-md p-2 text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-900 lg:hidden"
+            class="rounded-md p-2 text-[color:var(--page-ink)] opacity-60 transition hover:bg-[color:var(--page-accent-soft)] hover:text-[color:var(--page-title)] hover:opacity-100 lg:hidden"
             aria-label="Close sidebar"
           >
             <svg
@@ -78,7 +74,7 @@ defmodule BetaSigmaWeb.SidebarComponent do
               |> JS.toggle(to: "#sidebar-logo")
               |> JS.toggle_class("rotate-180", to: "#sidebar-chevron")
             }
-            class="hidden rounded-md p-1.5 text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-900 lg:inline-flex"
+            class="hidden rounded-md p-1.5 text-[color:var(--page-ink)] opacity-60 transition hover:bg-[color:var(--page-accent-soft)] hover:text-[color:var(--page-title)] hover:opacity-100 lg:inline-flex"
             aria-label="Toggle sidebar"
           >
             <svg
@@ -96,45 +92,57 @@ defmodule BetaSigmaWeb.SidebarComponent do
 
         <%!-- Collapsible content --%>
         <div id="sidebar-content" class="flex flex-1 flex-col overflow-hidden">
-          <div class="border-b border-neutral-200 px-4 py-4">
-            <p class="text-xs font-medium text-neutral-400">
-              BetaSigma
-            </p>
-          </div>
-
-          <nav class="flex-1 space-y-6 overflow-y-auto px-3 py-4">
+          <nav class="flex-1 space-y-5 overflow-y-auto px-4 pb-5 pt-1">
             <.nav_section
               :if={@workspace_links != []}
-              title="Workspace"
+              title=""
               links={@workspace_links}
+              current_view={@current_view}
+              live_action={@live_action}
+            />
+            <.nav_section
+              :if={@conversation_links != []}
+              title="Conversations"
+              links={@conversation_links}
               current_view={@current_view}
               live_action={@live_action}
             />
             <.nav_group
               :if={@management_sections != []}
-              title="Admin & HR"
+              title="Admin"
               sections={@management_sections}
-              current_view={@current_view}
-              live_action={@live_action}
-            />
-            <.nav_section
-              title="Account"
-              links={@account_links}
               current_view={@current_view}
               live_action={@live_action}
             />
           </nav>
 
-          <div class="border-t border-neutral-200 p-3 mt-auto shrink-0">
-            <div class="flex items-center gap-3 rounded-md p-2 transition hover:bg-neutral-100">
-              <.avatar user={@current_user} class="h-9 w-9 text-sm" />
+          <div class="mt-auto shrink-0 border-t border-[color:var(--page-accent-border)] px-5 py-5">
+            <.link
+              navigate={~p"/users/settings"}
+              class="flex min-w-0 items-center gap-3 rounded-md py-2 transition hover:bg-[color:var(--page-accent-soft)]"
+            >
+              <.avatar user={@current_user} class="h-10 w-10 text-sm" />
               <div class="flex-1 min-w-0">
-                <p class="truncate text-sm font-medium text-neutral-900">
+                <p class="truncate text-base font-bold text-[color:var(--page-title)]">
                   {display_name(@current_user)}
                 </p>
-                <p class="truncate text-xs text-neutral-500">{@current_user.email}</p>
+                <p class="truncate text-sm font-semibold text-[color:var(--page-ink)] opacity-60">
+                  {@current_user.email}
+                </p>
               </div>
-            </div>
+            </.link>
+
+            <.link
+              href={~p"/users/log_out"}
+              method="delete"
+              class="mt-6 flex items-center gap-4 rounded-md py-2 text-lg font-bold text-[color:var(--page-ink)] opacity-70 transition hover:bg-[color:var(--page-accent-soft)] hover:text-[color:var(--page-title)] hover:opacity-100"
+            >
+              <.icon
+                name="hero-arrow-right-on-rectangle"
+                class="h-6 w-6 text-[color:var(--page-ink)] opacity-50"
+              />
+              <span>Sign out.</span>
+            </.link>
           </div>
         </div>
       </div>
@@ -150,16 +158,18 @@ defmodule BetaSigmaWeb.SidebarComponent do
   defp nav_section(assigns) do
     ~H"""
     <section>
-      <p class="px-2 text-xs font-medium text-neutral-400">{@title}</p>
-      <div class="mt-2 space-y-0.5">
-        <.link
+      <p
+        :if={@title != ""}
+        class="px-3 text-sm font-extrabold uppercase tracking-[0.12em] text-[color:var(--page-ink)] opacity-70"
+      >
+        {@title}
+      </p>
+      <div class={["space-y-2", @title != "" && "mt-3"]}>
+        <.nav_item
           :for={link <- @links}
-          href={link.path}
-          phx-click={close_mobile_sidebar()}
-          class={nav_link_class(active_link?(link, @current_view, @live_action))}
-        >
-          <span>{link.label}</span>
-        </.link>
+          link={link}
+          active={active_link?(link, @current_view, @live_action)}
+        />
       </div>
     </section>
     """
@@ -173,28 +183,44 @@ defmodule BetaSigmaWeb.SidebarComponent do
   defp nav_group(assigns) do
     ~H"""
     <section>
-      <p class="px-2 text-xs font-medium text-neutral-400">{@title}</p>
-      <div class="mt-2 space-y-4">
+      <p class="px-3 text-sm font-extrabold uppercase tracking-[0.12em] text-[color:var(--page-ink)] opacity-70">
+        {@title}
+      </p>
+      <div class="mt-3 space-y-4">
         <section :for={section <- @sections}>
-          <div class="px-2">
-            <p class="text-xs font-medium text-neutral-400">
+          <div :if={section.title != ""} class="px-3">
+            <p class="text-xs font-bold uppercase tracking-[0.12em] text-[color:var(--page-ink)] opacity-50">
               {section.title}
             </p>
           </div>
 
-          <div class="mt-1 space-y-0.5">
-            <.link
+          <div class={["space-y-2", section.title != "" && "mt-2"]}>
+            <.nav_item
               :for={link <- section.links}
-              href={link.path}
-              phx-click={close_mobile_sidebar()}
-              class={nav_link_class(active_link?(link, @current_view, @live_action))}
-            >
-              <span>{link.label}</span>
-            </.link>
+              link={link}
+              active={active_link?(link, @current_view, @live_action)}
+            />
           </div>
         </section>
       </div>
     </section>
+    """
+  end
+
+  attr :link, :map, required: true
+  attr :active, :boolean, required: true
+
+  defp nav_item(assigns) do
+    ~H"""
+    <.link href={@link.path} phx-click={close_mobile_sidebar()} class={nav_link_class(@active)}>
+      <span class="flex min-w-0 items-center gap-4">
+        <.icon name={@link.icon} class={nav_icon_class(@active)} />
+        <span class="truncate">{@link.label}</span>
+      </span>
+      <span :if={@link.badge} class={nav_badge_class(@active)}>
+        {@link.badge}
+      </span>
+    </.link>
     """
   end
 
@@ -215,11 +241,22 @@ defmodule BetaSigmaWeb.SidebarComponent do
   defp workspace_links(%User{} = user, unread_count, chat_unread_count) do
     :workspace
     |> Pages.pages_in_section()
+    |> Enum.reject(&(&1.key == :chat))
     |> Enum.filter(&User.can_access?(user, &1.key))
     |> Enum.map(&to_link(&1, unread_count, chat_unread_count))
   end
 
   defp workspace_links(_, _, _), do: []
+
+  defp conversation_links(%User{} = user, chat_unread_count) do
+    :workspace
+    |> Pages.pages_in_section()
+    |> Enum.filter(&(&1.key == :chat))
+    |> Enum.filter(&User.can_access?(user, &1.key))
+    |> Enum.map(&to_link(&1, 0, chat_unread_count))
+  end
+
+  defp conversation_links(_, _), do: []
 
   defp management_sections(%User{} = user) do
     accessible_pages =
@@ -229,7 +266,7 @@ defmodule BetaSigmaWeb.SidebarComponent do
 
     [
       %{
-        title: "People",
+        title: "",
         description: "User access.",
         keys: [:users]
       }
@@ -251,30 +288,23 @@ defmodule BetaSigmaWeb.SidebarComponent do
   defp management_sections(_), do: []
 
   defp to_link(%{key: :notifications} = page, unread_count, _chat_unread_count) do
-    %{label: page.label, path: page.path, badge: notification_badge(unread_count), key: page.key}
+    page
+    |> base_link()
+    |> Map.put(:badge, count_badge(unread_count))
   end
 
   defp to_link(%{key: :chat} = page, _unread_count, chat_unread_count) do
-    %{label: page.label, path: page.path, badge: chat_badge(chat_unread_count), key: page.key}
+    page
+    |> base_link()
+    |> Map.put(:badge, count_badge(chat_unread_count))
   end
 
   defp to_link(page, _unread_count, _chat_unread_count) do
-    %{label: page.label, path: page.path, badge: page.badge, key: page.key}
+    base_link(page)
   end
 
-  defp account_links(_user) do
-    [
-      %{label: "Back to Home", path: ~p"/", badge: "Home", key: :home},
-      %{
-        label: "Account Settings",
-        path: ~p"/users/settings",
-        badge: "Auth",
-        key: :account_settings
-      }
-    ]
-  end
-
-  defp active_link?(%{key: :account_settings}, UserSettingsLive, _live_action), do: true
+  defp base_link(page),
+    do: %{label: page.label, path: page.path, badge: nil, key: page.key, icon: nav_icon(page.key)}
 
   defp active_link?(%{key: key}, current_view, live_action) do
     Pages.key_for_view(current_view, live_action) == key
@@ -284,21 +314,36 @@ defmodule BetaSigmaWeb.SidebarComponent do
 
   defp nav_link_class(true),
     do:
-      "flex items-center justify-between rounded-md bg-neutral-100 px-2 py-1.5 text-sm font-medium text-neutral-900 transition"
+      "flex min-h-14 items-center justify-between gap-3 rounded-lg bg-[color:var(--page-accent-soft)] px-5 py-3 text-lg font-extrabold text-[color:var(--page-title)] transition hover:bg-[color:var(--page-accent-soft)]"
 
   defp nav_link_class(false),
     do:
-      "flex items-center justify-between rounded-md px-2 py-1.5 text-sm text-neutral-600 transition hover:bg-neutral-100 hover:text-neutral-900"
+      "flex min-h-14 items-center justify-between gap-3 rounded-lg px-5 py-3 text-lg font-extrabold text-[color:var(--page-ink)] transition hover:bg-[color:var(--page-accent-soft)] hover:text-[color:var(--page-title)]"
 
-  defp notification_badge(unread_count) when is_integer(unread_count) and unread_count > 0,
-    do: Integer.to_string(unread_count)
+  defp nav_icon_class(true), do: "h-6 w-6 shrink-0 text-[color:var(--page-accent)]"
+  defp nav_icon_class(false), do: "h-6 w-6 shrink-0 text-[color:var(--page-ink)] opacity-50"
 
-  defp notification_badge(_unread_count), do: "Live"
+  defp nav_badge_class(true),
+    do:
+      "ml-3 inline-flex h-8 min-w-8 shrink-0 items-center justify-center rounded-full bg-[color:var(--page-accent)] px-2 text-base font-extrabold text-white"
 
-  defp chat_badge(count) when is_integer(count) and count > 0,
-    do: Integer.to_string(min(count, 99))
+  defp nav_badge_class(false),
+    do:
+      "ml-3 inline-flex h-7 min-w-7 shrink-0 items-center justify-center rounded-full bg-[color:var(--page-accent)] px-2 text-sm font-extrabold text-white"
 
-  defp chat_badge(_count), do: "Chat"
+  defp count_badge(count) when is_integer(count) and count > 0 do
+    if count > 99, do: "99+", else: Integer.to_string(count)
+  end
+
+  defp count_badge(_count), do: nil
+
+  defp nav_icon(:projects), do: "hero-eye"
+  defp nav_icon(:sprints), do: "hero-clipboard-document-check"
+  defp nav_icon(:notes), do: "hero-document-text"
+  defp nav_icon(:notifications), do: "hero-bell"
+  defp nav_icon(:chat), do: "hero-chat-bubble-left-right"
+  defp nav_icon(:users), do: "hero-user-group"
+  defp nav_icon(_key), do: "hero-squares-2x2"
 
   def sidebar_role_copy(:admin), do: "Full access to internal and admin routes."
   def sidebar_role_copy(:staff), do: "Internal workspace access without admin-only modules."
