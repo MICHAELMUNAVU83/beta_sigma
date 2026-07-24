@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Sichangi Law Alliance Legal Operations Implementation Guide"
+    />
+    <title>Sichangi Law Alliance Legal Operations Implementation Guide</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #172033;
+        --muted: #5e6b7e;
+        --line: #dfe5ee;
+        --brand: #3157d5;
+        --surface: #f6f8fb;
+        --code: #eef2f8;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--surface);
+        font:
+          16px/1.65 Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(10px);
+      }
+      header div {
+        max-width: 1100px;
+        margin: auto;
+        padding: 12px 28px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: center;
+      }
+      header a {
+        color: var(--brand);
+        text-decoration: none;
+        font-weight: 650;
+      }
+      main {
+        max-width: 1100px;
+        margin: 32px auto 80px;
+        padding: 42px 56px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 18px 50px rgba(29, 43, 76, 0.07);
+      }
+      h1 {
+        font-size: 2.25rem;
+        line-height: 1.2;
+        letter-spacing: -0.035em;
+        margin-top: 0;
+      }
+      h2 {
+        font-size: 1.55rem;
+        margin-top: 2.2em;
+        padding-top: 0.2em;
+        border-top: 1px solid var(--line);
+      }
+      h3 {
+        font-size: 1.17rem;
+        margin-top: 1.8em;
+      }
+      h1,
+      h2,
+      h3 {
+        scroll-margin-top: 72px;
+      }
+      p,
+      li {
+        max-width: 82ch;
+      }
+      a {
+        color: var(--brand);
+      }
+      code {
+        padding: 0.15em 0.35em;
+        background: var(--code);
+        border-radius: 5px;
+        font-size: 0.9em;
+      }
+      pre {
+        overflow: auto;
+        padding: 18px;
+        background: #111827;
+        color: #eef2ff;
+        border-radius: 10px;
+      }
+      pre code {
+        padding: 0;
+        background: none;
+      }
+      .table-wrap {
+        overflow-x: auto;
+        margin: 1.2em 0;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.94rem;
+      }
+      th,
+      td {
+        padding: 11px 13px;
+        border: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #f1f4f9;
+      }
+      strong {
+        color: #101827;
+      }
+      footer {
+        color: var(--muted);
+        text-align: center;
+        margin: 24px;
+        font-size: 0.88rem;
+      }
+      @media (max-width: 700px) {
+        main {
+          margin: 0;
+          padding: 28px 20px;
+          border-width: 0;
+          border-radius: 0;
+        }
+        header div {
+          padding: 10px 18px;
+        }
+        h1 {
+          font-size: 1.8rem;
+        }
+      }
+      @media print {
+        header,
+        footer {
+          display: none;
+        }
+        body,
+        main {
+          background: #fff;
+        }
+        main {
+          margin: 0;
+          padding: 0;
+          border: 0;
+          box-shadow: none;
+          max-width: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <a href="README.html">BetaSigma · PRD guides</a
+        ><a href="../sla-legal-operations.md">Markdown source</a>
+      </div>
+    </header>
+    <main>
+      <h1 id="sichangi-law-alliance-legal-operations-implementation-guide">
+        Sichangi Law Alliance Legal Operations Implementation Guide
+      </h1>
+      <p>
+        <strong>Source:</strong> <code>PRD/SLA.docx</code>
+        <strong>Business owners:</strong> Edith Nyatigo and Vivian Mukire
+        <strong>Source date:</strong> 7 July 2026 <strong>Status:</strong> All
+        submitted requirements were marked high priority
+      </p>
+      <h2 id="outcome">Outcome</h2>
+      <p>
+        Provide dependable infrastructure and a secure matter-centric workspace
+        for legal work: cases, clients, documents, deadlines, time, billing
+        handoff, and client communication. The first release must reduce
+        operational and confidentiality risk before pursuing advanced document
+        automation.
+      </p>
+      <h2 id="current-state-and-gaps">Current state and gaps</h2>
+      <ul>
+        <li>
+          Existing services include corporate email, e-filing, Ardhisasa, and
+          iTax.
+        </li>
+        <li>
+          The firm lacks fit-for-purpose laptops/desktops, reliable
+          internet/network equipment, maintained
+        </li>
+      </ul>
+      <p>printing, and an assured backup system.</p>
+      <ul>
+        <li>Matters and documents are not centrally managed.</li>
+        <li>There is no company website or coordinated social presence.</li>
+        <li>
+          The source benchmarks iManage, Litera, HighQ, and Elite 3E as
+          capability references; these are
+        </li>
+      </ul>
+      <p>not vendor selections.</p>
+      <h2 id="product-boundary-and-delivery-strategy">
+        Product boundary and delivery strategy
+      </h2>
+      <p>
+        Infrastructure and data protection are prerequisites. Build a focused
+        matter workflow in BetaSigma, but integrate a proven document
+        repository, email, backup, and accounting solution. Specialist legal
+        tools should be procured only after workflow and security discovery.
+      </p>
+      <h2 id="users-and-ethical-boundaries">Users and ethical boundaries</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Role</th>
+              <th>Access</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Partner</td>
+              <td>
+                Authorized matters, approvals, financial and workload summaries
+              </td>
+            </tr>
+            <tr>
+              <td>Advocate</td>
+              <td>
+                Assigned matters, documents, tasks, time, client communications
+              </td>
+            </tr>
+            <tr>
+              <td>Paralegal</td>
+              <td>Assigned matter operations under configured restrictions</td>
+            </tr>
+            <tr>
+              <td>Finance</td>
+              <td>
+                Billing/time exports and financial metadata, not privileged
+                content by default
+              </td>
+            </tr>
+            <tr>
+              <td>Client</td>
+              <td>Explicitly published portal items for their matter only</td>
+            </tr>
+            <tr>
+              <td>Records/admin</td>
+              <td>Filing and retention; content access only when authorized</td>
+            </tr>
+            <tr>
+              <td>IT admin</td>
+              <td>
+                Technical administration without automatic matter-content access
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Use matter teams and ethical walls. Firm-wide role alone must never
+        grant access to every matter.
+      </p>
+      <h2 id="mvp-scope">MVP scope</h2>
+      <h3 id="l1-client-and-matter-intake">L1. Client and matter intake</h3>
+      <ul>
+        <li>
+          Create individual or organisation clients with contacts and
+          identifiers.
+        </li>
+        <li>
+          Run a documented conflict-search workflow before opening a matter.
+        </li>
+        <li>
+          Capture practice area, responsible partner, team, status,
+          confidentiality class, opening date,
+        </li>
+      </ul>
+      <p>billing arrangement, and key parties.</p>
+      <ul>
+        <li>
+          A partner approves matter opening; rejected/duplicate intake remains
+          auditable.
+        </li>
+      </ul>
+      <h3 id="l2-matter-workspace">L2. Matter workspace</h3>
+      <ul>
+        <li>
+          Overview, team, tasks, key dates, activity, related parties,
+          documents, time, and notes.
+        </li>
+        <li>
+          Calendar reminders for court dates, filing deadlines, limitation
+          dates, and client commitments.
+        </li>
+        <li>
+          Reusable matter templates create standard tasks without replacing
+          legal judgment.
+        </li>
+        <li>
+          Full-text search respects ethical walls and document permissions.
+        </li>
+      </ul>
+      <h3 id="l3-document-and-email-management">
+        L3. Document and email management
+      </h3>
+      <ul>
+        <li>
+          Store documents in an approved encrypted repository; BetaSigma stores
+          metadata and secure links.
+        </li>
+        <li>
+          Capture matter, document type, author, version, privilege class,
+          status, and retention rule.
+        </li>
+        <li>
+          Check-in/check-out or collision-safe versioning; no silent overwrite.
+        </li>
+        <li>
+          File selected emails and attachments to a matter with sender,
+          recipients, and sent time.
+        </li>
+        <li>
+          Generate tamper-evident audit history for view, download, upload,
+          share, and delete events.
+        </li>
+      </ul>
+      <h3 id="l4-time-and-billing-handoff">L4. Time and billing handoff</h3>
+      <ul>
+        <li>
+          Record date, matter, activity, narrative, duration, billable state,
+          and rate reference.
+        </li>
+        <li>Submit time for review and lock approved periods.</li>
+        <li>
+          Export approved entries to the authoritative
+          finance/practice-management system.
+        </li>
+        <li>Do not build trust accounting in MVP.</li>
+      </ul>
+      <h3 id="l5-client-portal">L5. Client portal</h3>
+      <ul>
+        <li>Invite named client contacts with MFA.</li>
+        <li>
+          Publish selected documents, updates, requests, and messages—nothing is
+          shared by default.
+        </li>
+        <li>
+          Expiring download links, revocation, access audit, and clear
+          client/matter branding.
+        </li>
+      </ul>
+      <h3 id="l6-public-website">L6. Public website</h3>
+      <ul>
+        <li>
+          Accessible pages for profile, practice areas, team, insights, contact,
+          and required notices.
+        </li>
+        <li>
+          Content approval and publishing workflow; spam-protected enquiries
+          route to an owned mailbox/CRM.
+        </li>
+        <li>
+          No confidential matter data shares infrastructure or public routes
+          with the website.
+        </li>
+      </ul>
+      <h2 id="data-model">Data model</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Record</th>
+              <th>Essential fields</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>legal_clients</code> / <code>client_contacts</code></td>
+              <td>entity, type, names, contacts, restricted identifiers</td>
+            </tr>
+            <tr>
+              <td><code>matter_intakes</code></td>
+              <td>
+                requester, prospective client, parties, conflict status,
+                decision
+              </td>
+            </tr>
+            <tr>
+              <td><code>matters</code></td>
+              <td>
+                client, number, title, practice, partner, status,
+                confidentiality, billing terms
+              </td>
+            </tr>
+            <tr>
+              <td><code>matter_memberships</code></td>
+              <td>matter, user, role, access dates</td>
+            </tr>
+            <tr>
+              <td><code>matter_parties</code></td>
+              <td>matter, party name, relationship, aliases</td>
+            </tr>
+            <tr>
+              <td><code>matter_deadlines</code></td>
+              <td>matter, type, due_at, owner, source, completion</td>
+            </tr>
+            <tr>
+              <td><code>legal_documents</code></td>
+              <td>
+                matter, repository ID, version, class, privilege, retention
+              </td>
+            </tr>
+            <tr>
+              <td><code>time_entries</code></td>
+              <td>
+                user, matter, date, minutes, narrative, rate reference, approval
+              </td>
+            </tr>
+            <tr>
+              <td><code>portal_publications</code></td>
+              <td>matter, resource, client contact, published/revoked times</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2 id="interfaces">Interfaces</h2>
+      <ul>
+        <li><code>/app/legal/intake</code></li>
+        <li>
+          <code>/app/legal/matters</code> and
+          <code>/app/legal/matters/:id</code>
+        </li>
+        <li><code>/app/legal/calendar</code></li>
+        <li><code>/app/legal/time</code></li>
+        <li><code>/app/legal/search</code></li>
+        <li><code>/client/matters/:id</code> — isolated client portal</li>
+        <li>Public website routes outside authenticated application scopes</li>
+      </ul>
+      <h2 id="infrastructure-work-package">Infrastructure work package</h2>
+      <ul>
+        <li>
+          Inventory users, devices, network coverage, printers, and current data
+          locations.
+        </li>
+        <li>
+          Procure managed business laptops with disk encryption, endpoint
+          protection, screen lock, and
+        </li>
+      </ul>
+      <p>remote wipe.</p>
+      <ul>
+        <li>
+          Install redundant business internet where feasible, managed
+          firewall/Wi-Fi, and guest isolation.
+        </li>
+        <li>
+          Define 3-2-1 backup coverage for repository, Microsoft 365/email, and
+          application data; test
+        </li>
+      </ul>
+      <p>restores and record recovery time/recovery point objectives.</p>
+      <ul>
+        <li>
+          Repair or replace printers and require secure print/release for
+          sensitive output where practical.
+        </li>
+      </ul>
+      <h2 id="security-and-compliance">Security and compliance</h2>
+      <ul>
+        <li>
+          MFA for all users and stronger controls for external portal access.
+        </li>
+        <li>Matter-level authorization on every query and background job.</li>
+        <li>
+          Encryption in transit/at rest, malware scanning, data-loss controls,
+          session expiry, and remote
+        </li>
+      </ul>
+      <p>access policy.</p>
+      <ul>
+        <li>Preserve legal holds; block disposal while a hold applies.</li>
+        <li>
+          Obtain Kenyan legal/privacy professional review for retention, client
+          confidentiality, hosting,
+        </li>
+      </ul>
+      <p>breach response, and electronic signatures.</p>
+      <ul>
+        <li>
+          No client data may be sent to generative AI without an approved policy
+          and technical safeguards.
+        </li>
+      </ul>
+      <h2 id="acceptance-criteria">Acceptance criteria</h2>
+      <ul>
+        <li>
+          Unauthorized staff cannot discover a restricted matter through search,
+          URLs, exports, or alerts.
+        </li>
+        <li>
+          A matter cannot open until the configured conflict decision and
+          partner approval exist.
+        </li>
+        <li>
+          Document versions and access history are recoverable and exportable.
+        </li>
+        <li>
+          Only explicitly published resources appear in a client&#39;s portal.
+        </li>
+        <li>
+          A restored backup meets the agreed recovery objective in a witnessed
+          test.
+        </li>
+        <li>
+          Approved time exports once, with stable remote references and
+          reconciliation totals.
+        </li>
+        <li>
+          The public site passes accessibility, responsive, security-header, and
+          enquiry-routing checks.
+        </li>
+      </ul>
+      <h2 id="delivery-plan">Delivery plan</h2>
+      <ol>
+        <li>Infrastructure/security audit and emergency backup coverage.</li>
+        <li>
+          Matter taxonomy, ethical-wall rules, conflict workflow, and
+          repository/vendor decisions.
+        </li>
+        <li>
+          Pilot intake, matter workspace, deadlines, and document metadata with
+          a small matter set.
+        </li>
+        <li>Migrate active matters after deduplication and access review.</li>
+        <li>
+          Add time export, client portal, and public website as separately
+          tested releases.
+        </li>
+        <li>
+          Evaluate advanced comparison, drafting, automation, and practice
+          management after adoption.
+        </li>
+      </ol>
+      <h2 id="decisions-still-required">Decisions still required</h2>
+      <ul>
+        <li>
+          Which repository and email platform are authoritative, and is
+          iManage/HighQ-scale tooling viable?
+        </li>
+        <li>
+          What conflict-search data, approval, waiver, and audit rules apply?
+        </li>
+        <li>
+          What matter numbering, practice areas, retention schedules, and
+          legal-hold procedure are required?
+        </li>
+        <li>Which finance system receives time and billing data?</li>
+        <li>
+          What hardware quantities/specifications, internet SLA, backup
+          objectives, and budget are approved?
+        </li>
+        <li>
+          Who owns website content, legal notices, enquiry response, and
+          publishing approval?
+        </li>
+      </ul>
+      <h2 id="out-of-scope-for-mvp">Out of scope for MVP</h2>
+      <p>
+        Automated legal advice, court/e-filing automation, trust accounting, AI
+        drafting, automated conflict decisions, and wholesale replacement of
+        specialist document-management software.
+      </p>
+    </main>
+    <footer>
+      Generated from sla-legal-operations.md. Edit the Markdown source, then
+      rerun the renderer.
+    </footer>
+  </body>
+</html>

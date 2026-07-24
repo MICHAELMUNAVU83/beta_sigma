@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="Group HR Implementation Guide" />
+    <title>Group HR Implementation Guide</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #172033;
+        --muted: #5e6b7e;
+        --line: #dfe5ee;
+        --brand: #3157d5;
+        --surface: #f6f8fb;
+        --code: #eef2f8;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--surface);
+        font:
+          16px/1.65 Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(10px);
+      }
+      header div {
+        max-width: 1100px;
+        margin: auto;
+        padding: 12px 28px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: center;
+      }
+      header a {
+        color: var(--brand);
+        text-decoration: none;
+        font-weight: 650;
+      }
+      main {
+        max-width: 1100px;
+        margin: 32px auto 80px;
+        padding: 42px 56px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 18px 50px rgba(29, 43, 76, 0.07);
+      }
+      h1 {
+        font-size: 2.25rem;
+        line-height: 1.2;
+        letter-spacing: -0.035em;
+        margin-top: 0;
+      }
+      h2 {
+        font-size: 1.55rem;
+        margin-top: 2.2em;
+        padding-top: 0.2em;
+        border-top: 1px solid var(--line);
+      }
+      h3 {
+        font-size: 1.17rem;
+        margin-top: 1.8em;
+      }
+      h1,
+      h2,
+      h3 {
+        scroll-margin-top: 72px;
+      }
+      p,
+      li {
+        max-width: 82ch;
+      }
+      a {
+        color: var(--brand);
+      }
+      code {
+        padding: 0.15em 0.35em;
+        background: var(--code);
+        border-radius: 5px;
+        font-size: 0.9em;
+      }
+      pre {
+        overflow: auto;
+        padding: 18px;
+        background: #111827;
+        color: #eef2ff;
+        border-radius: 10px;
+      }
+      pre code {
+        padding: 0;
+        background: none;
+      }
+      .table-wrap {
+        overflow-x: auto;
+        margin: 1.2em 0;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.94rem;
+      }
+      th,
+      td {
+        padding: 11px 13px;
+        border: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #f1f4f9;
+      }
+      strong {
+        color: #101827;
+      }
+      footer {
+        color: var(--muted);
+        text-align: center;
+        margin: 24px;
+        font-size: 0.88rem;
+      }
+      @media (max-width: 700px) {
+        main {
+          margin: 0;
+          padding: 28px 20px;
+          border-width: 0;
+          border-radius: 0;
+        }
+        header div {
+          padding: 10px 18px;
+        }
+        h1 {
+          font-size: 1.8rem;
+        }
+      }
+      @media print {
+        header,
+        footer {
+          display: none;
+        }
+        body,
+        main {
+          background: #fff;
+        }
+        main {
+          margin: 0;
+          padding: 0;
+          border: 0;
+          box-shadow: none;
+          max-width: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <a href="README.html">BetaSigma · PRD guides</a
+        ><a href="../group-hr.md">Markdown source</a>
+      </div>
+    </header>
+    <main>
+      <h1 id="group-hr-implementation-guide">Group HR Implementation Guide</h1>
+      <p>
+        <strong>Source:</strong> <code>PRD/HR.docx</code>
+        <strong>Business owner:</strong> Mary Murimi, Human Resources
+        <strong>Source date:</strong> July 2026
+        <strong>Coverage:</strong> BeCorp, SLA, Tukutane Entertainment, Chasing
+        Sun, and SandCorp
+      </p>
+      <h2 id="outcome">Outcome</h2>
+      <p>
+        Create a single, secure group employee experience for 20–50 staff while
+        using a proven Kenya-compliant platform for payroll and statutory
+        calculations. Leadership needs entity-aware headcount and payroll
+        visibility; employees need self-service; HR needs consistent workflows
+        and records.
+      </p>
+      <h2 id="current-state-and-risks">Current state and risks</h2>
+      <ul>
+        <li>
+          Payroll, leave, and employee records are maintained in Excel, email,
+          WhatsApp, and physical files.
+        </li>
+        <li>
+          Manual statutory deductions and remittances create financial and
+          compliance risk.
+        </li>
+        <li>
+          Employees cannot retrieve payslips, request leave, submit expenses, or
+          update details directly.
+        </li>
+        <li>
+          Onboarding differs by entity and reporting requires spreadsheet
+          consolidation.
+        </li>
+        <li>
+          Working hours, start/end times, and breaks are not captured
+          consistently.
+        </li>
+        <li>SLA needs ten business-ready laptops.</li>
+      </ul>
+      <h2 id="product-boundary">Product boundary</h2>
+      <p>
+        Procure or retain a Kenya-compliant payroll engine such as Workpay or an
+        approved alternative. That provider owns calculation of PAYE and current
+        statutory deductions, payslip generation, and salary disbursement.
+        BetaSigma can own the group directory, workflows, employee portal,
+        reporting layer, and integration orchestration.
+      </p>
+      <p>
+        Do not encode statutory rates in application code. Import versioned
+        results from the payroll provider and show the source payroll run.
+      </p>
+      <h2 id="users-and-permissions">Users and permissions</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Role</th>
+              <th>Access</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Employee</td>
+              <td>
+                Own profile, documents, payslips, leave, expenses, attendance
+              </td>
+            </tr>
+            <tr>
+              <td>Line manager</td>
+              <td>
+                Direct reports, approvals, team calendar; no unnecessary payroll
+                details
+              </td>
+            </tr>
+            <tr>
+              <td>HR officer</td>
+              <td>
+                Employee lifecycle, documents, leave administration, reporting
+              </td>
+            </tr>
+            <tr>
+              <td>Payroll officer</td>
+              <td>
+                Payroll inputs, validation, provider sync, payroll reports
+              </td>
+            </tr>
+            <tr>
+              <td>Group HR lead</td>
+              <td>Cross-entity configuration and analytics</td>
+            </tr>
+            <tr>
+              <td>Executive</td>
+              <td>Aggregated approved dashboards only</td>
+            </tr>
+            <tr>
+              <td>Auditor</td>
+              <td>Time-bound read-only access to specified records</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        Separate HR administration from system administration and log privileged
+        access.
+      </p>
+      <h2 id="mvp-scope">MVP scope</h2>
+      <h3 id="h1-group-employee-record">H1. Group employee record</h3>
+      <ul>
+        <li>
+          One person record may have multiple employment records over time.
+        </li>
+        <li>
+          Employment contains entity, department, manager, job title, location,
+          contract dates, status,
+        </li>
+      </ul>
+      <p>payroll identifier, and work schedule.</p>
+      <ul>
+        <li>
+          Sensitive identity, bank, tax, and medical fields use restricted
+          field-level access.
+        </li>
+        <li>
+          Bulk import validates duplicates and provides a reversible preview.
+        </li>
+      </ul>
+      <h3 id="h2-employee-self-service">H2. Employee self-service</h3>
+      <ul>
+        <li>View profile and submit controlled change requests.</li>
+        <li>
+          Retrieve provider-issued payslips with step-up authentication where
+          appropriate.
+        </li>
+        <li>
+          Request leave, see balances, submit expenses, and view request
+          history.
+        </li>
+        <li>Display policy documents and acknowledged versions.</li>
+      </ul>
+      <h3 id="h3-leave-workflow">H3. Leave workflow</h3>
+      <ol>
+        <li>Employee selects leave type and dates.</li>
+        <li>System calculates working days against schedule and holidays.</li>
+        <li>It validates balance, overlap, notice, and attachment rules.</li>
+        <li>Manager approves/rejects; HR handles configured exceptions.</li>
+        <li>
+          Approved leave updates the team calendar and provider where supported.
+        </li>
+      </ol>
+      <p>
+        Support annual, sick, compassionate, maternity/paternity, unpaid, and
+        configurable types without hard-coding policy.
+      </p>
+      <h3 id="h4-attendance">H4. Attendance</h3>
+      <ul>
+        <li>
+          Web/mobile clock-in, clock-out, and break events with server
+          timestamps and source.
+        </li>
+        <li>
+          Configurable schedules, grace periods, and manager correction
+          requests.
+        </li>
+        <li>
+          Keep raw events immutable; corrections are linked adjustments with an
+          audit reason.
+        </li>
+        <li>
+          Attendance informs reports but does not automatically reduce pay in
+          MVP.
+        </li>
+      </ul>
+      <h3 id="h5-onboarding-and-offboarding">H5. Onboarding and offboarding</h3>
+      <ul>
+        <li>
+          Templates per entity/role generate checklists with owners and due
+          dates.
+        </li>
+        <li>
+          Capture contract completion, statutory details, policy
+          acknowledgements, equipment, account
+        </li>
+      </ul>
+      <p>provisioning, and induction.</p>
+      <ul>
+        <li>
+          Offboarding revokes access, returns assets, records exit documents,
+          and triggers provider updates.
+        </li>
+      </ul>
+      <h3 id="h6-payroll-integration-and-analytics">
+        H6. Payroll integration and analytics
+      </h3>
+      <ul>
+        <li>
+          Send approved employee and variable-input changes to the payroll
+          provider.
+        </li>
+        <li>Import payroll-run status, totals, and payslip references.</li>
+        <li>
+          Require payroll officer review before final provider submission.
+        </li>
+        <li>
+          Report headcount, joins/exits, leave liability, payroll cost by
+          entity, and attendance exceptions.
+        </li>
+      </ul>
+      <h2 id="data-model">Data model</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Record</th>
+              <th>Essential fields</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>people</code></td>
+              <td>names, contacts, restricted identifiers</td>
+            </tr>
+            <tr>
+              <td><code>employments</code></td>
+              <td>
+                person, entity, manager, role, department, dates, status,
+                payroll_remote_id
+              </td>
+            </tr>
+            <tr>
+              <td><code>leave_types</code> / <code>leave_policies</code></td>
+              <td>entity, rules, accrual, evidence, approval path</td>
+            </tr>
+            <tr>
+              <td><code>leave_balances</code></td>
+              <td>employment, type, period, accrued, used, adjusted</td>
+            </tr>
+            <tr>
+              <td><code>leave_requests</code></td>
+              <td>employment, dates, units, status, reason</td>
+            </tr>
+            <tr>
+              <td><code>time_events</code></td>
+              <td>
+                employment, event type, server time, source, device metadata
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <code>workflow_templates</code> / <code>workflow_tasks</code>
+              </td>
+              <td>entity, lifecycle type, owner, due date, completion</td>
+            </tr>
+            <tr>
+              <td><code>employee_documents</code></td>
+              <td>
+                person/employment, class, storage key, access and retention
+              </td>
+            </tr>
+            <tr>
+              <td><code>payroll_runs</code></td>
+              <td>entity, provider ID, period, status, totals, imported_at</td>
+            </tr>
+            <tr>
+              <td><code>assets</code> / <code>asset_assignments</code></td>
+              <td>device, serial, custodian, condition, dates</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2 id="interfaces">Interfaces</h2>
+      <ul>
+        <li><code>/app/hr/me</code> — self-service home</li>
+        <li>
+          <code>/app/hr/team</code> — manager team, approvals, and calendar
+        </li>
+        <li>
+          <code>/app/hr/people</code> and <code>/app/hr/people/:id</code> —
+          authorized HR directory/profile
+        </li>
+        <li><code>/app/hr/leave</code> — requests and administration</li>
+        <li><code>/app/hr/attendance</code> — clocking and exceptions</li>
+        <li><code>/app/hr/onboarding</code> — lifecycle workflow board</li>
+        <li><code>/app/hr/payroll</code> — provider sync and run validation</li>
+        <li><code>/app/hr/reports</code> — entity-scoped analytics</li>
+      </ul>
+      <h2 id="non-functional-and-privacy-requirements">
+        Non-functional and privacy requirements
+      </h2>
+      <ul>
+        <li>
+          Comply with applicable Kenyan employment, tax, and data-protection
+          obligations; obtain counsel
+        </li>
+      </ul>
+      <p>review before production.</p>
+      <ul>
+        <li>
+          Encrypt transport, backups, and sensitive fields; use time-limited
+          document URLs.
+        </li>
+        <li>
+          Define retention by record type and legal basis, including
+          deletion/anonymisation procedures.
+        </li>
+        <li>
+          Record consent or notice where attendance collection requires it.
+        </li>
+        <li>
+          Meet agreed payroll cut-off availability and maintain a documented
+          manual fallback.
+        </li>
+        <li>
+          Nightly backups plus tested restore drills; audit exports should be
+          tamper-evident.
+        </li>
+      </ul>
+      <h2 id="acceptance-criteria">Acceptance criteria</h2>
+      <ul>
+        <li>
+          HR imports employees into the correct entities without duplicate
+          identities.
+        </li>
+        <li>
+          Employees see only their data; managers see only current direct
+          reports and allowed fields.
+        </li>
+        <li>
+          Leave balances use the configured schedule/holiday calendar and all
+          decisions are traceable.
+        </li>
+        <li>Raw attendance events cannot be overwritten.</li>
+        <li>
+          Payroll totals reconcile to the provider run and no statutory
+          calculation is performed locally.
+        </li>
+        <li>
+          Leadership dashboards aggregate approved data while preserving salary
+          confidentiality.
+        </li>
+        <li>
+          Offboarding closes sessions and produces an auditable access-removal
+          checklist.
+        </li>
+      </ul>
+      <h2 id="delivery-plan">Delivery plan</h2>
+      <ol>
+        <li>
+          Select provider and complete privacy/security/API due diligence.
+        </li>
+        <li>
+          Define entities, job structure, policies, payroll calendar, and data
+          migration ownership.
+        </li>
+        <li>
+          Deliver directory, self-service, leave, and provider identity mapping.
+        </li>
+        <li>
+          Pilot payroll sync in parallel with the current process for at least
+          one agreed cycle.
+        </li>
+        <li>Add attendance and onboarding; issue and inventory SLA laptops.</li>
+        <li>Add approved analytics after data reconciliation.</li>
+      </ol>
+      <h2 id="decisions-still-required">Decisions still required</h2>
+      <ul>
+        <li>
+          Is Workpay the selected provider, and which modules/API operations are
+          contracted?
+        </li>
+        <li>
+          Which statutory term replaces legacy <code>NHIF</code> references in
+          current operations, and how does the
+        </li>
+      </ul>
+      <p>provider evidence current compliance?</p>
+      <ul>
+        <li>
+          What are entity-specific leave policies, working schedules, holidays,
+          and approval chains?
+        </li>
+        <li>
+          Is location/device data permitted for time tracking, and what is its
+          retention period?
+        </li>
+        <li>
+          Which documents require electronic signature and which storage system
+          is authoritative?
+        </li>
+        <li>
+          What is the device specification, budget, ownership, and support plan
+          for the ten SLA laptops?
+        </li>
+      </ul>
+      <h2 id="out-of-scope-for-mvp">Out of scope for MVP</h2>
+      <p>
+        Building a payroll/tax engine, biometric surveillance, automated
+        disciplinary decisions, recruitment ATS, performance scoring, and
+        cross-border employer-of-record functionality.
+      </p>
+    </main>
+    <footer>
+      Generated from group-hr.md. Edit the Markdown source, then rerun the
+      renderer.
+    </footer>
+  </body>
+</html>

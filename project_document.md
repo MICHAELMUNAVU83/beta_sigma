@@ -1,5 +1,12 @@
 # BetaSigma — ERP System
 
+## PRD implementation guides
+
+Build-ready guides for every source document in `PRD/`, including standalone HTML views, are
+indexed in [`docs/project-docs/README.md`](docs/project-docs/README.md). These guides define product
+boundaries, MVP workflows, roles, data models, integrations, security requirements, acceptance
+criteria, delivery phases, and open decisions for Finance, HR, SLA, Tukutane, and Chasing Sun.
+
 ## Project overview
 
 Build a full-stack internal ERP for BetaSigma, a software development and AI automations

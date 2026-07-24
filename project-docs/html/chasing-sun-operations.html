@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Chasing Sun Agribusiness and IoT Implementation Guide"
+    />
+    <title>Chasing Sun Agribusiness and IoT Implementation Guide</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #172033;
+        --muted: #5e6b7e;
+        --line: #dfe5ee;
+        --brand: #3157d5;
+        --surface: #f6f8fb;
+        --code: #eef2f8;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--surface);
+        font:
+          16px/1.65 Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        border-bottom: 1px solid var(--line);
+        background: rgba(255, 255, 255, 0.94);
+        backdrop-filter: blur(10px);
+      }
+      header div {
+        max-width: 1100px;
+        margin: auto;
+        padding: 12px 28px;
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: center;
+      }
+      header a {
+        color: var(--brand);
+        text-decoration: none;
+        font-weight: 650;
+      }
+      main {
+        max-width: 1100px;
+        margin: 32px auto 80px;
+        padding: 42px 56px;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        box-shadow: 0 18px 50px rgba(29, 43, 76, 0.07);
+      }
+      h1 {
+        font-size: 2.25rem;
+        line-height: 1.2;
+        letter-spacing: -0.035em;
+        margin-top: 0;
+      }
+      h2 {
+        font-size: 1.55rem;
+        margin-top: 2.2em;
+        padding-top: 0.2em;
+        border-top: 1px solid var(--line);
+      }
+      h3 {
+        font-size: 1.17rem;
+        margin-top: 1.8em;
+      }
+      h1,
+      h2,
+      h3 {
+        scroll-margin-top: 72px;
+      }
+      p,
+      li {
+        max-width: 82ch;
+      }
+      a {
+        color: var(--brand);
+      }
+      code {
+        padding: 0.15em 0.35em;
+        background: var(--code);
+        border-radius: 5px;
+        font-size: 0.9em;
+      }
+      pre {
+        overflow: auto;
+        padding: 18px;
+        background: #111827;
+        color: #eef2ff;
+        border-radius: 10px;
+      }
+      pre code {
+        padding: 0;
+        background: none;
+      }
+      .table-wrap {
+        overflow-x: auto;
+        margin: 1.2em 0;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.94rem;
+      }
+      th,
+      td {
+        padding: 11px 13px;
+        border: 1px solid var(--line);
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        background: #f1f4f9;
+      }
+      strong {
+        color: #101827;
+      }
+      footer {
+        color: var(--muted);
+        text-align: center;
+        margin: 24px;
+        font-size: 0.88rem;
+      }
+      @media (max-width: 700px) {
+        main {
+          margin: 0;
+          padding: 28px 20px;
+          border-width: 0;
+          border-radius: 0;
+        }
+        header div {
+          padding: 10px 18px;
+        }
+        h1 {
+          font-size: 1.8rem;
+        }
+      }
+      @media print {
+        header,
+        footer {
+          display: none;
+        }
+        body,
+        main {
+          background: #fff;
+        }
+        main {
+          margin: 0;
+          padding: 0;
+          border: 0;
+          box-shadow: none;
+          max-width: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <a href="README.html">BetaSigma · PRD guides</a
+        ><a href="../chasing-sun-operations.md">Markdown source</a>
+      </div>
+    </header>
+    <main>
+      <h1 id="chasing-sun-agribusiness-and-iot-implementation-guide">
+        Chasing Sun Agribusiness and IoT Implementation Guide
+      </h1>
+      <p>
+        <strong>Source:</strong>
+        <code>PRD/Chasing Sun X BSC_Technology_Requirements_Form .pdf</code>
+        <strong>Business owner:</strong> Josiah Stanley
+        <strong>Source date:</strong> 4 July 2026
+        <strong>Business:</strong> Horticulture production in Naivasha and B2B
+        commodity trade in East Africa
+      </p>
+      <h2 id="outcome">Outcome</h2>
+      <p>
+        Give management reliable financial and document visibility, then extend
+        the existing farm dashboard with trustworthy greenhouse telemetry for
+        soil moisture, humidity, temperature, and wind speed. The solution
+        should connect systems of record rather than create a second accounting
+        ledger.
+      </p>
+      <h2 id="current-state-and-priorities">Current state and priorities</h2>
+      <ul>
+        <li>
+          Outlook, WhatsApp, Microsoft Office, Adobe Acrobat, Claude, and
+          ChatGPT are in use.
+        </li>
+        <li>
+          Revenue and expenses are spread across spreadsheets; invoices and
+          delivery notes are manual.
+        </li>
+        <li>Department documents live on employee computers.</li>
+        <li>
+          An existing dashboard tracks planting, greenhouse productivity, and
+          weekly revenue collection.
+        </li>
+        <li>
+          <strong>High:</strong> finance system.
+          <strong>Medium:</strong> central documents and greenhouse IoT.
+          Hardware requests for
+        </li>
+      </ul>
+      <p>
+        marketing microphones and a replacement phone are not urgent in the
+        source.
+      </p>
+      <h2 id="product-boundary">Product boundary</h2>
+      <ul>
+        <li>
+          QuickBooks or an approved alternative owns accounting entries,
+          invoices, and official reporting.
+        </li>
+        <li>An approved repository owns document binaries and versions.</li>
+        <li>
+          IoT gateways/platform services own device connectivity and buffering.
+        </li>
+        <li>
+          BetaSigma supplies management views, workflow, access, integration
+          health, and the unified link
+        </li>
+      </ul>
+      <p>
+        between farms, greenhouses, crops, telemetry, documents, and finance
+        references.
+      </p>
+      <p>
+        Do not replace the existing dashboard until its code, data model,
+        hosting, ownership, and API have been assessed.
+      </p>
+      <h2 id="roles">Roles</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Role</th>
+              <th>Capabilities</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Farm operator</td>
+              <td>
+                View assigned greenhouse conditions, acknowledge alerts, record
+                observations
+              </td>
+            </tr>
+            <tr>
+              <td>Agronomist</td>
+              <td>
+                Configure agronomic thresholds, annotate events, review
+                crop/telemetry trends
+              </td>
+            </tr>
+            <tr>
+              <td>Operations</td>
+              <td>
+                Orders, delivery notes, stock/fulfilment references, operational
+                documents
+              </td>
+            </tr>
+            <tr>
+              <td>Accountant</td>
+              <td>
+                Accounting sync, invoices, expense/revenue classification,
+                exceptions
+              </td>
+            </tr>
+            <tr>
+              <td>Executive</td>
+              <td>
+                Read-only financial and production summaries across permitted
+                operations
+              </td>
+            </tr>
+            <tr>
+              <td>IoT technician</td>
+              <td>
+                Device provisioning, calibration, maintenance, connectivity
+                health
+              </td>
+            </tr>
+            <tr>
+              <td>Records admin</td>
+              <td>Repository taxonomy, access, retention</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <h2 id="phase-1-finance-and-documents">Phase 1: finance and documents</h2>
+      <h3 id="c1-accounting-integration">C1. Accounting integration</h3>
+      <ul>
+        <li>
+          Configure company, currency, accounts, customers, suppliers, items,
+          taxes, and tracking dimensions.
+        </li>
+        <li>
+          Generate invoices and delivery notes in the accounting/approved
+          document system; surface their
+        </li>
+      </ul>
+      <p>status and secure links in BetaSigma.</p>
+      <ul>
+        <li>
+          Import daily/weekly/monthly revenue and expense summaries with
+          last-sync and source status.
+        </li>
+        <li>
+          Use stable remote IDs and idempotency keys; Finance resolves mapping
+          and sync exceptions.
+        </li>
+        <li>
+          Separate commodity and horticulture reporting while permitting a
+          consolidated executive view.
+        </li>
+      </ul>
+      <h3 id="c2-document-workspace">C2. Document workspace</h3>
+      <ul>
+        <li>
+          Department/farm folders plus metadata for type, owner, entity,
+          counterparty, crop/event, date,
+        </li>
+      </ul>
+      <p>confidentiality, and retention.</p>
+      <ul>
+        <li>
+          Role-based access, document versions, audit events, full-text search,
+          and recovery.
+        </li>
+        <li>
+          Migrate from employee computers through inventory, deduplication,
+          classification, owner review,
+        </li>
+      </ul>
+      <p>and verified backup—not a blind bulk upload.</p>
+      <h2 id="phase-2-greenhouse-telemetry">Phase 2: greenhouse telemetry</h2>
+      <h3 id="c3-device-and-location-registry">
+        C3. Device and location registry
+      </h3>
+      <ul>
+        <li>
+          Model farms, blocks, greenhouses, zones, sensors, gateways,
+          installation position, serial number,
+        </li>
+      </ul>
+      <p>firmware, calibration, and service state.</p>
+      <ul>
+        <li>Maintain sensor history when devices move or are replaced.</li>
+      </ul>
+      <h3 id="c4-telemetry-ingestion">C4. Telemetry ingestion</h3>
+      <ol>
+        <li>
+          Sensor sends measurement to a gateway over an appropriate local
+          protocol.
+        </li>
+        <li>
+          Gateway timestamps/buffers data and publishes through authenticated
+          MQTT or vendor API.
+        </li>
+        <li>
+          Ingestion validates device, unit, time, range, and duplicate message
+          ID.
+        </li>
+        <li>Store raw immutable measurement, then compute aggregates.</li>
+        <li>Update dashboard and evaluate alerts.</li>
+      </ol>
+      <p>
+        Canonical measurements include soil moisture, relative humidity, air
+        temperature, and wind speed. Every value carries unit, observed time,
+        received time, sensor ID, and quality flag.
+      </p>
+      <h3 id="c5-monitoring-and-alerts">C5. Monitoring and alerts</h3>
+      <ul>
+        <li>
+          Greenhouse overview shows latest values, freshness, trends, device
+          health, and active alerts.
+        </li>
+        <li>
+          Thresholds are versioned by greenhouse/crop stage and approved by an
+          agronomist.
+        </li>
+        <li>
+          Alerts include severity, duration/debounce, recipient,
+          acknowledgement, escalation, and resolution.
+        </li>
+        <li>Missing/offline data is distinct from a normal reading.</li>
+        <li>
+          Alerts advise humans in MVP; they do not autonomously control
+          irrigation or climate equipment.
+        </li>
+      </ul>
+      <h2 id="data-model">Data model</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Record</th>
+              <th>Essential fields</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <code>farms</code> / <code>greenhouses</code> /
+                <code>zones</code>
+              </td>
+              <td>hierarchy, location, timezone, status</td>
+            </tr>
+            <tr>
+              <td><code>crop_cycles</code></td>
+              <td>
+                location, crop/variety, planted/expected harvest dates, status
+              </td>
+            </tr>
+            <tr>
+              <td><code>devices</code></td>
+              <td>
+                hardware ID, type, model, firmware, location, installed_at,
+                state
+              </td>
+            </tr>
+            <tr>
+              <td><code>calibrations</code></td>
+              <td>device, time, method, result, technician, next due</td>
+            </tr>
+            <tr>
+              <td><code>measurements</code></td>
+              <td>
+                device, metric, decimal value, unit, observed_at, received_at,
+                quality
+              </td>
+            </tr>
+            <tr>
+              <td><code>alert_rules</code></td>
+              <td>
+                scope, metric, operator, threshold, duration, severity,
+                effective dates
+              </td>
+            </tr>
+            <tr>
+              <td><code>sensor_alerts</code></td>
+              <td>rule, start/end, state, acknowledgement, resolution note</td>
+            </tr>
+            <tr>
+              <td><code>accounting_mappings</code> / <code>sync_runs</code></td>
+              <td>local/remote IDs, direction, status, errors</td>
+            </tr>
+            <tr>
+              <td><code>business_documents</code></td>
+              <td>
+                repository ID, department, type, classification, retention
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p>
+        For telemetry volume, evaluate PostgreSQL partitioning or TimescaleDB
+        after sampling rate and retention are known; do not choose solely from
+        the PRD.
+      </p>
+      <h2 id="interfaces">Interfaces</h2>
+      <ul>
+        <li><code>/app/chasing-sun</code> — executive operations overview</li>
+        <li>
+          <code>/app/chasing-sun/finance</code> — summaries, documents, and sync
+          exceptions
+        </li>
+        <li><code>/app/chasing-sun/farms/:id</code></li>
+        <li>
+          <code>/app/chasing-sun/greenhouses/:id</code> — current values,
+          trends, crop cycle, alerts
+        </li>
+        <li>
+          <code>/app/chasing-sun/devices</code> — provisioning, health,
+          calibration
+        </li>
+        <li><code>/app/chasing-sun/alerts</code></li>
+        <li>
+          Extend or embed in <code>dashboard.chasingsun.africa</code> only after
+          architecture review
+        </li>
+      </ul>
+      <h2 id="reliability-and-security">Reliability and security</h2>
+      <ul>
+        <li>
+          Device identity uses per-device/gateway credentials, rotation, and
+          revocation.
+        </li>
+        <li>
+          Buffer during connectivity loss and safely replay with duplicate
+          protection.
+        </li>
+        <li>
+          Monitor ingestion lag, impossible values, sensor drift, battery, and
+          gateway availability.
+        </li>
+        <li>
+          Define sampling, aggregation, raw retention, uptime, and acceptable
+          staleness.
+        </li>
+        <li>
+          Test backup/restore for business records and configuration; raw
+          telemetry may use a tiered policy.
+        </li>
+        <li>
+          Network-segment IoT devices; they must not share unrestricted office
+          or finance access.
+        </li>
+        <li>
+          Disclose AI data-use rules and prohibit confidential/business data in
+          unapproved accounts.
+        </li>
+      </ul>
+      <h2 id="acceptance-criteria">Acceptance criteria</h2>
+      <ul>
+        <li>
+          Executives view source-labelled financial summaries by
+          horticulture/commodity and period.
+        </li>
+        <li>
+          Invoice/delivery-note links reconcile to the accounting system and
+          duplicate sync is prevented.
+        </li>
+        <li>
+          Authorized users find migrated documents without accessing another
+          department&#39;s restricted files.
+        </li>
+        <li>
+          Pilot measurements retain correct units, device, timestamps, and
+          quality state through outage replay.
+        </li>
+        <li>
+          Dashboard marks stale/offline sensors and never represents missing
+          data as normal.
+        </li>
+        <li>
+          Threshold breach creates one debounced alert, records
+          acknowledgement/escalation, and closes cleanly.
+        </li>
+        <li>
+          Calibration and device replacement preserve historical traceability.
+        </li>
+        <li>
+          A pilot demonstrates acceptable coverage and data completeness before
+          fleet rollout.
+        </li>
+      </ul>
+      <h2 id="delivery-plan">Delivery plan</h2>
+      <ol>
+        <li>
+          Audit existing dashboard, spreadsheets, document locations,
+          connectivity, power, and greenhouse
+        </li>
+      </ol>
+      <p>layout.</p>
+      <ol>
+        <li>
+          Select/configure accounting and repository; migrate one
+          period/department and reconcile.
+        </li>
+        <li>
+          Run an IoT site survey and bench-test sensor/gateway candidates.
+        </li>
+        <li>
+          Pilot one greenhouse with agreed sampling, thresholds, and manual
+          reference readings.
+        </li>
+        <li>
+          Review accuracy, reliability, agronomic usefulness, security, and
+          operating cost.
+        </li>
+        <li>
+          Roll out in stages with spares, calibration schedule, ownership, and
+          support runbook.
+        </li>
+      </ol>
+      <h2 id="decisions-still-required">Decisions still required</h2>
+      <ul>
+        <li>
+          Who owns and supports the existing dashboard, and what API/database
+          access is available?
+        </li>
+        <li>
+          Which accounting edition, invoice/delivery-note template, currencies,
+          taxes, and reporting
+        </li>
+      </ul>
+      <p>dimensions are required?</p>
+      <ul>
+        <li>
+          Which repository and department access/retention taxonomy will be
+          used?
+        </li>
+        <li>
+          What greenhouse count/size, power, connectivity, sensor
+          ranges/accuracy, sampling, and budget apply?
+        </li>
+        <li>
+          Who defines thresholds and escalation contacts for each crop stage?
+        </li>
+        <li>
+          What happens operationally when a sensor, gateway, internet link, or
+          dashboard is unavailable?
+        </li>
+        <li>
+          What specifications and budget apply to microphones and the
+          replacement phone?
+        </li>
+      </ul>
+      <h2 id="out-of-scope-for-mvp">Out of scope for MVP</h2>
+      <p>
+        Autonomous irrigation/climate control, yield prediction, commodity
+        exchange/trading, full inventory or warehouse management, replacement of
+        the accounting ledger, and unreviewed AI agronomic advice.
+      </p>
+    </main>
+    <footer>
+      Generated from chasing-sun-operations.md. Edit the Markdown source, then
+      rerun the renderer.
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,2647 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A simple interview form for improving the BetaSigma project requirements."
+    />
+    <title>PRD Questions · BetaSigma</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #202421;
+        --muted: #68706b;
+        --line: #dfe3e0;
+        --soft: #f5f6f5;
+        --paper: #fff;
+        --green: #245c4d;
+        --green-soft: #eaf2ef;
+        --radius: 8px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--paper);
+        font:
+          15px/1.5 Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+      }
+
+      button,
+      select,
+      summary,
+      label {
+        cursor: pointer;
+      }
+
+      button:focus-visible,
+      input:focus-visible,
+      select:focus-visible,
+      textarea:focus-visible,
+      summary:focus-visible,
+      a:focus-visible {
+        outline: 3px solid rgba(36, 92, 77, 0.18);
+        outline-offset: 2px;
+      }
+
+      header {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .header-inner,
+      main {
+        width: min(920px, calc(100% - 32px));
+        margin: 0 auto;
+      }
+
+      .header-inner {
+        min-height: 58px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .brand {
+        color: inherit;
+        text-decoration: none;
+        font-weight: 760;
+      }
+
+      .header-actions {
+        display: flex;
+        gap: 8px;
+      }
+
+      button,
+      .button {
+        min-height: 36px;
+        padding: 7px 12px;
+        color: var(--ink);
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: var(--radius);
+        text-decoration: none;
+        font-weight: 650;
+      }
+
+      button:hover,
+      .button:hover {
+        background: var(--soft);
+      }
+
+      button.primary {
+        color: #fff;
+        background: var(--green);
+        border-color: var(--green);
+      }
+
+      button:disabled {
+        opacity: 0.4;
+        cursor: default;
+      }
+
+      main {
+        padding: 42px 0 80px;
+      }
+
+      .scope-row {
+        display: grid;
+        grid-template-columns: auto minmax(220px, 1fr);
+        gap: 12px;
+        align-items: end;
+        padding-bottom: 28px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .scope-switch {
+        display: flex;
+        gap: 3px;
+        padding: 3px;
+        background: var(--soft);
+        border-radius: 9px;
+      }
+
+      .scope-switch button {
+        min-height: 34px;
+        padding-inline: 13px;
+        color: var(--muted);
+        background: transparent;
+        border: 0;
+      }
+
+      .scope-switch button.active {
+        color: var(--ink);
+        background: var(--paper);
+        box-shadow: 0 1px 3px rgba(20, 30, 24, 0.12);
+      }
+
+      .select-label {
+        display: block;
+        color: var(--muted);
+        font-size: 0.75rem;
+        font-weight: 700;
+      }
+
+      select,
+      input[type="text"],
+      input[type="date"],
+      input[type="number"],
+      textarea {
+        width: 100%;
+        min-height: 40px;
+        padding: 8px 10px;
+        color: var(--ink);
+        background: var(--paper);
+        border: 1px solid #cdd3cf;
+        border-radius: 7px;
+      }
+
+      .select-label select {
+        margin-top: 5px;
+      }
+
+      .intro {
+        padding: 34px 0 22px;
+      }
+
+      .kicker {
+        margin: 0 0 6px;
+        color: var(--green);
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(1.8rem, 5vw, 2.7rem);
+        line-height: 1.12;
+        letter-spacing: -0.04em;
+      }
+
+      .intro > p:last-of-type {
+        max-width: 680px;
+        margin: 10px 0 18px;
+        color: var(--muted);
+      }
+
+      .session {
+        display: grid;
+        grid-template-columns: 1.4fr 0.7fr;
+        gap: 10px;
+        max-width: 680px;
+      }
+
+      .module-tabs {
+        display: flex;
+        gap: 7px;
+        overflow-x: auto;
+        padding: 0 0 18px;
+        scrollbar-width: thin;
+      }
+
+      .module-tab {
+        flex: 0 0 auto;
+        color: var(--muted);
+        white-space: nowrap;
+      }
+
+      .module-tab.active {
+        color: var(--green);
+        background: var(--green-soft);
+        border-color: #c7dcd4;
+      }
+
+      .module-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: start;
+        padding: 22px 0 16px;
+        border-top: 1px solid var(--line);
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 1.35rem;
+        letter-spacing: -0.02em;
+      }
+
+      .module-head p {
+        max-width: 650px;
+        margin: 5px 0 0;
+        color: var(--muted);
+      }
+
+      .progress {
+        flex: 0 0 auto;
+        color: var(--muted);
+        font-size: 0.8rem;
+        white-space: nowrap;
+      }
+
+      .progress strong {
+        color: var(--ink);
+      }
+
+      .questions {
+        border-top: 1px solid var(--line);
+      }
+
+      .question {
+        display: grid;
+        grid-template-columns: minmax(220px, 0.9fr) minmax(280px, 1.1fr);
+        gap: 32px;
+        padding: 22px 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .question-title {
+        display: flex;
+        gap: 9px;
+      }
+
+      .number {
+        flex: 0 0 auto;
+        color: #9aa19d;
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+
+      .question h3 {
+        margin: 0;
+        font-size: 0.96rem;
+        line-height: 1.42;
+      }
+
+      .hint {
+        margin: 4px 0 0;
+        color: var(--muted);
+        font-size: 0.78rem;
+      }
+
+      .choices {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 7px;
+      }
+
+      .choice {
+        min-height: 38px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 9px;
+        color: #414743;
+        background: var(--paper);
+        border: 1px solid #d8ddda;
+        border-radius: 7px;
+        font-size: 0.84rem;
+      }
+
+      .choice:hover {
+        background: var(--soft);
+      }
+
+      .choice:has(input:checked) {
+        color: #17483b;
+        background: var(--green-soft);
+        border-color: #b9d3c9;
+      }
+
+      .choice input {
+        width: 15px;
+        height: 15px;
+        margin: 0;
+        accent-color: var(--green);
+      }
+
+      .control > select,
+      .control > input {
+        max-width: 420px;
+      }
+
+      details {
+        margin-top: 9px;
+      }
+
+      summary {
+        width: max-content;
+        color: var(--muted);
+        font-size: 0.76rem;
+        user-select: none;
+      }
+
+      summary:hover {
+        color: var(--ink);
+      }
+
+      details textarea {
+        min-height: 78px;
+        margin-top: 8px;
+        resize: vertical;
+        font-size: 0.84rem;
+      }
+
+      .module-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 24px;
+      }
+
+      .saved {
+        min-height: 20px;
+        margin-top: 12px;
+        color: var(--muted);
+        font-size: 0.75rem;
+        text-align: right;
+      }
+
+      dialog {
+        width: min(720px, calc(100% - 24px));
+        max-height: calc(100vh - 30px);
+        padding: 0;
+        color: var(--ink);
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        box-shadow: 0 24px 70px rgba(20, 30, 24, 0.2);
+      }
+
+      dialog::backdrop {
+        background: rgba(25, 30, 27, 0.4);
+      }
+
+      .dialog-head,
+      .dialog-foot {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 14px 16px;
+      }
+
+      .dialog-head {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .dialog-foot {
+        border-top: 1px solid var(--line);
+      }
+
+      .dialog-head h2 {
+        font-size: 1rem;
+      }
+
+      .dialog-body {
+        padding: 16px;
+      }
+
+      .export-choice {
+        display: flex;
+        gap: 18px;
+        margin-bottom: 12px;
+        font-size: 0.84rem;
+      }
+
+      .export-text {
+        min-height: 430px;
+        max-height: 60vh;
+        resize: vertical;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        font-size: 0.75rem;
+      }
+
+      .toast {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        padding: 9px 12px;
+        color: #fff;
+        background: #26302b;
+        border-radius: 7px;
+        font-size: 0.8rem;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 150ms ease;
+      }
+
+      .toast.show {
+        opacity: 1;
+      }
+
+      @media (max-width: 700px) {
+        .header-inner,
+        main {
+          width: min(100% - 24px, 920px);
+        }
+
+        .header-actions .docs-link {
+          display: none;
+        }
+
+        main {
+          padding-top: 24px;
+        }
+
+        .scope-row,
+        .session,
+        .question {
+          grid-template-columns: 1fr;
+        }
+
+        .question {
+          gap: 13px;
+        }
+
+        .choices {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media print {
+        header,
+        .scope-row,
+        .module-tabs,
+        .module-actions,
+        .saved,
+        details:not([open]) {
+          display: none;
+        }
+
+        main {
+          padding: 0;
+        }
+
+        .question {
+          break-inside: avoid;
+        }
+      }
+    </style>
+    <style>
+      /* Focus mode: one question at a time. */
+      body {
+        background: #fbfbf9;
+      }
+
+      header {
+        background: #fbfbf9;
+      }
+
+      .header-inner,
+      main {
+        width: min(900px, calc(100% - 40px));
+      }
+
+      main {
+        min-height: calc(100vh - 51px);
+        padding-top: 26px;
+      }
+
+      .scope-row {
+        grid-template-columns: auto minmax(220px, 360px);
+        justify-content: space-between;
+        padding-bottom: 20px;
+      }
+
+      .intro {
+        padding: 22px 0 26px;
+      }
+
+      .intro h1 {
+        font-size: clamp(2rem, 5vw, 3.25rem);
+      }
+
+      .intro > p:last-of-type {
+        max-width: 620px;
+      }
+
+      .session-details {
+        max-width: 100%;
+        margin-top: 18px;
+      }
+
+      .session-details > summary {
+        font-size: 0.78rem;
+      }
+
+      .session-details[open] > summary {
+        margin-bottom: 14px;
+      }
+
+      .session {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        padding: 16px;
+        background: #fff;
+        border: 1px solid #e5e5e2;
+      }
+
+      #financeOverview,
+      #moduleTabs {
+        display: none !important;
+      }
+
+      .focus {
+        padding-top: 10px;
+      }
+
+      .focus-meta {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        color: #737373;
+        font-size: 0.78rem;
+      }
+
+      .focus-track {
+        height: 3px;
+        overflow: hidden;
+        margin: 12px 0 42px;
+        background: #e8e8e5;
+      }
+
+      .focus-bar {
+        height: 100%;
+        background: #1d1d1b;
+        transition: width 180ms ease;
+      }
+
+      .focus .module-head {
+        display: none;
+      }
+
+      .focus .module-head h2 {
+        color: #737373;
+        font-size: 0.78rem;
+        font-weight: 500;
+      }
+
+      .focus .module-head p {
+        display: none;
+      }
+
+      .focus .questions {
+        border: 0;
+      }
+
+      .focus .question {
+        display: block;
+        padding: 10px 0 0;
+        border: 0;
+      }
+
+      .focus .question-title {
+        display: block;
+      }
+
+      .focus .number {
+        display: none;
+      }
+
+      .focus .question h3 {
+        max-width: 760px;
+        margin-bottom: 8px;
+        font-size: clamp(1.55rem, 4vw, 2.35rem);
+        line-height: 1.2;
+        letter-spacing: -0.035em;
+      }
+
+      .focus .hint {
+        max-width: 620px;
+        margin-bottom: 26px;
+        font-size: 0.9rem;
+      }
+
+      .focus .control > select,
+      .focus .control > input {
+        min-height: 48px;
+        max-width: 520px;
+        padding: 10px 12px;
+        background: #fff;
+        font-size: 0.95rem;
+      }
+
+      .focus .choices {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        max-width: 760px;
+      }
+
+      .focus .choice {
+        min-height: 50px;
+        padding: 11px 13px;
+        background: #fff;
+        border: 1px solid #dededb;
+        border-radius: 6px;
+        font-size: 0.92rem;
+      }
+
+      .focus .choice:hover {
+        background: #f6f6f3;
+        border: 1px solid #bdbdb8;
+      }
+
+      .focus .choice:has(input:checked) {
+        color: #111;
+        background: #f0f0ec;
+        border: 1px solid #4b4b47;
+      }
+
+      .focus details {
+        margin-top: 20px;
+      }
+
+      .focus .detail-fields {
+        max-width: 760px;
+      }
+
+      .focus-actions {
+        max-width: 760px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 42px 0 20px;
+      }
+
+      .focus-actions .right {
+        display: flex;
+        gap: 8px;
+      }
+
+      .focus-actions button {
+        min-width: 90px;
+        min-height: 40px;
+      }
+
+      .focus-actions .next {
+        color: #fff;
+        background: #1d1d1b;
+        border-color: #1d1d1b;
+      }
+
+      .focus-actions .next:hover {
+        background: #333;
+      }
+
+      .saved {
+        max-width: 760px;
+      }
+
+      @media (max-width: 700px) {
+        .header-inner,
+        main {
+          width: min(100% - 28px, 900px);
+        }
+
+        .scope-row {
+          grid-template-columns: 1fr;
+        }
+
+        .session {
+          grid-template-columns: 1fr;
+        }
+
+        .focus-track {
+          margin-bottom: 30px;
+        }
+
+        .focus .choices {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+    <style>
+      /* Intentionally plain. This layer removes the dashboard treatment above. */
+      :root {
+        --ink: #191919;
+        --muted: #737373;
+        --line: #e6e6e6;
+        --soft: #f7f7f7;
+        --paper: #fff;
+        --green: #191919;
+        --green-soft: #fff;
+        --radius: 4px;
+      }
+
+      body {
+        color: var(--ink);
+        background: #fff;
+        font:
+          14px/1.52 Inter,
+          "SF Pro Text",
+          "Helvetica Neue",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          Arial,
+          sans-serif;
+        letter-spacing: -0.006em;
+      }
+
+      .header-inner,
+      main {
+        width: min(1180px, calc(100% - 48px));
+      }
+
+      .header-inner {
+        min-height: 50px;
+      }
+
+      header {
+        border-color: #ededed;
+      }
+
+      .brand {
+        font-size: 0.9rem;
+        font-weight: 600;
+      }
+
+      .header-actions {
+        gap: 16px;
+      }
+
+      .header-actions button,
+      .header-actions .button {
+        min-height: auto;
+        padding: 2px 0;
+        color: #666;
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+        font-size: 0.8rem;
+        font-weight: 500;
+      }
+
+      .header-actions button:hover,
+      .header-actions .button:hover {
+        color: #191919;
+        background: transparent;
+      }
+
+      button,
+      .button {
+        min-height: 32px;
+        padding: 5px 9px;
+        background: #fff;
+        border: 1px solid #d8d8d8;
+        border-radius: 4px;
+        font-weight: 500;
+      }
+
+      button:hover,
+      .button:hover {
+        background: #f7f7f7;
+      }
+
+      button.primary {
+        color: #191919;
+        background: #fff;
+        border-color: #bdbdbd;
+      }
+
+      .header-actions button.primary {
+        color: #191919;
+        background: transparent;
+      }
+
+      button.primary:hover {
+        background: #f7f7f7;
+      }
+
+      main {
+        padding: 32px 0 72px;
+        min-height: calc(100vh - 51px);
+      }
+
+      .scope-row {
+        grid-template-columns: auto minmax(200px, 1fr);
+        gap: 24px;
+        padding: 0 0 28px;
+        border: 0;
+      }
+
+      .scope-switch {
+        align-self: center;
+        gap: 16px;
+        padding: 0;
+        background: transparent;
+        border-radius: 0;
+      }
+
+      .scope-switch button {
+        min-height: auto;
+        padding: 2px 0;
+        color: #8a8a8a;
+        background: transparent;
+        border: 0;
+        border-bottom: 1px solid transparent;
+        border-radius: 0;
+      }
+
+      .scope-switch button.active {
+        color: #191919;
+        background: transparent;
+        border-bottom-color: #191919;
+        box-shadow: none;
+      }
+
+      .select-label {
+        color: #737373;
+        font-size: 0.72rem;
+        font-weight: 500;
+      }
+
+      select,
+      input[type="text"],
+      input[type="date"],
+      input[type="number"],
+      textarea {
+        min-height: 36px;
+        padding: 7px 8px;
+        background: #fff;
+        border: 1px solid #d8d8d8;
+        border-radius: 4px;
+      }
+
+      .intro {
+        padding: 0 0 28px;
+      }
+
+      .kicker {
+        margin-bottom: 8px;
+        color: #737373;
+        font-size: 0.7rem;
+        font-weight: 500;
+        letter-spacing: 0;
+        text-transform: none;
+      }
+
+      h1 {
+        font-size: 1.75rem;
+        font-weight: 600;
+        letter-spacing: -0.035em;
+      }
+
+      .intro > p:last-of-type {
+        margin: 8px 0 20px;
+        color: #737373;
+        font-size: 0.9rem;
+      }
+
+      .session {
+        grid-template-columns: 1.25fr 1fr 1fr 0.75fr;
+        gap: 12px;
+        max-width: none;
+      }
+
+      .finance-overview {
+        margin: 2px 0 32px;
+        border-top: 1px solid #e6e6e6;
+        border-bottom: 1px solid #e6e6e6;
+      }
+
+      .finance-overview-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 14px 0 4px;
+      }
+
+      .finance-overview-head h2 {
+        font-size: 0.9rem;
+      }
+
+      .finance-overview-head span {
+        color: #7d7d7d;
+        font-size: 0.72rem;
+      }
+
+      .finance-flow {
+        display: grid;
+        grid-template-columns:
+          minmax(90px, 1fr) auto minmax(90px, 1fr) auto
+          minmax(90px, 1fr) auto minmax(90px, 1fr) auto
+          minmax(90px, 1fr) auto minmax(90px, 1fr);
+        gap: 10px;
+        align-items: center;
+        padding: 15px 0 20px;
+      }
+
+      .finance-step {
+        min-width: 0;
+      }
+
+      .finance-step strong,
+      .finance-step span {
+        display: block;
+      }
+
+      .finance-step strong {
+        font-size: 0.82rem;
+        font-weight: 600;
+      }
+
+      .finance-step span {
+        margin-top: 2px;
+        color: #7d7d7d;
+        font-size: 0.7rem;
+      }
+
+      .finance-arrow {
+        color: #b0b0b0;
+      }
+
+      .finance-module-progress {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 14px 0;
+        border-top: 1px solid #ededed;
+      }
+
+      .finance-module-progress button {
+        min-height: auto;
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        color: #606060;
+        background: transparent;
+        border: 0;
+        text-align: left;
+      }
+
+      .finance-module-progress button:hover,
+      .finance-module-progress button.active {
+        color: #191919;
+        background: transparent;
+      }
+
+      .finance-module-progress small {
+        color: #8b8b8b;
+      }
+
+      .module-tabs {
+        gap: 20px;
+        padding-bottom: 0;
+        border-bottom: 1px solid #e6e6e6;
+      }
+
+      .module-tab {
+        min-height: 38px;
+        padding: 7px 0 9px;
+        color: #858585;
+        background: transparent;
+        border: 0;
+        border-bottom: 1px solid transparent;
+        border-radius: 0;
+      }
+
+      .module-tab:hover {
+        color: #191919;
+        background: transparent;
+      }
+
+      .module-tab.active {
+        color: #191919;
+        background: transparent;
+        border: 0;
+        border-bottom: 1px solid #191919;
+      }
+
+      .module-head {
+        padding: 28px 0 18px;
+        border: 0;
+      }
+
+      h2 {
+        font-size: 1.15rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
+      .module-head p,
+      .progress {
+        color: #737373;
+      }
+
+      .questions {
+        border-color: #e6e6e6;
+      }
+
+      .question {
+        grid-template-columns: minmax(260px, 0.82fr) minmax(360px, 1.18fr);
+        gap: clamp(32px, 6vw, 80px);
+        padding: 24px 0;
+        border-color: #e6e6e6;
+      }
+
+      .question-title {
+        gap: 8px;
+      }
+
+      .number {
+        color: #9b9b9b;
+        font-weight: 500;
+      }
+
+      .question h3 {
+        font-size: 0.95rem;
+        font-weight: 600;
+        letter-spacing: -0.012em;
+      }
+
+      .hint {
+        color: #7d7d7d;
+      }
+
+      .choices {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px 24px;
+      }
+
+      .choice {
+        min-height: auto;
+        padding: 0;
+        color: #343434;
+        background: transparent;
+        border: 0;
+        border-radius: 0;
+      }
+
+      .choice:hover,
+      .choice:has(input:checked) {
+        color: #191919;
+        background: transparent;
+        border: 0;
+      }
+
+      .choice input {
+        width: 14px;
+        height: 14px;
+        accent-color: #191919;
+      }
+
+      details {
+        margin-top: 12px;
+      }
+
+      summary {
+        color: #858585;
+        font-size: 0.73rem;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      details textarea {
+        min-height: 72px;
+        background: #fff;
+      }
+
+      .detail-fields {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+        padding: 14px;
+        margin-top: 9px;
+        background: #fafafa;
+        border: 1px solid #e8e8e8;
+      }
+
+      .detail-fields .full {
+        grid-column: 1 / -1;
+      }
+
+      .detail-fields label {
+        color: #737373;
+        font-size: 0.7rem;
+        font-weight: 500;
+      }
+
+      .detail-fields input,
+      .detail-fields select,
+      .detail-fields textarea {
+        margin-top: 5px;
+        font-size: 0.82rem;
+      }
+
+      .detail-fields textarea {
+        width: 100%;
+        resize: vertical;
+      }
+
+      .module-actions {
+        margin-top: 28px;
+      }
+
+      .saved {
+        color: #8a8a8a;
+      }
+
+      dialog {
+        border-radius: 4px;
+        box-shadow: 0 16px 50px rgba(0, 0, 0, 0.16);
+      }
+
+      .toast {
+        color: #fff;
+        background: #191919;
+        border-radius: 3px;
+      }
+
+      @media (max-width: 700px) {
+        .header-inner,
+        main {
+          width: min(100% - 28px, 1180px);
+        }
+
+        .scope-row {
+          gap: 18px;
+        }
+
+        .session {
+          grid-template-columns: 1fr;
+        }
+
+        .finance-overview-head {
+          display: block;
+        }
+
+        .finance-flow {
+          grid-template-columns: 1fr;
+          gap: 5px;
+        }
+
+        .finance-arrow {
+          transform: rotate(90deg);
+          transform-origin: center;
+        }
+
+        .finance-module-progress {
+          grid-template-columns: 1fr 1fr;
+        }
+
+        .question {
+          grid-template-columns: 1fr;
+          gap: 14px;
+        }
+
+        .choices {
+          grid-template-columns: 1fr;
+        }
+
+        .detail-fields {
+          grid-template-columns: 1fr;
+        }
+
+        .detail-fields .full {
+          grid-column: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="header-inner">
+        <a class="brand" href="index.html">BetaSigma · PRD questions</a>
+        <div class="header-actions">
+          <a class="button docs-link" href="index.html">Project docs</a>
+          <button class="primary" id="exportButton" type="button">Export</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="scope-row" aria-label="Choose an interview">
+        <div class="scope-switch">
+          <button type="button" data-scope="group">Group</button>
+          <button type="button" data-scope="company">Companies</button>
+        </div>
+        <label class="select-label">
+          Who are you talking to?
+          <select id="departmentSelect"></select>
+        </label>
+      </section>
+
+      <section class="intro">
+        <p class="kicker" id="scopeName"></p>
+        <h1 id="departmentName"></h1>
+        <p id="departmentSummary"></p>
+        <details class="session-details">
+          <summary>Meeting details</summary>
+          <div class="session">
+            <label class="select-label">
+              Person
+              <input
+                id="interviewee"
+                type="text"
+                placeholder="e.g. Mary Wanjiku"
+              />
+            </label>
+            <label class="select-label">
+              Their role
+              <input
+                id="interviewRole"
+                type="text"
+                placeholder="e.g. Finance Manager"
+              />
+            </label>
+            <label class="select-label">
+              Interviewed by
+              <input
+                id="interviewer"
+                type="text"
+                placeholder="Your name"
+              />
+            </label>
+            <label class="select-label">
+              Date
+              <input id="sessionDate" type="date" />
+            </label>
+          </div>
+        </details>
+      </section>
+
+      <section id="financeOverview"></section>
+
+      <nav class="module-tabs" id="moduleTabs" aria-label="Question sections"></nav>
+
+      <section id="moduleContent"></section>
+      <p class="saved" id="saveMessage" aria-live="polite"></p>
+    </main>
+
+    <dialog id="exportDialog">
+      <div class="dialog-head">
+        <h2>Export answers</h2>
+        <button id="closeExport" type="button">Close</button>
+      </div>
+      <div class="dialog-body">
+        <div class="export-choice">
+          <label>
+            <input type="radio" name="exportScope" value="current" checked />
+            This department
+          </label>
+          <label>
+            <input type="radio" name="exportScope" value="all" />
+            Everything
+          </label>
+        </div>
+        <textarea
+          class="export-text"
+          id="exportText"
+          readonly
+          aria-label="Answers in Markdown"
+        ></textarea>
+      </div>
+      <div class="dialog-foot">
+        <button id="downloadExport" type="button">Download .md</button>
+        <button class="primary" id="copyExport" type="button">Copy</button>
+      </div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status"></div>
+
+    <script>
+      const yesNo = ["Yes", "No", "Not sure"];
+      const who = [
+        "Employee",
+        "Manager",
+        "Department lead",
+        "Executive",
+        "Admin / IT",
+        "Outside provider",
+        "Not sure"
+      ];
+      const frequency = [
+        "Right away",
+        "Every hour",
+        "Daily",
+        "Weekly",
+        "Monthly",
+        "Only when asked",
+        "Not sure"
+      ];
+      const q = (id, label, hint, type, options = [], placeholder = "") => ({
+        id,
+        label,
+        hint,
+        type,
+        options,
+        placeholder
+      });
+
+      const data = {
+        group: [
+          {
+            id: "finance",
+            name: "Group Finance",
+            summary:
+              "Money, approvals, accounting, reports, and finance files for the whole group.",
+            modules: [
+              {
+                id: "finance-basics",
+                name: "The basics",
+                intro: "First, understand what Finance handles today.",
+                questions: [
+                  q("entities", "Which companies do you handle money for?", "Tick all that apply.", "checks", ["BetaSigma Group", "Sichangi Law Alliance", "Tukutane", "Chasing Sun", "Another company"]),
+                  q("bookkeeping", "What do you use to keep the books?", "Choose the main tool. Add a note if companies use different tools.", "select", ["QuickBooks Online", "QuickBooks Desktop", "Excel / Google Sheets", "Paper records", "Another system", "Not sure"]),
+                  q("legal-names", "What are the full legal names of the companies?", "List the names exactly as they appear on official documents.", "text", [], "Company names"),
+                  q("currencies", "Which currencies do you use?", "", "checks", ["KES", "USD", "GBP", "EUR", "Another currency", "Not sure"]),
+                  q("financial-year", "When does the financial year end?", "", "select", ["31 December", "30 June", "Different by company", "Another date", "Not sure"]),
+                  q("bank-count", "How many bank or mobile-money accounts are managed?", "Give the total across the companies in scope.", "number", [], "Number of accounts"),
+                  q("same-accounts", "Do all companies use the same chart of accounts?", "This means the same account names and codes.", "radio", yesNo),
+                  q("tax-work", "Which tax work is handled by this team?", "", "checks", ["VAT", "PAYE", "Corporate income tax", "Withholding tax", "Statutory payroll payments", "Other", "Handled outside the team", "Not sure"]),
+                  q("close", "How often do you finish and review the accounts?", "", "select", ["Daily", "Weekly", "Monthly", "Quarterly", "Yearly", "There is no set schedule", "Not sure"]),
+                  q("close-days", "How many working days does month-end close take?", "", "number", [], "Number of working days"),
+                  q("close-work", "What must be finished before a month can close?", "", "checks", ["Bank reconciliation", "Supplier bills entered", "Customer invoices entered", "Petty cash closed", "Payroll posted", "Taxes checked", "Management review", "Other"]),
+                  q("owners", "Who works on the accounts?", "Tick everyone involved.", "checks", who),
+                  q("pain", "What causes the most trouble?", "Choose all common problems.", "checks", ["Missing receipts", "Late approvals", "Manual data entry", "Reports take too long", "Files are hard to find", "Numbers do not match", "No clear owner", "Other"])
+                ]
+              },
+              {
+                id: "spending",
+                name: "Spending",
+                intro: "Ask how a staff request becomes an approved and checked payment.",
+                questions: [
+                  q("requesters", "Who can ask for petty cash or a company payment?", "", "checks", ["Any employee", "Managers only", "Selected staff", "Finance only", "Different for each company", "Not sure"]),
+                  q("request-info", "What must they give you?", "Tick everything needed before Finance can act.", "checks", ["Amount", "Reason", "Company", "Cost centre", "Needed-by date", "Quote / invoice", "Supplier or phone number", "Project / event", "Other"]),
+                  q("approval", "Who approves a normal request?", "", "checks", ["Line manager", "Department head", "Finance", "CFO", "CEO / Director", "More than one person", "Not sure"]),
+                  q("amount-rules", "Does the approver change when the amount is higher?", "", "radio", yesNo),
+                  q("approval-bands", "What are the approval amount limits?", "Example: manager up to KES 20,000; CFO above KES 20,000.", "text", [], "List each amount and approver"),
+                  q("budget-check", "Must Finance check the budget before approval?", "", "radio", yesNo),
+                  q("supplier-check", "Must a new supplier be checked before payment?", "", "radio", yesNo),
+                  q("spend-categories", "Which spending categories need separate rules?", "", "checks", ["Travel", "Events", "Farm supplies", "Legal costs", "Equipment", "Marketing", "Staff expenses", "Emergency spending", "Other"]),
+                  q("payment-method", "How do you send the money?", "", "checks", ["M-Pesa", "Bank transfer", "Cash", "Company card", "Payment platform", "Another way"]),
+                  q("normal-speed", "How quickly should a normal approved request be paid?", "", "select", ["Same day", "Within 1 working day", "Within 2 working days", "Within 5 working days", "Different by request", "No set target"]),
+                  q("receipt-time", "When must the person return a receipt?", "", "select", ["Same day", "Within 2 days", "Within 7 days", "Before another request", "No fixed rule", "Not sure"]),
+                  q("overdue-action", "What happens when a receipt is late?", "", "checks", ["Send a reminder", "Tell the manager", "Block new requests", "Deduct or recover money", "Finance follows up manually", "Nothing fixed", "Not sure"]),
+                  q("exceptions", "Which problems happen in real life?", "", "checks", ["Spent less", "Spent more", "No receipt", "Wrong receipt", "Request cancelled", "Money sent to wrong person", "Payment failed", "None of these"]),
+                  q("self-approval", "Can someone approve their own request?", "", "radio", yesNo)
+                ]
+              },
+              {
+                id: "accounts-reports",
+                name: "Accounts & reports",
+                intro: "Decide what should move to the accounting system and what people need to see.",
+                questions: [
+                  q("send-to-books", "What should go into the accounting system?", "", "checks", ["Approved expenses", "Petty cash", "Supplier bills", "Customer invoices", "Payments", "Refunds", "Payroll totals", "Not sure"]),
+                  q("sync-direction", "Which way should information move?", "", "checks", ["BetaSigma to accounting", "Accounting to BetaSigma", "Both ways", "Files only", "Not sure"]),
+                  q("send-when", "When should it go there?", "", "select", ["After approval", "After payment", "After receipt", "After Finance checks it", "At month end", "Not sure"]),
+                  q("mapping-fields", "What must each transaction be matched to?", "", "checks", ["Company", "Account code", "Supplier / customer", "Tax code", "Cost centre", "Project", "Event", "Farm", "Crop", "Other"]),
+                  q("sync-speed", "How often should the app update from accounting?", "", "select", frequency),
+                  q("report-status", "Which accounting figures may appear in BetaSigma?", "", "select", ["Posted figures only", "Draft and posted, clearly labelled", "Summary totals only", "Different by report", "Not decided"]),
+                  q("report-users", "Who needs finance reports?", "", "checks", who),
+                  q("reports", "Which reports do they need most?", "Choose the useful outputs, not every possible report.", "checks", ["Money in and out", "Profit and loss", "Budget vs actual", "Unpaid invoices", "Petty cash still open", "Spend by company", "Spend by event / project", "Other"]),
+                  q("reconcile", "How often should BetaSigma totals be checked against accounting?", "", "select", ["Daily", "Weekly", "Monthly", "At quarter end", "Only when there is a problem", "Not sure"]),
+                  q("export-proof", "What should an audit export contain?", "", "checks", ["Original request", "All approvals", "Payment reference", "Receipt", "Reconciliation", "Accounting ID", "Change history", "User access history", "Other"]),
+                  q("errors-owner", "Who should fix a record that fails to sync?", "", "select", ["Finance officer", "Finance manager", "IT / Admin", "Outside provider", "Different people for different errors", "Not sure"])
+                ]
+              },
+              {
+                id: "finance-files",
+                name: "Files & controls",
+                intro: "Find out where finance files belong and who may see them.",
+                questions: [
+                  q("file-types", "Which files do you keep?", "", "checks", ["Receipts", "Invoices", "Statements", "Budgets", "Tax files", "Payroll reports", "Contracts", "Audit files", "Other"]),
+                  q("file-home", "Where should the official copy live?", "", "select", ["Microsoft 365 / SharePoint", "Google Drive", "Inside BetaSigma", "Another file system", "Different place by file type", "Not decided"]),
+                  q("file-labels", "Which sensitivity labels are needed?", "", "checks", ["Internal", "Confidential", "Payroll restricted", "Banking restricted", "Tax restricted", "Board / executive only", "Public", "Not decided"]),
+                  q("file-access", "Who may see finance files?", "", "checks", who),
+                  q("file-search", "How should people find a finance file?", "", "checks", ["Company", "Date or period", "Supplier / customer", "Document type", "Amount", "Project / event", "Cost centre", "Tags", "Full text", "Other"]),
+                  q("file-names", "Is there a standard way to name finance files?", "", "radio", yesNo),
+                  q("audit", "Do you need to see who viewed or changed a file?", "", "radio", yesNo),
+                  q("retention", "How long must finance files be kept?", "", "select", ["1 year", "3 years", "5 years", "7 years", "Forever", "Different by file type", "Not sure"]),
+                  q("delete-approval", "Who may approve deleting a finance file?", "", "select", ["Finance manager", "CFO", "Records administrator", "More than one person", "Nobody; files are never deleted", "Not decided"]),
+                  q("backup", "Is there a tested backup today?", "A backup only counts if someone has successfully restored a file.", "radio", yesNo),
+                  q("restore-time", "How quickly must a lost finance file be restored?", "", "select", ["Within 1 hour", "Within 4 hours", "Same working day", "Within 2 working days", "No target", "Not sure"]),
+                  q("top-priority", "What should we fix first?", "", "select", ["Petty cash", "Accounting connection", "Reports", "Finance files", "Access and audit", "Not sure"])
+                ]
+              }
+            ]
+          },
+          {
+            id: "hr",
+            name: "Group HR",
+            summary:
+              "Employee records, payroll, leave, attendance, joining, leaving, and company equipment.",
+            modules: [
+              {
+                id: "people-payroll",
+                name: "People & payroll",
+                intro: "Start with where employee information lives and how people are paid.",
+                questions: [
+                  q("staff-count", "About how many employees are there?", "", "select", ["1–20", "21–50", "51–100", "More than 100", "Not sure"]),
+                  q("staff-companies", "Which companies have employees?", "", "checks", ["BetaSigma Group", "Sichangi Law Alliance", "Tukutane", "Chasing Sun", "Another company"]),
+                  q("employee-records", "Where are employee records kept now?", "", "checks", ["Excel / Sheets", "Email", "WhatsApp", "Paper files", "Workpay", "Another HR system"]),
+                  q("payroll-tool", "What is used for payroll?", "", "select", ["Workpay", "Excel / manual calculations", "Another payroll system", "Different system by company", "Not decided"]),
+                  q("payroll-owner", "Who prepares and approves payroll?", "", "checks", ["HR", "Payroll officer", "Finance", "Company manager", "CEO / Director", "Outside accountant"]),
+                  q("payroll-frequency", "How often are people paid?", "", "select", ["Monthly", "Twice a month", "Weekly", "Different by employee", "Not sure"]),
+                  q("employee-self-service", "What should employees do for themselves?", "", "checks", ["See payslips", "Update personal details", "Request leave", "Submit expenses", "Clock in / out", "Read policies", "Nothing yet"])
+                ]
+              },
+              {
+                id: "leave",
+                name: "Leave",
+                intro: "Use examples. Ask about a normal request and a difficult one.",
+                questions: [
+                  q("leave-types", "Which types of leave do you use?", "", "checks", ["Annual", "Sick", "Compassionate", "Maternity", "Paternity", "Unpaid", "Study", "Other"]),
+                  q("leave-balance", "How is the leave balance worked out?", "", "select", ["Days given each year", "Days earned each month", "Done by payroll system", "Spreadsheet calculation", "Different by company", "Not sure"]),
+                  q("leave-approver", "Who approves normal leave?", "", "select", ["Line manager", "Department head", "HR", "Company director", "More than one person", "Different by company"]),
+                  q("leave-proof", "When is proof needed?", "", "checks", ["Sick leave", "Compassionate leave", "Maternity / paternity", "Long leave", "Never", "Different by company", "Not sure"]),
+                  q("leave-calendar", "Should approved leave appear on a team calendar?", "", "radio", yesNo),
+                  q("leave-payroll", "Must approved leave be sent to payroll?", "", "radio", yesNo),
+                  q("leave-rules", "Are leave rules the same in every company?", "", "radio", yesNo)
+                ]
+              },
+              {
+                id: "attendance",
+                name: "Attendance",
+                intro: "Only collect information that has a clear work reason.",
+                questions: [
+                  q("track-who", "Who needs to clock in and out?", "", "checks", ["Everyone", "Office staff", "Farm staff", "Event staff", "Hourly staff", "Nobody", "Not decided"]),
+                  q("track-why", "Why do you need attendance?", "", "checks", ["Know who is at work", "Timesheets", "Safety", "Overtime", "Payroll", "Client billing", "Not sure"]),
+                  q("clock-method", "How should people clock in?", "", "checks", ["Phone", "Web browser", "Shared kiosk", "Physical device", "Manager enters it", "Not decided"]),
+                  q("location", "Do you need the person's location when they clock in?", "", "radio", yesNo),
+                  q("breaks", "Do you need to record breaks?", "", "radio", yesNo),
+                  q("mistakes", "Who fixes a missed or wrong clock-in?", "", "select", ["Employee asks manager", "Manager edits it", "HR edits it", "Payroll edits it", "Not decided"]),
+                  q("pay-effect", "Should attendance change pay automatically?", "", "radio", yesNo)
+                ]
+              },
+              {
+                id: "join-leave",
+                name: "Joining & leaving",
+                intro: "Walk through the last person who joined and the last person who left.",
+                questions: [
+                  q("onboarding-tasks", "What must be ready for a new employee?", "", "checks", ["Signed contract", "Payroll details", "Laptop / phone", "Email account", "System access", "Policies", "Induction", "Workspace", "Other"]),
+                  q("onboarding-owner", "Who makes sure all joining tasks are finished?", "", "select", ["HR", "Line manager", "IT / Admin", "Company manager", "Different owner per task", "No one person"]),
+                  q("signing", "Do any employee documents need online signing?", "", "radio", yesNo),
+                  q("assets", "Which company items should be tracked?", "", "checks", ["Laptop", "Phone", "Keys / access card", "Tools", "Uniform", "SIM card", "Other", "None"]),
+                  q("sla-laptops", "Are the ten SLA laptops still needed?", "", "radio", yesNo),
+                  q("offboarding", "What must happen when someone leaves?", "", "checks", ["Stop system access", "Return equipment", "Final payroll", "Handover work", "Exit documents", "Tell payroll provider", "Archive employee file"]),
+                  q("access-speed", "How quickly must their system access be stopped?", "", "select", ["Immediately", "Same day", "Within 24 hours", "On their final day", "No set rule", "Not sure"])
+                ]
+              }
+            ]
+          },
+          {
+            id: "platform",
+            name: "Shared Platform",
+            summary:
+              "The common rules used by every department: access, files, connections, backups, and support.",
+            modules: [
+              {
+                id: "access",
+                name: "Access",
+                intro: "Decide who sees what. Use real names and real examples in the notes.",
+                questions: [
+                  q("group-list", "Which companies and teams need their own private area?", "", "checks", ["BetaSigma Group", "Sichangi Law Alliance", "Tukutane", "Chasing Sun", "Finance", "HR", "Another team"]),
+                  q("cross-access", "Who needs to see more than one company?", "", "checks", ["Group executives", "Group Finance", "Group HR", "Auditors", "IT / Admin", "Nobody else", "Not sure"]),
+                  q("give-access", "Who should give a person access?", "", "select", ["Their manager", "Department head", "HR", "IT / Admin", "Company director", "More than one approver"]),
+                  q("review-access", "How often should access be checked?", "", "select", ["Monthly", "Every 3 months", "Every 6 months", "Yearly", "Only when someone changes role", "Not sure"]),
+                  q("mfa", "Who must use a second login step, such as a phone code?", "", "checks", ["Everyone", "Executives", "Finance", "HR", "Legal staff", "Outside users", "Admins", "Not sure"]),
+                  q("outside-users", "Will suppliers, clients, artists, or other outsiders log in?", "", "radio", yesNo),
+                  q("admin-view", "Should IT admins see private business files automatically?", "", "radio", yesNo)
+                ]
+              },
+              {
+                id: "shared-files",
+                name: "Files",
+                intro: "Choose one official home for each kind of file.",
+                questions: [
+                  q("file-systems", "Which file systems are already used?", "", "checks", ["Microsoft 365 / SharePoint", "OneDrive", "Google Drive", "Dropbox", "Employee computers", "Phones", "Email", "WhatsApp", "Other"]),
+                  q("official-home", "Where should official files live?", "", "select", ["Microsoft 365 / SharePoint", "Google Drive", "Inside BetaSigma", "Different place by department", "Not decided"]),
+                  q("labels", "How sensitive are your files?", "", "checks", ["Public", "Internal", "Confidential", "Highly restricted", "No labels today", "Not sure"]),
+                  q("outside-share", "Can files be shared outside the group?", "", "select", ["Yes, without approval", "Yes, after approval", "Only through a client portal", "No", "Different by department", "Not sure"]),
+                  q("old-files", "Do files need to be moved from staff computers and phones?", "", "radio", yesNo),
+                  q("delete-rules", "Are there rules for when files must be deleted?", "", "radio", yesNo),
+                  q("restore", "Has anyone tested restoring a deleted or lost file?", "", "radio", yesNo)
+                ]
+              },
+              {
+                id: "service",
+                name: "Support",
+                intro: "Agree who notices problems and who fixes them.",
+                questions: [
+                  q("connections", "Which outside systems must connect to BetaSigma?", "", "checks", ["Accounting", "Payroll", "Payments", "Email", "File storage", "Ticketing", "Social media", "Sensors / IoT", "Other"]),
+                  q("problem-owner", "Who should receive a system error first?", "", "select", ["Department user", "Department manager", "IT / Admin", "Outside support company", "Different by system", "Not decided"]),
+                  q("urgent", "Which areas cannot wait until the next working day?", "", "checks", ["Payroll", "Payments", "Legal deadlines", "Ticket sales", "Event day", "Farm alerts", "None", "Not sure"]),
+                  q("backup-frequency", "How often should important business data be backed up?", "", "select", ["Every few minutes", "Hourly", "Daily", "Weekly", "Different by system", "Not sure"]),
+                  q("fallback", "Is there a written way to keep working when the system is down?", "", "radio", yesNo),
+                  q("training", "Who needs training before launch?", "", "checks", who),
+                  q("product-owner", "Who makes the final decision when departments disagree?", "", "text", [], "Name or role")
+                ]
+              }
+            ]
+          }
+        ],
+        company: [
+          {
+            id: "sla",
+            name: "Sichangi Law Alliance",
+            summary:
+              "Equipment, clients, matters, legal files, deadlines, billing, the client portal, and the public website.",
+            modules: [
+              {
+                id: "sla-tools",
+                name: "Office & security",
+                intro: "Check what people need before building new legal software.",
+                questions: [
+                  q("staff", "How many people need a computer?", "", "select", ["1–5", "6–10", "11–20", "More than 20", "Not sure"]),
+                  q("devices", "What is missing or not working well?", "", "checks", ["Laptops", "Desktop computers", "Internet", "Wi-Fi", "Printers", "Backup", "Email", "File storage", "Nothing"]),
+                  q("laptop-count", "How many new laptops are needed?", "", "number", [], "Enter a number"),
+                  q("remote-work", "Do staff work away from the office?", "", "radio", yesNo),
+                  q("internet-backup", "Is there a second internet connection when the main one fails?", "", "radio", yesNo),
+                  q("device-security", "Which controls are already on staff computers?", "", "checks", ["Password / PIN", "Disk encryption", "Antivirus", "Screen lock", "Remote wipe", "Automatic updates", "Not sure"]),
+                  q("backup-tested", "Has a file or mailbox been restored from backup successfully?", "", "radio", yesNo)
+                ]
+              },
+              {
+                id: "sla-cases",
+                name: "Clients & matters",
+                intro: "Ask how a new client becomes an open matter.",
+                questions: [
+                  q("client-types", "What kinds of clients do you have?", "", "checks", ["People", "Companies", "Government", "Non-profits", "Other law firms", "Other"]),
+                  q("new-client-info", "What do you need before accepting a new client?", "", "checks", ["Name and contacts", "ID / registration", "People connected to them", "Type of legal work", "Expected fees", "Source of referral", "Other"]),
+                  q("conflict-search", "Do you check for a conflict before opening a matter?", "", "radio", yesNo),
+                  q("conflict-data", "Whose names must be checked?", "", "checks", ["Client", "Other side", "Directors", "Related companies", "Witnesses", "Lawyers involved", "Other"]),
+                  q("conflict-decider", "Who decides if the matter can be accepted?", "", "select", ["Partner", "Managing partner", "Assigned advocate", "A committee", "Another role", "Not clear"]),
+                  q("matter-number", "Do matters have a standard number?", "", "radio", yesNo),
+                  q("matter-details", "What must every matter show?", "", "checks", ["Client", "Matter name", "Practice area", "Partner", "Team", "Status", "Important dates", "Billing type", "Other"])
+                ]
+              },
+              {
+                id: "sla-work",
+                name: "Legal work & files",
+                intro: "Use one active matter to answer these questions.",
+                questions: [
+                  q("matter-access", "Who can see a matter?", "", "select", ["Everyone in the firm", "Only the matter team", "Matter team plus selected admins", "Different rules by matter", "Not sure"]),
+                  q("restricted", "Do some matters need to be hidden from most staff?", "", "radio", yesNo),
+                  q("deadline-types", "Which dates must the system remind you about?", "", "checks", ["Court dates", "Filing dates", "Limitation dates", "Client promises", "Internal tasks", "Meetings", "Other"]),
+                  q("deadline-reminder", "When should the first reminder arrive?", "", "select", ["Same day", "1 day before", "3 days before", "7 days before", "14 days before", "Different by deadline", "Not sure"]),
+                  q("file-home", "Where should official legal files live?", "", "select", ["Microsoft 365 / SharePoint", "A legal document system", "Inside BetaSigma", "Another system", "Not decided"]),
+                  q("versions", "Do you need to keep every version of a document?", "", "radio", yesNo),
+                  q("email-filing", "Should emails and attachments be saved to a matter?", "", "radio", yesNo),
+                  q("legal-hold", "Do you have a rule that stops files being deleted for some matters?", "", "radio", yesNo)
+                ]
+              },
+              {
+                id: "sla-client-money",
+                name: "Time & clients",
+                intro: "Keep billing data separate from confidential legal advice.",
+                questions: [
+                  q("time-recording", "Do lawyers record time spent on matters?", "", "radio", yesNo),
+                  q("time-unit", "What is the smallest time unit used?", "", "select", ["1 minute", "6 minutes", "10 minutes", "15 minutes", "30 minutes", "Not sure"]),
+                  q("time-approval", "Who checks time before billing?", "", "select", ["No one", "Responsible partner", "Finance", "Partner then Finance", "Different by matter", "Not sure"]),
+                  q("billing-system", "Where are bills prepared?", "", "select", ["QuickBooks", "Excel / Word", "A legal billing system", "Another system", "Not decided"]),
+                  q("client-login", "Should clients log in to see selected matter information?", "", "radio", yesNo),
+                  q("client-sees", "What may a client see?", "", "checks", ["Selected documents", "Matter updates", "Requests for information", "Messages", "Bills", "Important dates", "Nothing yet"]),
+                  q("website", "What should the public website include?", "", "checks", ["Firm profile", "Practice areas", "Team", "Articles", "Contact form", "Legal notices", "Client login", "Other"]),
+                  q("website-owner", "Who approves website content before it goes live?", "", "text", [], "Name or role")
+                ]
+              }
+            ]
+          },
+          {
+            id: "tukutane",
+            name: "Tukutane Entertainment",
+            summary:
+              "Events, ticket sales, sponsors, production work, marketing, audience data, and event money.",
+            modules: [
+              {
+                id: "events-tickets",
+                name: "Events & tickets",
+                intro: "Use the next real event as the example.",
+                questions: [
+                  q("event-types", "What kinds of events do you run?", "", "checks", ["Concerts", "Festivals", "Corporate events", "Private events", "Community events", "Other"]),
+                  q("event-stages", "Which stages do you use?", "", "checks", ["Idea", "Planning", "Approved", "Tickets on sale", "Event day", "Closing accounts", "Finished"]),
+                  q("event-approver", "Who gives final approval for an event?", "", "select", ["Event lead", "Company director", "Finance", "More than one person", "Different by event", "Not clear"]),
+                  q("ticket-channels", "Where should people buy tickets?", "", "checks", ["Website", "Mobile web", "USSD", "Physical agent", "Box office", "Social media link", "Other"]),
+                  q("payments", "How should buyers pay?", "", "checks", ["M-Pesa", "Bank card", "Bank transfer", "Cash", "Another method"]),
+                  q("ticket-types", "Which ticket options do you use?", "", "checks", ["Regular", "Early bird", "VIP", "Group", "Complimentary", "Promo code", "At the gate", "Other"]),
+                  q("refunds", "Are ticket refunds allowed?", "", "select", ["Yes, any time", "Yes, before a deadline", "Only if event changes", "No", "Different by event", "Not decided"]),
+                  q("check-in-offline", "Must ticket check-in work without internet?", "", "radio", yesNo)
+                ]
+              },
+              {
+                id: "sponsors",
+                name: "Sponsors",
+                intro: "Use one current sponsor conversation from first contact to final report.",
+                questions: [
+                  q("sponsor-owner", "Who finds and manages sponsors?", "", "checks", ["Partnerships team", "Event lead", "Director", "Marketing", "Outside agency", "Other"]),
+                  q("sponsor-stages", "Which steps do sponsor deals follow?", "", "checks", ["New lead", "Qualified", "Proposal sent", "Negotiation", "Agreed", "Won", "Lost"]),
+                  q("sponsor-info", "What must you track for every sponsor deal?", "", "checks", ["Value", "Currency", "Event", "Owner", "Next action", "Contact history", "Expected close date", "Other"]),
+                  q("packages", "Do you sell standard sponsor packages?", "", "radio", yesNo),
+                  q("benefits", "Which sponsor benefits must be tracked?", "", "checks", ["Logo use", "Social posts", "Stage mentions", "Tickets", "Brand space", "Guest access", "Sales leads", "Other"]),
+                  q("proof", "What proof do sponsors expect after an event?", "", "checks", ["Photos", "Video", "Attendance", "Social reach", "Press coverage", "Activation report", "Sales / leads", "Other"]),
+                  q("report-deadline", "When is the sponsor report normally due?", "", "select", ["Within 2 days", "Within 7 days", "Within 14 days", "Within 30 days", "Different by deal", "No set rule"])
+                ]
+              },
+              {
+                id: "production",
+                name: "Production",
+                intro: "Work backwards from doors opening. What must be ready?",
+                questions: [
+                  q("workstreams", "Which work areas are part of production?", "", "checks", ["Venue", "Permits", "Artists", "Travel", "Vendors", "Stage / sound / lights", "Safety", "Staffing", "Ticketing", "Marketing", "Other"]),
+                  q("task-tool", "Where are production tasks tracked now?", "", "select", ["WhatsApp", "Excel / Sheets", "Project tool", "Email", "Paper", "Nowhere consistent", "Other"]),
+                  q("templates", "Do similar events use the same task checklist?", "", "radio", yesNo),
+                  q("contracts", "Where are artist and supplier contracts kept?", "", "select", ["Email", "Staff computers", "Cloud drive", "Contract system", "Paper", "Different places", "Not sure"]),
+                  q("outside-access", "Should artists or suppliers update their own tasks?", "", "radio", yesNo),
+                  q("show-plan", "Do you use one approved run-of-show document on event day?", "", "radio", yesNo),
+                  q("late-work", "Who should be warned when a critical task is late?", "", "checks", ["Task owner", "Production lead", "Event lead", "Company director", "Everyone on event team", "Not sure"])
+                ]
+              },
+              {
+                id: "marketing-money",
+                name: "Marketing & money",
+                intro: "Connect campaign results and event spending without rebuilding accounting.",
+                questions: [
+                  q("social-channels", "Which channels do you use?", "", "checks", ["Instagram", "Facebook", "TikTok", "X / Twitter", "YouTube", "Email", "WhatsApp", "Website", "Other"]),
+                  q("publishing-tool", "What publishes or schedules posts?", "", "select", ["Posted by hand", "Meta Business Suite", "Another social tool", "Outside agency", "Different tools", "Not sure"]),
+                  q("marketing-metrics", "Which numbers matter?", "", "checks", ["Reach", "Views", "Engagement", "Link clicks", "Ticket sales", "Follower growth", "Email opens", "Other"]),
+                  q("audience-use", "May ticket-buyer details be used for future marketing?", "", "select", ["Yes, with clear consent", "Yes, automatically", "No", "Not decided"]),
+                  q("budget-owner", "Who creates and approves the event budget?", "", "checks", ["Event lead", "Production", "Finance", "Company director", "Another role"]),
+                  q("budget-lines", "What must the budget show?", "", "checks", ["Ticket income", "Sponsor income", "Artist fees", "Venue", "Production", "Marketing", "Staff", "Suppliers", "Other"]),
+                  q("actuals", "Where do final event costs come from?", "", "select", ["QuickBooks", "Finance spreadsheet", "Supplier invoices", "Petty cash records", "Several places", "Not sure"]),
+                  q("closeout", "Who signs off that the event is fully closed?", "", "select", ["Event lead", "Finance", "Company director", "More than one person", "No formal sign-off"])
+                ]
+              }
+            ]
+          },
+          {
+            id: "chasing-sun",
+            name: "Chasing Sun",
+            summary:
+              "Farm money, business files, the current dashboard, greenhouses, sensors, alerts, and the IoT pilot.",
+            modules: [
+              {
+                id: "farm-money",
+                name: "Money & files",
+                intro: "Follow one recent sale and one recent expense.",
+                questions: [
+                  q("business-lines", "Which parts of the business need separate reports?", "", "checks", ["Horticulture", "Commodity", "Each farm", "Each greenhouse", "Each crop", "Sales channel", "Other"]),
+                  q("accounting", "What keeps the official accounts?", "", "select", ["QuickBooks Online", "QuickBooks Desktop", "Excel / Sheets", "Another system", "Not decided"]),
+                  q("sales-docs", "Which sales documents do you use?", "", "checks", ["Quote", "Order", "Invoice", "Delivery note", "Receipt", "Credit note", "Other"]),
+                  q("finance-views", "What should management see?", "", "checks", ["Daily sales", "Weekly sales", "Expenses", "Unpaid invoices", "Profit by business line", "Cash position", "Other"]),
+                  q("file-locations", "Where are business files now?", "", "checks", ["Staff computers", "Phones", "Email", "WhatsApp", "OneDrive / SharePoint", "Google Drive", "Paper", "Other"]),
+                  q("file-home", "Where should the official files live?", "", "select", ["Microsoft 365 / SharePoint", "Google Drive", "Inside BetaSigma", "Another system", "Not decided"]),
+                  q("first-fix", "What should be fixed first?", "", "select", ["Accounting", "Invoices and delivery notes", "Management reports", "Business files", "Current dashboard", "Not sure"])
+                ]
+              },
+              {
+                id: "dashboard-farm",
+                name: "Dashboard & farm",
+                intro: "Understand the current dashboard before deciding to replace it.",
+                questions: [
+                  q("dashboard-owner", "Who owns and supports the current dashboard?", "", "text", [], "Name, company, or role"),
+                  q("dashboard-access", "Can the team access its code and database?", "", "radio", yesNo),
+                  q("dashboard-use", "What does the dashboard do well today?", "", "checks", ["Planting records", "Greenhouse output", "Weekly sales", "Farm reports", "Charts", "Mobile use", "Nothing works well", "Not sure"]),
+                  q("dashboard-problems", "What needs to improve?", "", "checks", ["Slow", "Wrong data", "Hard to use", "Poor on phones", "Missing reports", "Login / access", "Often offline", "No support", "Other"]),
+                  q("farm-count", "How many farms are there?", "", "number", [], "Enter a number"),
+                  q("greenhouse-count", "How many greenhouses are there?", "", "number", [], "Enter a number"),
+                  q("crops", "What should be recorded for each crop cycle?", "", "checks", ["Crop", "Variety", "Planting date", "Expected harvest", "Actual harvest", "Location", "Owner", "Other"])
+                ]
+              },
+              {
+                id: "sensors",
+                name: "Sensors",
+                intro: "Do a site visit before buying hardware.",
+                questions: [
+                  q("measurements", "What do you want to measure?", "", "checks", ["Soil moisture", "Air temperature", "Humidity", "Wind speed", "Rain", "Light", "Soil temperature", "Other"]),
+                  q("sensor-purpose", "What will staff do differently when they see the readings?", "", "checks", ["Check irrigation", "Vent greenhouse", "Protect crops", "Plan work", "Compare crop performance", "Only monitor for now", "Not sure"]),
+                  q("power", "What power is available near the greenhouses?", "", "checks", ["Grid electricity", "Solar", "Battery only", "Generator", "No reliable power", "Not sure"]),
+                  q("connection", "What internet or network is available?", "", "checks", ["Good mobile signal", "Weak mobile signal", "Wi-Fi", "LoRa / radio network", "No connection", "Not tested"]),
+                  q("reading-speed", "How often do you need a new reading?", "", "select", ["Every minute", "Every 5 minutes", "Every 15 minutes", "Hourly", "A few times a day", "Not sure"]),
+                  q("offline-time", "How long can the internet be down?", "", "select", ["Less than 1 hour", "A few hours", "A full day", "Several days", "It varies", "Not known"]),
+                  q("calibration-owner", "Who will check and calibrate sensors?", "", "select", ["Farm operator", "Agronomist", "IoT technician", "Outside supplier", "No one assigned", "Not decided"])
+                ]
+              },
+              {
+                id: "alerts-pilot",
+                name: "Alerts & pilot",
+                intro: "Every alert needs a person and a clear action.",
+                questions: [
+                  q("threshold-owner", "Who decides what reading is too high or too low?", "", "select", ["Agronomist", "Farm manager", "Farm operator", "Outside expert", "Different by crop", "Not decided"]),
+                  q("alert-channels", "How should alerts reach people?", "", "checks", ["Inside the app", "SMS", "WhatsApp", "Email", "Phone call for urgent alerts", "Other"]),
+                  q("alert-first", "Who gets an alert first?", "", "checks", ["Farm operator", "Agronomist", "Farm manager", "IoT technician", "Executive", "Not decided"]),
+                  q("no-response", "Should the alert go to someone else if nobody responds?", "", "radio", yesNo),
+                  q("offline-alert", "Should a broken or offline sensor create a different alert?", "", "radio", yesNo),
+                  q("pilot-place", "Has one greenhouse been chosen for the pilot?", "", "radio", yesNo),
+                  q("pilot-length", "How long should the pilot run?", "", "select", ["1–2 weeks", "1 month", "2–3 months", "A full crop cycle", "Not decided"]),
+                  q("pilot-success", "What must work before buying more sensors?", "", "checks", ["Accurate readings", "Few missing readings", "Useful alerts", "Works during outages", "Easy for staff", "Affordable to run", "Easy to maintain", "Other"]),
+                  q("extra-hardware", "Are the microphones and replacement phone still needed?", "", "select", ["Both are needed", "Microphones only", "Phone only", "Neither", "Not decided"])
+                ]
+              }
+            ]
+          }
+        ]
+      };
+
+      const systemProfiles = {
+        finance: {
+          subject: "Finance",
+          triggerQuestion: "What normally creates work for Finance?",
+          triggers: ["A staff member asks to spend", "A supplier sends a bill", "A customer needs an invoice", "A payment arrives", "Month-end close starts", "Payroll totals are ready", "An audit or tax request arrives", "A system or bank record does not match"],
+          volume: "Count requests, bills, invoices, payments, and reconciliations.",
+          peaks: ["Start of month", "End of month", "Payroll time", "Tax filing dates", "Quarter end", "Year end", "Before an event", "During an audit", "No clear peak", "Other"],
+          outputs: ["Approved request", "Payment", "Invoice or receipt", "Reconciled transaction", "Accounting entry", "Finance report", "Tax or audit file", "Updated budget", "Other"],
+          errors: ["Missing receipt or invoice", "Wrong amount or account", "Duplicate payment or entry", "Late approval", "Payment failed", "Numbers do not match", "File is missing", "Accounting sync failed", "Nobody knows the owner", "Other"],
+          firstTask: "Example: request money, approve it, pay it, return the receipt, and post it to accounting",
+          dashboard: ["Requests waiting for approval", "Payments waiting", "Missing receipts", "Failed syncs", "Cash and balances", "Budget vs actual", "Spend by company", "Month-end progress", "Other"],
+          connections: ["Accounting", "Banking", "M-Pesa / payments", "Payroll", "Email", "File storage", "Budget spreadsheets", "Another system", "None"],
+          success: "Example: 10 real requests completed from request to accounting with no duplicate payment"
+        },
+        hr: {
+          subject: "HR",
+          triggerQuestion: "What normally creates a task for HR?",
+          triggers: ["A new employee is joining", "An employee changes their details", "An employee asks for leave", "The payroll cut-off arrives", "A clock-in or attendance issue appears", "A manager asks for help", "An employee is leaving", "A policy or legal deadline arrives"],
+          volume: "Count hires, employee changes, leave requests, attendance issues, payroll changes, and exits.",
+          peaks: ["Payroll cut-off", "Start of month", "End of month", "January leave planning", "New hiring period", "Performance review period", "Year end", "No clear peak", "Other"],
+          outputs: ["Updated employee record", "Approved leave", "Correct payroll input", "Payslip", "Attendance correction", "Signed employee document", "Completed onboarding", "Completed offboarding", "HR report", "Other"],
+          errors: ["Employee details are missing", "Wrong payroll input", "Leave balance is wrong", "Approval is late", "Clock-in is missing", "Document is missing", "System access stays open after exit", "Two records exist for one person", "Nobody knows the owner", "Other"],
+          firstTask: "Example: employee requests leave, manager approves it, balance updates, and payroll receives the result",
+          dashboard: ["People joining or leaving", "Leave waiting for approval", "Attendance problems", "Payroll changes waiting", "Missing documents", "Onboarding tasks", "Headcount by company", "Upcoming contract dates", "Other"],
+          connections: ["Payroll", "Accounting", "Email", "Calendar", "File storage", "Identity / user accounts", "Attendance device", "Electronic signature", "Another system", "None"],
+          success: "Example: a real employee requests leave, receives approval, sees the right balance, and payroll receives the result"
+        },
+        platform: {
+          subject: "the shared platform team",
+          triggerQuestion: "What normally creates work for the platform team?",
+          triggers: ["Someone needs system access", "A person joins, moves, or leaves", "A department needs a new feature", "A file must be shared or recovered", "A connected system fails", "A user reports a problem", "A security or audit request arrives", "A vendor or licence changes"],
+          volume: "Count access requests, support issues, file requests, system errors, and changes.",
+          peaks: ["New employee onboarding", "Employee exits", "Payroll time", "Month end", "Before an event", "During an event", "Audit period", "No clear peak", "Other"],
+          outputs: ["Access granted or removed", "Problem resolved", "File restored", "System connected", "Audit evidence", "Configuration changed", "User trained", "Incident report", "Other"],
+          errors: ["Wrong person has access", "Access is not removed", "User cannot log in", "File is missing", "Integration fails", "Backup cannot restore", "Error is not noticed", "No support owner", "Change breaks another area", "Other"],
+          firstTask: "Example: manager requests access, the right person approves it, access is granted, and the change is recorded",
+          dashboard: ["Open support requests", "Access waiting for approval", "Failed integrations", "Backup status", "Security alerts", "System availability", "Upcoming licence renewals", "Recent changes", "Other"],
+          connections: ["Accounting", "Payroll", "Payments", "Email", "Identity", "File storage", "Ticketing", "Website", "Sensors / IoT", "Another system", "None"],
+          success: "Example: a real access request is approved, granted correctly, recorded, and removed on the agreed date"
+        },
+        sla: {
+          subject: "legal work",
+          triggerQuestion: "What normally creates new legal work?",
+          triggers: ["A prospective client contacts the firm", "A conflict check is requested", "A new matter is approved", "A court or filing deadline arrives", "A client sends a document or message", "A lawyer records time", "Finance needs billing information", "A website enquiry arrives"],
+          volume: "Count enquiries, conflict checks, active matters, documents, deadlines, time entries, and bills.",
+          peaks: ["Court dates", "Filing deadlines", "Month-end billing", "Client reporting dates", "New matter intake", "Year end", "No clear peak", "Other"],
+          outputs: ["Conflict decision", "Opened matter", "Filed document", "Completed legal task", "Deadline met", "Client update", "Approved time entry", "Billing export", "Closed matter", "Other"],
+          errors: ["Conflict is missed", "Wrong person sees a matter", "Deadline is missed", "Document version is wrong", "Email is not filed", "Time is missing", "Client sees the wrong file", "Matter information is incomplete", "Backup fails", "Other"],
+          firstTask: "Example: receive a prospective client, run a conflict check, approve intake, and open the matter",
+          dashboard: ["New client enquiries", "Conflict checks waiting", "Matters waiting to open", "Deadlines coming up", "Overdue tasks", "Missing time", "Restricted matters", "Client requests", "Other"],
+          connections: ["Email", "Calendar", "Document storage", "Accounting / billing", "Electronic signature", "Website", "Client portal", "Backup", "Another legal system", "None"],
+          success: "Example: a real intake completes conflict review, partner approval, matter opening, team access, and first deadline"
+        },
+        tukutane: {
+          subject: "event operations",
+          triggerQuestion: "What normally creates a new event task?",
+          triggers: ["A new event idea is approved", "A ticket is sold or refunded", "A sponsor lead arrives", "An artist or supplier needs action", "A production deadline arrives", "Campaign content is due", "A budget item needs approval", "An event-day problem occurs"],
+          volume: "Count events, tickets, sponsor opportunities, production tasks, campaign items, and budget lines.",
+          peaks: ["Event planning", "Tickets going on sale", "Week before an event", "Event day", "Event close-out", "Sponsor reporting", "No clear peak", "Other"],
+          outputs: ["Approved event", "Issued or refunded ticket", "Signed sponsor deal", "Completed production task", "Published campaign", "Approved spend", "Event-day decision", "Sponsor report", "Closed event", "Other"],
+          errors: ["Ticket totals do not match", "Capacity is wrong", "Sponsor follow-up is missed", "Sponsor benefit is not delivered", "Production task is late", "Wrong contract version", "Budget is exceeded", "Audience consent is unclear", "Nobody knows the owner", "Other"],
+          firstTask: "Example: create an event, approve it, connect ticket sales, and show live sales and capacity",
+          dashboard: ["Upcoming events", "Readiness problems", "Ticket sales and capacity", "Sponsor pipeline", "Sponsor benefits due", "Late production tasks", "Campaign schedule", "Budget vs actual", "Other"],
+          connections: ["Ticketing", "Payments", "Accounting", "Email", "File storage", "Social media", "Website", "Project tasks", "Another system", "None"],
+          success: "Example: one real event moves from approval through ticket sales, sponsor work, production, budget, and close-out"
+        },
+        "chasing-sun": {
+          subject: "farm and business operations",
+          triggerQuestion: "What normally creates a farm or business task?",
+          triggers: ["A customer places an order", "A supplier bill or expense arrives", "An invoice or delivery note is needed", "A crop cycle starts or changes", "A sensor sends a new reading", "A reading crosses a limit", "A sensor or gateway goes offline", "Management needs a report"],
+          volume: "Count orders, invoices, documents, crop cycles, sensor readings, alerts, and maintenance tasks.",
+          peaks: ["Planting", "Harvest", "Delivery days", "End of week reporting", "Month end", "Hot or dry weather", "Equipment maintenance", "No clear peak", "Other"],
+          outputs: ["Invoice or delivery note", "Updated accounting record", "Farm report", "Stored business document", "Trusted sensor reading", "Acknowledged alert", "Maintenance task", "Management summary", "Other"],
+          errors: ["Invoice or delivery note is missing", "Finance figures do not match", "Document cannot be found", "Sensor reading is wrong", "Sensor is offline", "Alert reaches the wrong person", "Internet loses readings", "Device is not calibrated", "Nobody knows the owner", "Other"],
+          firstTask: "Example: receive sensor readings from one greenhouse, show fresh data, and send one useful alert to the right person",
+          dashboard: ["Sales and expenses", "Invoices and deliveries", "Farm and crop status", "Latest sensor readings", "Offline devices", "Active alerts", "Calibration due", "Missing data", "Other"],
+          connections: ["Accounting", "Email", "File storage", "Current farm dashboard", "Sensor gateway", "Weather data", "Payments", "Another system", "None"],
+          success: "Example: one greenhouse sends complete readings through an outage, shows sensor health, and creates one correct alert"
+        }
+      };
+
+      function systemDiscoveryModules(department) {
+        const profile = systemProfiles[department.id];
+        return [
+          {
+            id: "current-system",
+            name: "How it works today",
+            intro:
+              "Use one real example and follow it from the first request to the final result.",
+            questions: [
+              q("today-trigger", profile.triggerQuestion, "Select all the events that regularly create work.", "checks", profile.triggers),
+              q("today-channels", `Where does ${profile.subject} first get recorded?`, "Choose where the team first writes it down or receives it.", "checks", ["WhatsApp", "Email", "Phone call", "Paper form", "Spreadsheet", "Another system", "In person", "There is no standard place"]),
+              q("today-users", "Who takes part from start to finish?", "", "checks", ["Employee", "Manager", "Department team", "Finance", "HR", "Executive", "IT / Admin", "Customer / client", "Supplier / partner", "Outside provider"]),
+              q("today-steps", "How many main steps are there?", "Add the actual steps under “Add context.”", "select", ["1–3 steps", "4–6 steps", "7–10 steps", "More than 10", "It changes each time", "Not sure"]),
+              q("today-handoffs", "Where does work move from one person or team to another?", "Use “Add context” to name each hand-off.", "checks", ["Employee to manager", "Team to department lead", "Department to Finance", "Department to HR", "Company to Group", "Internal team to outside provider", "Outside person to internal team", "Other"]),
+              q("today-tools", "Which tools are used during the work?", "", "checks", ["WhatsApp", "Email", "Excel / Google Sheets", "Word / Google Docs", "Paper", "QuickBooks", "Workpay", "Microsoft 365", "Google Drive", "A specialist system", "Another tool"]),
+              q("today-copying", "Is the same information typed into more than one place?", "", "radio", yesNo),
+              q("today-volume", "About how many items are handled in a normal month?", profile.volume, "select", ["1–10", "11–50", "51–200", "201–1,000", "More than 1,000", "It changes a lot", "Not known"]),
+              q("today-peak", "When is this team busiest?", "", "checks", profile.peaks),
+              q("today-data", "Where is the important information kept?", "", "checks", ["Spreadsheet", "Email", "WhatsApp", "Paper files", "Staff computers", "Cloud drive", "A business system", "Several different places", "Not sure"]),
+              q("today-output", "What result tells the team the work is finished?", "", "checks", profile.outputs),
+              q("today-errors", "Which problems happen today?", "Select problems the team has actually seen.", "checks", profile.errors),
+              q("today-exceptions", "How are unusual cases handled?", "", "select", ["There is a written process", "A manager decides", "The team discusses each case", "People use a workaround", "They are not handled consistently", "Not sure"]),
+              q("today-measure", "How do you know the work was completed correctly?", "", "checks", ["Manager checks it", "Finance checks it", "System confirmation", "Signed document", "Report totals match", "Customer / client confirms", "There is a checklist", "There is no formal check", "Other"]),
+              q("today-history", "How much old information must remain available?", "", "select", ["Current year only", "1–3 years", "4–7 years", "More than 7 years", "All history", "Different for each record", "Not sure"]),
+              q("today-example", "Can the team provide one real completed example?", "Remove private information if needed. The example should show every step and output.", "radio", yesNo)
+            ]
+          },
+          {
+            id: "new-system",
+            name: "What we need to build",
+            intro:
+              "Turn the current workflow into clear decisions for the new system.",
+            questions: [
+              q("new-outcome", "What should become easier?", "Pick the outcomes people will notice.", "checks", ["Less repeated typing", "Faster approval", "Fewer mistakes", "Files are easy to find", "Clear ownership", "Live progress", "Better reports", "Better customer / employee experience", "Safer access", "Easier audit", "Other"]),
+              q("new-first-task", "What is the first complete job the new system must handle?", "Choose one real workflow that can be tested from start to finish.", "text", [], profile.firstTask),
+              q("new-users", "Who will use the new system directly?", "", "checks", ["Employees", "Managers", "Department team", "Finance", "HR", "Executives", "IT / Admin", "Customers / clients", "Suppliers / partners", "Auditors", "Outside providers"]),
+              q("new-devices", "Where will people use it?", "", "checks", ["Office computer", "Laptop away from office", "Phone", "Tablet", "Shared kiosk", "Event venue", "Farm / greenhouse", "Client site", "Other"]),
+              q("new-mobile", "Must every important task work well on a phone?", "", "radio", yesNo),
+              q("new-offline", "Must any task work when the internet is down?", "", "radio", yesNo),
+              q("new-roles", "Should different users see different information and actions?", "", "radio", yesNo),
+              q("new-approval", "Which actions must wait for approval?", "", "checks", ["Create a record", "Change important data", "Spend money", "Share a file", "Publish content", "Delete a record", "Close work", "Give access", "Export data", "No approval needed", "Other"]),
+              q("new-statuses", "Which progress states must users see?", "", "checks", ["Draft", "Submitted", "Waiting for approval", "Approved", "In progress", "Waiting for information", "Failed", "Completed", "Cancelled", "Different states are needed"]),
+              q("new-alerts", "When should the system contact someone?", "", "checks", ["New work assigned", "Approval needed", "Deadline is close", "Work is late", "Information is missing", "System connection failed", "Important value changed", "Work completed", "Other"]),
+              q("new-channels", "How should notifications be sent?", "", "checks", ["Inside the app", "Email", "SMS", "WhatsApp", "Push notification", "Only urgent alerts outside the app", "Not decided"]),
+              q("new-search", "What should people search or filter by?", "", "checks", ["Name", "Company", "Owner", "Status", "Date", "Amount", "Document type", "Project / event / matter", "Reference number", "Free text", "Other"]),
+              q("new-dashboard", "What should a manager see immediately?", "", "checks", profile.dashboard),
+              q("new-exports", "What must users download or print?", "", "checks", ["PDF", "Excel / CSV", "Documents", "Audit history", "Management report", "Regulatory report", "Customer / client summary", "Nothing", "Other"]),
+              q("new-connections", "Which systems must exchange information with the new one?", "", "checks", profile.connections),
+              q("new-import", "What old information must be moved into the new system?", "", "checks", ["Active records only", "Recent history", "All history", "Documents", "Spreadsheets", "Emails", "User accounts", "Configuration and rules", "Nothing", "Not decided"]),
+              q("new-quality", "Who checks imported information before it becomes official?", "", "select", ["Department user", "Department manager", "Data / admin team", "Finance", "HR", "Outside provider", "More than one team", "Not decided"]),
+              q("new-audit", "Which actions must always be recorded?", "", "checks", ["Login", "View private data", "Create", "Edit", "Approve / reject", "Payment", "Share / download", "Delete", "Export", "Change access", "System sync", "All important actions"]),
+              q("new-speed", "How quickly should a normal page or search respond?", "", "select", ["Almost immediately", "Within 3 seconds", "Within 10 seconds", "Longer is acceptable for reports", "No target yet"]),
+              q("new-availability", "When must the system be available?", "", "select", ["Working hours only", "Every day, extended hours", "24 hours a day", "Critical periods only", "Different by feature", "Not decided"]),
+              q("new-fallback", "Does the team need a backup way to work during an outage?", "", "radio", yesNo),
+              q("new-rollout", "How should the new system be introduced?", "", "select", ["One team first", "One company first", "One real workflow first", "Run old and new together", "Everyone at once", "Not decided"]),
+              q("new-training", "What help will users need?", "", "checks", ["Short demo", "Step-by-step guide", "Practice environment", "In-person training", "Recorded video", "Named support person", "No training expected", "Not sure"]),
+              q("new-success", "What real test will prove the new system is ready?", "Use a real workflow and a result that can pass or fail.", "text", [], profile.success),
+              q("new-owner", `Who will own ${profile.subject} after launch?`, "This person approves rules and decides future changes.", "text", [], "Name or role"),
+              q("new-support", "Who will handle user questions and system problems?", "", "select", ["Department super-user", "Internal IT / Admin", "BetaSigma product team", "Outside support provider", "Shared responsibility", "Not decided"])
+            ]
+          }
+        ];
+      }
+
+      for (const scope of Object.values(data)) {
+        for (const department of scope) {
+          const [currentSystem, newSystem] =
+            systemDiscoveryModules(department);
+          department.modules = [
+            currentSystem,
+            ...department.modules,
+            newSystem
+          ];
+        }
+      }
+
+      const storageKey = "betasigma-prd-simple-v1";
+      const state = {
+        schema: 3,
+        scope: "group",
+        department: "finance",
+        module: "current-system",
+        questionIndex: 0,
+        answers: {},
+        sessions: {}
+      };
+
+      const departmentSelect = document.getElementById("departmentSelect");
+      const financeOverview = document.getElementById("financeOverview");
+      const moduleTabs = document.getElementById("moduleTabs");
+      const moduleContent = document.getElementById("moduleContent");
+      const saveMessage = document.getElementById("saveMessage");
+      const exportDialog = document.getElementById("exportDialog");
+      const exportText = document.getElementById("exportText");
+
+      function escapeHtml(value) {
+        return String(value)
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function load() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(storageKey));
+          if (!saved) return;
+          state.answers = saved.answers || {};
+          state.sessions = saved.sessions || {};
+          if (data[saved.scope]) state.scope = saved.scope;
+          const department =
+            data[state.scope].find((item) => item.id === saved.department) ||
+            data[state.scope][0];
+          state.department = department.id;
+          if (saved.schema !== state.schema) {
+            state.module = department.modules[0].id;
+            state.questionIndex = 0;
+            return;
+          }
+          state.module =
+            department.modules.find((item) => item.id === saved.module)?.id ||
+            department.modules[0].id;
+          const module = department.modules.find(
+            (item) => item.id === state.module
+          );
+          state.questionIndex = Math.min(
+            Math.max(Number(saved.questionIndex) || 0, 0),
+            module.questions.length - 1
+          );
+        } catch (_error) {
+          showToast("This browser cannot load saved answers.");
+        }
+      }
+
+      function save() {
+        try {
+          localStorage.setItem(storageKey, JSON.stringify(state));
+          saveMessage.textContent = "Saved on this device";
+          clearTimeout(save.timer);
+          save.timer = setTimeout(() => (saveMessage.textContent = ""), 1400);
+        } catch (_error) {
+          saveMessage.textContent = "Could not save. Please export your answers.";
+        }
+      }
+
+      function currentDepartment() {
+        return data[state.scope].find((item) => item.id === state.department);
+      }
+
+      function currentModule() {
+        return currentDepartment().modules.find(
+          (item) => item.id === state.module
+        );
+      }
+
+      function allQuestions(department = currentDepartment()) {
+        return department.modules.flatMap((module) =>
+          module.questions.map((question, questionIndex) => ({
+            module,
+            question,
+            questionIndex
+          }))
+        );
+      }
+
+      function answerKey(departmentId, questionId) {
+        return `${departmentId}::${questionId}`;
+      }
+
+      function answer(departmentId, questionId) {
+        return (
+          state.answers[answerKey(departmentId, questionId)] || {
+            value: "",
+            note: ""
+          }
+        );
+      }
+
+      function hasAnswer(item) {
+        return Array.isArray(item.value)
+          ? item.value.length > 0
+          : String(item.value).trim() !== "";
+      }
+
+      function moduleProgress(department, module) {
+        const done = module.questions.filter((question) =>
+          hasAnswer(answer(department.id, question.id))
+        ).length;
+        return { done, total: module.questions.length };
+      }
+
+      function render() {
+        document.querySelectorAll("[data-scope]").forEach((button) => {
+          button.classList.toggle("active", button.dataset.scope === state.scope);
+        });
+
+        departmentSelect.innerHTML = data[state.scope]
+          .map(
+            (department) =>
+              `<option value="${department.id}" ${
+                department.id === state.department ? "selected" : ""
+              }>${escapeHtml(department.name)}</option>`
+          )
+          .join("");
+
+        const department = currentDepartment();
+        const session = state.sessions[department.id] || {};
+        document.getElementById("scopeName").textContent =
+          state.scope === "group" ? "Group-level questions" : "Company questions";
+        document.getElementById("departmentName").textContent = department.name;
+        document.getElementById("departmentSummary").textContent =
+          department.summary;
+        document.getElementById("interviewee").value = session.interviewee || "";
+        document.getElementById("interviewRole").value = session.role || "";
+        document.getElementById("interviewer").value = session.interviewer || "";
+        document.getElementById("sessionDate").value = session.date || "";
+
+        renderFinanceOverview(department);
+        moduleTabs.hidden =
+          state.scope === "group" && department.id === "finance";
+
+        moduleTabs.innerHTML = department.modules
+          .map((module, index) => {
+            const progress = moduleProgress(department, module);
+            return `<button
+              class="module-tab ${module.id === state.module ? "active" : ""}"
+              type="button"
+              data-module="${module.id}"
+            >${index + 1}. ${escapeHtml(module.name)} · ${progress.done}/${
+              progress.total
+            }</button>`;
+          })
+          .join("");
+
+        renderModule();
+      }
+
+      function renderFinanceOverview(department) {
+        if (state.scope !== "group" || department.id !== "finance") {
+          financeOverview.innerHTML = "";
+          return;
+        }
+
+        const steps = [
+          ["Request", "Staff asks to spend"],
+          ["Approve", "The right person agrees"],
+          ["Pay", "Finance sends money"],
+          ["Receipt", "Proof is returned"],
+          ["Check", "Finance closes the item"],
+          ["Account", "It reaches the books"]
+        ];
+
+        financeOverview.innerHTML = `
+          <div class="finance-overview">
+            <div class="finance-overview-head">
+              <h2>How the money moves</h2>
+              <span>The questions below define each hand-off.</span>
+            </div>
+            <div class="finance-flow" aria-label="Finance workflow">
+              ${steps
+                .map(
+                  (step, index) => `
+                    <div class="finance-step">
+                      <strong>${step[0]}</strong>
+                      <span>${step[1]}</span>
+                    </div>
+                    ${
+                      index < steps.length - 1
+                        ? '<span class="finance-arrow" aria-hidden="true">→</span>'
+                        : ""
+                    }
+                  `
+                )
+                .join("")}
+            </div>
+            <div class="finance-module-progress" aria-label="Finance sections">
+              ${department.modules
+                .map((module, index) => {
+                  const progress = moduleProgress(department, module);
+                  return `
+                    <button
+                      class="${module.id === state.module ? "active" : ""}"
+                      type="button"
+                      data-finance-module="${module.id}"
+                    >
+                      <span>${index + 1}. ${escapeHtml(module.name)}</span>
+                      <small>${progress.done}/${progress.total}</small>
+                    </button>
+                  `;
+                })
+                .join("")}
+            </div>
+          </div>
+        `;
+      }
+
+      function renderModule() {
+        const department = currentDepartment();
+        const module = currentModule();
+        state.questionIndex = Math.min(
+          Math.max(state.questionIndex || 0, 0),
+          module.questions.length - 1
+        );
+        const question = module.questions[state.questionIndex];
+        const questions = allQuestions(department);
+        const globalIndex = questions.findIndex(
+          (item) =>
+            item.module.id === module.id &&
+            item.questionIndex === state.questionIndex
+        );
+        const sectionProgress = moduleProgress(department, module);
+        const percentage = Math.round(
+          ((state.questionIndex + 1) / module.questions.length) * 100
+        );
+
+        moduleContent.innerHTML = `
+          <div class="focus">
+            <div class="focus-meta">
+              <span>${escapeHtml(module.name)}</span>
+              <span id="focusAnswered">${sectionProgress.done} answered · ${
+                state.questionIndex + 1
+              } of ${module.questions.length}</span>
+            </div>
+            <div class="focus-track" aria-hidden="true">
+              <div class="focus-bar" id="focusBar" style="width:${percentage}%"></div>
+            </div>
+            <div class="module-head">
+              <h2>${escapeHtml(module.name)}</h2>
+              <p>${escapeHtml(module.intro)}</p>
+            </div>
+            <div class="questions">
+              ${renderQuestion(department, question, state.questionIndex)}
+            </div>
+            <div class="focus-actions">
+              <button type="button" data-question-move="-1" ${
+                globalIndex === 0 ? "disabled" : ""
+              }>Back</button>
+              <div class="right">
+                <button type="button" data-question-move="1">Skip</button>
+                <button class="next" type="button" data-question-move="1">
+                  ${globalIndex === questions.length - 1 ? "Finish" : "Next"}
+                </button>
+              </div>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderQuestion(department, question, index) {
+        const saved = answer(department.id, question.id);
+        const hasDetails = [
+          "note",
+          "owner",
+          "confidence",
+          "priority",
+          "evidence",
+          "applies",
+          "followUp"
+        ].some((field) => {
+          const value = saved[field];
+          return Array.isArray(value) ? value.length : String(value || "").trim();
+        });
+        return `
+          <article class="question">
+            <div class="question-title">
+              <span class="number">${index + 1}</span>
+              <div>
+                <h3>${escapeHtml(question.label)}</h3>
+                ${
+                  question.hint
+                    ? `<p class="hint">${escapeHtml(question.hint)}</p>`
+                    : ""
+                }
+              </div>
+            </div>
+            <div class="control">
+              ${renderControl(question, saved)}
+              <details ${hasDetails ? "open" : ""}>
+                <summary>Add context</summary>
+                <div class="detail-fields">
+                  <label class="full">
+                    Notes or examples
+                    <textarea
+                      data-meta-question="${question.id}"
+                      data-meta-field="note"
+                      placeholder="Rules, exceptions, examples, amounts, or names"
+                    >${escapeHtml(saved.note || "")}</textarea>
+                  </label>
+                  <label>
+                    Answer status
+                    <select
+                      data-meta-question="${question.id}"
+                      data-meta-field="confidence"
+                    >
+                      ${["", "Confirmed", "Needs follow-up", "Working assumption", "Not discussed"]
+                        .map(
+                          (option) =>
+                            `<option value="${option}" ${
+                              saved.confidence === option ? "selected" : ""
+                            }>${option || "Choose…"}</option>`
+                        )
+                        .join("")}
+                    </select>
+                  </label>
+                  <label>
+                    Build priority
+                    <select
+                      data-meta-question="${question.id}"
+                      data-meta-field="priority"
+                    >
+                      ${["", "Must have at launch", "Should have", "Later", "Not needed"]
+                        .map(
+                          (option) =>
+                            `<option value="${option}" ${
+                              saved.priority === option ? "selected" : ""
+                            }>${option || "Choose…"}</option>`
+                        )
+                        .join("")}
+                    </select>
+                  </label>
+                  <label>
+                    Owner
+                    <input
+                      type="text"
+                      data-meta-question="${question.id}"
+                      data-meta-field="owner"
+                      value="${escapeHtml(saved.owner || "")}"
+                      placeholder="Person, role, or team"
+                    />
+                  </label>
+                  ${
+                    state.scope === "group"
+                      ? `
+                        <label>
+                          Applies to
+                          <select
+                            data-meta-question="${question.id}"
+                            data-meta-field="applies"
+                          >
+                            ${[
+                              "",
+                              "Whole group",
+                              "Sichangi Law Alliance",
+                              "Tukutane",
+                              "Chasing Sun",
+                              "Different by company",
+                              "Not confirmed"
+                            ]
+                              .map(
+                                (option) =>
+                                  `<option value="${option}" ${
+                                    saved.applies === option ? "selected" : ""
+                                  }>${option || "Choose…"}</option>`
+                              )
+                              .join("")}
+                          </select>
+                        </label>
+                      `
+                      : ""
+                  }
+                  <label>
+                    Follow-up date
+                    <input
+                      type="date"
+                      data-meta-question="${question.id}"
+                      data-meta-field="followUp"
+                      value="${escapeHtml(saved.followUp || "")}"
+                    />
+                  </label>
+                  <label class="full">
+                    Evidence or source
+                    <input
+                      type="text"
+                      data-meta-question="${question.id}"
+                      data-meta-field="evidence"
+                      value="${escapeHtml(saved.evidence || "")}"
+                      placeholder="Policy, spreadsheet, report, system, or person to verify with"
+                    />
+                  </label>
+                </div>
+              </details>
+            </div>
+          </article>
+        `;
+      }
+
+      function renderControl(question, saved) {
+        if (question.type === "select") {
+          return `<select data-answer="${question.id}" aria-label="${escapeHtml(
+            question.label
+          )}">
+            <option value="">Choose one…</option>
+            ${question.options
+              .map(
+                (option) =>
+                  `<option value="${escapeHtml(option)}" ${
+                    saved.value === option ? "selected" : ""
+                  }>${escapeHtml(option)}</option>`
+              )
+              .join("")}
+          </select>`;
+        }
+
+        if (question.type === "text" || question.type === "number") {
+          return `<input
+            type="${question.type}"
+            data-answer="${question.id}"
+            value="${escapeHtml(saved.value)}"
+            placeholder="${escapeHtml(question.placeholder)}"
+            aria-label="${escapeHtml(question.label)}"
+            ${question.type === "number" ? 'min="0"' : ""}
+          />`;
+        }
+
+        const selected = Array.isArray(saved.value)
+          ? saved.value
+          : saved.value
+            ? [saved.value]
+            : [];
+        const inputType = question.type === "radio" ? "radio" : "checkbox";
+        return `<div class="choices">
+          ${question.options
+            .map(
+              (option, optionIndex) => `
+                <label class="choice">
+                  <input
+                    type="${inputType}"
+                    name="${question.type === "radio" ? question.id : `${question.id}-${optionIndex}`}"
+                    value="${escapeHtml(option)}"
+                    data-answer="${question.id}"
+                    ${selected.includes(option) ? "checked" : ""}
+                  />
+                  <span>${escapeHtml(option)}</span>
+                </label>
+              `
+            )
+            .join("")}
+        </div>`;
+      }
+
+      function updateAnswer(questionId, value, field = "value") {
+        const key = answerKey(state.department, questionId);
+        state.answers[key] = {
+          ...answer(state.department, questionId),
+          [field]: value
+        };
+        save();
+        renderTabsAndProgress();
+      }
+
+      function renderTabsAndProgress() {
+        const department = currentDepartment();
+        const module = currentModule();
+        const progress = moduleProgress(department, module);
+        const answeredLabel = document.getElementById("focusAnswered");
+        if (answeredLabel) {
+          answeredLabel.textContent = `${progress.done} answered · ${
+            state.questionIndex + 1
+          } of ${module.questions.length}`;
+        }
+        const tab = moduleTabs.querySelector(`[data-module="${module.id}"]`);
+        if (tab) {
+          const index = department.modules.indexOf(module);
+          tab.textContent = `${index + 1}. ${module.name} · ${progress.done}/${progress.total}`;
+        }
+        renderFinanceOverview(department);
+      }
+
+      function chooseScope(scope) {
+        state.scope = scope;
+        state.department = data[scope][0].id;
+        state.module = data[scope][0].modules[0].id;
+        state.questionIndex = 0;
+        save();
+        render();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function makeMarkdown(departments) {
+        const lines = [
+          "# PRD interview answers",
+          "",
+          `Exported: ${new Date().toLocaleString()}`,
+          ""
+        ];
+
+        departments.forEach((department) => {
+          const session = state.sessions[department.id] || {};
+          lines.push(`## ${department.name}`, "");
+          if (session.interviewee) {
+            lines.push(`**Spoke to:** ${session.interviewee}`);
+          }
+          if (session.role) lines.push(`**Role:** ${session.role}`);
+          if (session.interviewer) {
+            lines.push(`**Interviewed by:** ${session.interviewer}`);
+          }
+          if (session.date) lines.push(`**Date:** ${session.date}`);
+          if (
+            session.interviewee ||
+            session.role ||
+            session.interviewer ||
+            session.date
+          ) {
+            lines.push("");
+          }
+
+          department.modules.forEach((module) => {
+            lines.push(`### ${module.name}`, "");
+            module.questions.forEach((question) => {
+              const saved = answer(department.id, question.id);
+              const value = Array.isArray(saved.value)
+                ? saved.value.join(", ")
+                : saved.value;
+              lines.push(`- **${question.label}** ${value || "_Not answered_"}`);
+              if (saved.note) lines.push(`  - Note: ${saved.note}`);
+              if (saved.confidence) {
+                lines.push(`  - Status: ${saved.confidence}`);
+              }
+              if (saved.priority) {
+                lines.push(`  - Build priority: ${saved.priority}`);
+              }
+              if (saved.owner) lines.push(`  - Owner: ${saved.owner}`);
+              if (saved.applies) lines.push(`  - Applies to: ${saved.applies}`);
+              if (saved.evidence) lines.push(`  - Evidence: ${saved.evidence}`);
+              if (saved.followUp) {
+                lines.push(`  - Follow-up date: ${saved.followUp}`);
+              }
+            });
+            lines.push("");
+          });
+        });
+        return lines.join("\n");
+      }
+
+      function refreshExport() {
+        const mode = document.querySelector(
+          'input[name="exportScope"]:checked'
+        ).value;
+        const departments =
+          mode === "current"
+            ? [currentDepartment()]
+            : [...data.group, ...data.company];
+        exportText.value = makeMarkdown(departments);
+      }
+
+      function showToast(message) {
+        const toast = document.getElementById("toast");
+        toast.textContent = message;
+        toast.classList.add("show");
+        clearTimeout(showToast.timer);
+        showToast.timer = setTimeout(() => toast.classList.remove("show"), 1800);
+      }
+
+      document.querySelectorAll("[data-scope]").forEach((button) => {
+        button.addEventListener("click", () => chooseScope(button.dataset.scope));
+      });
+
+      departmentSelect.addEventListener("change", () => {
+        state.department = departmentSelect.value;
+        state.module = currentDepartment().modules[0].id;
+        state.questionIndex = 0;
+        save();
+        render();
+      });
+
+      moduleTabs.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-module]");
+        if (!button) return;
+        state.module = button.dataset.module;
+        state.questionIndex = 0;
+        save();
+        render();
+        moduleContent.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      financeOverview.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-finance-module]");
+        if (!button) return;
+        state.module = button.dataset.financeModule;
+        state.questionIndex = 0;
+        save();
+        render();
+        moduleContent.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      moduleContent.addEventListener("change", (event) => {
+        const target = event.target;
+        if (target.matches("[data-meta-question]")) {
+          updateAnswer(
+            target.dataset.metaQuestion,
+            target.value,
+            target.dataset.metaField
+          );
+          return;
+        }
+        if (!target.matches("[data-answer]")) return;
+        const questionId = target.dataset.answer;
+        if (target.type === "checkbox") {
+          const checked = [
+            ...moduleContent.querySelectorAll(
+              `input[type="checkbox"][data-answer="${questionId}"]:checked`
+            )
+          ].map((input) => input.value);
+          updateAnswer(questionId, checked);
+        } else {
+          updateAnswer(questionId, target.value);
+        }
+      });
+
+      moduleContent.addEventListener("input", (event) => {
+        const target = event.target;
+        if (target.matches('input[data-answer][type="text"], input[data-answer][type="number"]')) {
+          updateAnswer(target.dataset.answer, target.value);
+        }
+        if (
+          target.matches(
+            'textarea[data-meta-question], input[data-meta-question][type="text"]'
+          )
+        ) {
+          updateAnswer(
+            target.dataset.metaQuestion,
+            target.value,
+            target.dataset.metaField
+          );
+        }
+      });
+
+      moduleContent.addEventListener("click", (event) => {
+        const button = event.target.closest("[data-question-move]");
+        if (!button || button.disabled) return;
+        const department = currentDepartment();
+        const questions = allQuestions(department);
+        const currentIndex = questions.findIndex(
+          (item) =>
+            item.module.id === state.module &&
+            item.questionIndex === state.questionIndex
+        );
+        const nextIndex = currentIndex + Number(button.dataset.questionMove);
+        if (nextIndex >= questions.length) {
+          refreshExport();
+          exportDialog.showModal();
+          return;
+        }
+        if (nextIndex < 0) return;
+        state.module = questions[nextIndex].module.id;
+        state.questionIndex = questions[nextIndex].questionIndex;
+        save();
+        render();
+        moduleContent.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+
+      const sessionFields = {
+        interviewee: "interviewee",
+        interviewRole: "role",
+        interviewer: "interviewer",
+        sessionDate: "date"
+      };
+      Object.keys(sessionFields).forEach((id) => {
+        document.getElementById(id).addEventListener("input", (event) => {
+          state.sessions[state.department] ||= {};
+          state.sessions[state.department][sessionFields[id]] =
+            event.target.value;
+          save();
+        });
+      });
+
+      document.getElementById("exportButton").addEventListener("click", () => {
+        refreshExport();
+        exportDialog.showModal();
+      });
+      document
+        .getElementById("closeExport")
+        .addEventListener("click", () => exportDialog.close());
+      document.querySelectorAll('input[name="exportScope"]').forEach((radio) => {
+        radio.addEventListener("change", refreshExport);
+      });
+      document.getElementById("copyExport").addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(exportText.value);
+        } catch (_error) {
+          exportText.select();
+          document.execCommand("copy");
+        }
+        showToast("Copied");
+      });
+      document
+        .getElementById("downloadExport")
+        .addEventListener("click", () => {
+          const blob = new Blob([exportText.value], {
+            type: "text/markdown;charset=utf-8"
+          });
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement("a");
+          link.href = url;
+          link.download = "prd-interview-answers.md";
+          link.click();
+          URL.revokeObjectURL(url);
+          showToast("Downloaded");
+        });
+
+      load();
+      render();
+    </script>
+  </body>
+</html>

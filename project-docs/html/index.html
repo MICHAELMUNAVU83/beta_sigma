@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="A single entry point for all BetaSigma project implementation guides."
+    />
+    <title>BetaSigma Project Docs</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --ink: #172033;
+        --muted: #5e6b7e;
+        --line: #dfe5ee;
+        --brand: #3157d5;
+        --brand-dark: #2443a8;
+        --surface: #f6f8fb;
+        --card: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: var(--surface);
+        font:
+          16px/1.55 Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+      }
+
+      header {
+        padding: 64px 24px 48px;
+        color: #fff;
+        background:
+          radial-gradient(circle at top right, #6f86e7 0, transparent 42%),
+          linear-gradient(135deg, #17285c, var(--brand));
+      }
+
+      header div,
+      main {
+        width: min(1100px, 100%);
+        margin: 0 auto;
+      }
+
+      .eyebrow {
+        margin: 0 0 10px;
+        font-size: 0.82rem;
+        font-weight: 750;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        opacity: 0.8;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: clamp(2.25rem, 7vw, 4.5rem);
+        line-height: 1.05;
+        letter-spacing: -0.05em;
+      }
+
+      header p:last-child {
+        max-width: 680px;
+        margin: 20px 0 0;
+        font-size: 1.08rem;
+        opacity: 0.88;
+      }
+
+      main {
+        padding: 40px 24px 72px;
+      }
+
+      .section-heading {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        align-items: end;
+        margin-bottom: 20px;
+      }
+
+      h2 {
+        margin: 0;
+        font-size: 1.45rem;
+      }
+
+      .count {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 18px;
+      }
+
+      .card {
+        min-height: 210px;
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        color: inherit;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        box-shadow: 0 12px 35px rgba(29, 43, 76, 0.06);
+        text-decoration: none;
+        transition:
+          transform 160ms ease,
+          border-color 160ms ease,
+          box-shadow 160ms ease;
+      }
+
+      .card:hover,
+      .card:focus-visible {
+        transform: translateY(-3px);
+        border-color: #a7b5e9;
+        box-shadow: 0 18px 40px rgba(29, 43, 76, 0.12);
+        outline: none;
+      }
+
+      .card.featured {
+        background: #eef2ff;
+        border-color: #bac5ee;
+      }
+
+      .label {
+        color: var(--brand);
+        font-size: 0.78rem;
+        font-weight: 750;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h3 {
+        margin: 10px 0 8px;
+        font-size: 1.28rem;
+        line-height: 1.25;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .open {
+        margin-top: auto;
+        padding-top: 24px;
+        color: var(--brand-dark);
+        font-weight: 700;
+      }
+
+      footer {
+        padding: 24px;
+        color: var(--muted);
+        border-top: 1px solid var(--line);
+        text-align: center;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 600px) {
+        header {
+          padding-top: 48px;
+        }
+
+        .section-heading {
+          display: block;
+        }
+
+        .count {
+          display: block;
+          margin-top: 5px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <p class="eyebrow">BetaSigma</p>
+        <h1>Project Docs</h1>
+        <p>
+          One place to open every implementation guide for the BetaSigma
+          platform and its operating companies.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <div class="section-heading">
+        <h2>Implementation guides</h2>
+        <span class="count">7 documents</span>
+      </div>
+
+      <nav class="grid" aria-label="Project documentation">
+        <a class="card featured" href="prd-discovery-workspace.html">
+          <span class="label">Interactive workspace</span>
+          <h3>PRD Discovery Interviews</h3>
+          <p>
+            Plain-language questions with checkboxes and dropdowns, local
+            saving, progress tracking, and Markdown export.
+          </p>
+          <span class="open">Start discovery →</span>
+        </a>
+
+        <a class="card featured" href="README.html">
+          <span class="label">Start here</span>
+          <h3>PRD Implementation Guides</h3>
+          <p>
+            Overview, shared delivery rules, product boundaries, and suggested
+            build order.
+          </p>
+          <span class="open">Open overview →</span>
+        </a>
+
+        <a class="card" href="group-finance.html">
+          <span class="label">Group function</span>
+          <h3>Group Finance</h3>
+          <p>
+            Accounting, payments, financial oversight, reporting, and document
+            workflows.
+          </p>
+          <span class="open">Open guide →</span>
+        </a>
+
+        <a class="card" href="group-hr.html">
+          <span class="label">Group function</span>
+          <h3>Group HR</h3>
+          <p>
+            Employee experience, Kenya-compliant payroll integrations, and
+            people operations.
+          </p>
+          <span class="open">Open guide →</span>
+        </a>
+
+        <a class="card" href="sla-legal-operations.html">
+          <span class="label">Legal operations</span>
+          <h3>Sichangi Law Alliance</h3>
+          <p>
+            Matter workflows with specialist legal-document and finance
+            integrations.
+          </p>
+          <span class="open">Open guide →</span>
+        </a>
+
+        <a class="card" href="tukutane-event-operations.html">
+          <span class="label">Event operations</span>
+          <h3>Tukutane Entertainment</h3>
+          <p>
+            An operations hub connecting ticketing, finance, and social
+            publishing.
+          </p>
+          <span class="open">Open guide →</span>
+        </a>
+
+        <a class="card" href="chasing-sun-operations.html">
+          <span class="label">Agribusiness &amp; IoT</span>
+          <h3>Chasing Sun</h3>
+          <p>
+            Management and telemetry workflows integrating accounting and IoT
+            hardware.
+          </p>
+          <span class="open">Open guide →</span>
+        </a>
+      </nav>
+    </main>
+
+    <footer>
+      Open this file directly in a browser; all links work from the local
+      project folder.
+    </footer>
+  </body>
+</html>
