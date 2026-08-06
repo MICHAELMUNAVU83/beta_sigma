@@ -32,10 +32,23 @@ defmodule BetaSigmaWeb.Router do
     plug BetaSigmaWeb.Plugs.RequireRole, [:admin, :staff]
   end
 
-  scope "/", BetaSigmaWeb do
-    pipe_through :browser
+  pipeline :marketing do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_live_flash
+    plug :put_root_layout, html: {BetaSigmaWeb.Layouts, :marketing_root}
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+  end
 
-    get "/", RedirectController, :login
+  scope "/", BetaSigmaWeb do
+    pipe_through :marketing
+
+    live_session :marketing, layout: {BetaSigmaWeb.Layouts, :marketing} do
+      live "/", MarketingLive.Home, :home
+      live "/about", MarketingLive.About, :about
+      live "/contact", MarketingLive.Contact, :contact
+    end
   end
 
   # Other scopes may use custom stacks.

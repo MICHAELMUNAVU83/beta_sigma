@@ -71,8 +71,8 @@ defmodule BetaSigmaWeb.ProjectsLive.Index do
     <div class="space-y-6">
       <section class="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 class="text-2xl font-semibold tracking-tight text-neutral-900">Projects</h1>
-          <p class="mt-1 text-sm text-neutral-500">
+          <h1 class="text-2xl font-semibold tracking-tight text-n100">Projects</h1>
+          <p class="mt-1 text-sm text-n600">
             {length(@projects)} total · {count_projects(@projects, [:active, :planning, :on_hold])} active · {count_projects(
               @projects,
               [:completed]
@@ -82,7 +82,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Index do
         <button
           type="button"
           phx-click="new_project"
-          class="rounded-md bg-[#f26334] px-3 py-1.5 text-sm font-medium text-white transition hover:bg-[#d9532a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f26334]/40"
+          class="rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-white transition hover:bg-accentDeep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
         >
           New project
         </button>
@@ -92,32 +92,32 @@ defmodule BetaSigmaWeb.ProjectsLive.Index do
         <.link
           :for={project <- @projects}
           navigate={~p"/app/projects/#{project.id}"}
-          class="group rounded-lg border border-neutral-200 bg-white p-4 transition hover:bg-neutral-50"
+          class="group rounded-lg border border-white/10 bg-ink p-4 transition hover:bg-white/5"
         >
           <div class="flex items-start justify-between gap-3">
             <div class="min-w-0">
-              <p class="text-base font-semibold text-neutral-900">{project.name}</p>
+              <p class="text-base font-semibold text-n100">{project.name}</p>
             </div>
             <span class={status_badge(project.status)}>{humanize(project.status)}</span>
           </div>
 
-          <p class="mt-3 line-clamp-3 text-sm leading-6 text-neutral-500">
+          <p class="mt-3 line-clamp-3 text-sm leading-6 text-n600">
             {project.description ||
               "Add a project brief to align delivery scope, milestones, and operating context."}
           </p>
 
           <dl class="mt-4 grid gap-3 text-sm sm:grid-cols-2">
             <div>
-              <dt class="text-xs text-neutral-500">Deadline</dt>
-              <dd class="mt-0.5 text-sm text-neutral-900">{format_date(project.deadline)}</dd>
+              <dt class="text-xs text-n600">Deadline</dt>
+              <dd class="mt-0.5 text-sm text-n100">{format_date(project.deadline)}</dd>
             </div>
             <div>
-              <dt class="text-xs text-neutral-500">Budget</dt>
-              <dd class="mt-0.5 text-sm text-neutral-900">{format_money(project.budget)}</dd>
+              <dt class="text-xs text-n600">Budget</dt>
+              <dd class="mt-0.5 text-sm text-n100">{format_money(project.budget)}</dd>
             </div>
           </dl>
 
-          <div class="mt-4 text-xs text-neutral-500">
+          <div class="mt-4 text-xs text-n600">
             Created by {display_name(project.created_by)}
           </div>
         </.link>
@@ -130,8 +130,8 @@ defmodule BetaSigmaWeb.ProjectsLive.Index do
         on_cancel={JS.push("close_modal", value: %{modal: "project"})}
       >
         <div>
-          <h3 class="text-base font-semibold text-neutral-900">New project</h3>
-          <p class="mt-1 text-sm text-neutral-500">
+          <h3 class="text-base font-semibold text-n100">New project</h3>
+          <p class="mt-1 text-sm text-n600">
             Create a project shell with budget, timeline, and delivery notes.
           </p>
         </div>
@@ -165,9 +165,9 @@ defmodule BetaSigmaWeb.ProjectsLive.Index do
             label="Description"
             rows="4"
           />
-          <div class="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
-            <p class="text-sm font-medium text-neutral-700">AI assist</p>
-            <p class="mt-1 text-sm leading-6 text-neutral-500">
+          <div class="rounded-lg border border-white/10 bg-white/5 p-4">
+            <p class="text-sm font-medium text-n100">AI assist</p>
+            <p class="mt-1 text-sm leading-6 text-n600">
               Describe the project in plain language and the system will draft starter tasks and save a shared markdown project brief to the database.
             </p>
             <.input
@@ -183,7 +183,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Index do
               type="button"
               phx-click="close_modal"
               phx-value-modal="project"
-              class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="rounded-md border border-white/10 bg-transparent px-3 py-1.5 text-sm font-medium text-n100 hover:bg-white/5"
             >
               Cancel
             </button>
@@ -223,19 +223,19 @@ defmodule BetaSigmaWeb.ProjectsLive.Index do
   end
 
   defp status_badge(:planning),
-    do: "shrink-0 rounded bg-neutral-100 px-1.5 py-0.5 text-xs font-medium text-neutral-600"
+    do: "shrink-0 rounded bg-white/10 px-1.5 py-0.5 text-xs font-medium text-n600"
 
   defp status_badge(:active),
-    do: "shrink-0 rounded bg-neutral-100 px-1.5 py-0.5 text-xs font-medium text-emerald-600"
+    do: "shrink-0 rounded bg-emerald-500/10 px-1.5 py-0.5 text-xs font-medium text-emerald-400"
 
   defp status_badge(:on_hold),
-    do: "shrink-0 rounded bg-neutral-100 px-1.5 py-0.5 text-xs font-medium text-amber-600"
+    do: "shrink-0 rounded bg-amber-500/10 px-1.5 py-0.5 text-xs font-medium text-amber-400"
 
   defp status_badge(:completed),
-    do: "shrink-0 rounded bg-neutral-100 px-1.5 py-0.5 text-xs font-medium text-neutral-500"
+    do: "shrink-0 rounded bg-white/10 px-1.5 py-0.5 text-xs font-medium text-n600"
 
   defp status_badge(_status),
-    do: "shrink-0 rounded bg-neutral-100 px-1.5 py-0.5 text-xs font-medium text-red-600"
+    do: "shrink-0 rounded bg-red-500/10 px-1.5 py-0.5 text-xs font-medium text-red-400"
 
   defp humanize(value) when is_atom(value), do: value |> Atom.to_string() |> humanize()
 

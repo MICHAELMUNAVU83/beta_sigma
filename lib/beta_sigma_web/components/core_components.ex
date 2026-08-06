@@ -67,13 +67,13 @@ defmodule BetaSigmaWeb.CoreComponents do
               phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
               phx-key="escape"
               phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
-              class="relative hidden rounded-lg border border-neutral-200 bg-white p-6 shadow-md transition"
+              class="relative hidden border border-white/10 bg-ink p-6 transition"
             >
               <div class="absolute top-4 right-4">
                 <button
                   phx-click={JS.exec("data-cancel", to: "##{@id}")}
                   type="button"
-                  class="flex-none rounded-md p-1.5 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-600"
+                  class="flex-none p-1.5 text-n600 hover:text-accent"
                   aria-label={gettext("close")}
                 >
                   <.icon name="hero-x-mark-solid" class="h-5 w-5" />
@@ -116,9 +116,9 @@ defmodule BetaSigmaWeb.CoreComponents do
       phx-click={JS.push("lv:clear-flash", value: %{key: @kind}) |> hide("##{@id}")}
       role="alert"
       class={[
-        "fixed top-2 right-2 mr-2 w-80 sm:w-96 z-50 rounded-md border p-3 shadow-md",
-        @kind == :info && "bg-white border-neutral-200 text-neutral-700 fill-emerald-600",
-        @kind == :error && "bg-white border-neutral-200 text-neutral-700 fill-red-600"
+        "fixed top-2 right-2 mr-2 w-80 sm:w-96 z-50 border p-3",
+        @kind == :info && "bg-ink border-white/10 text-n500 fill-emerald-500",
+        @kind == :error && "bg-ink border-white/10 text-n500 fill-red-500"
       ]}
       {@rest}
     >
@@ -126,8 +126,8 @@ defmodule BetaSigmaWeb.CoreComponents do
         :if={@title}
         class={[
           "flex items-center gap-1.5 text-sm font-semibold leading-6",
-          @kind == :info && "text-emerald-600",
-          @kind == :error && "text-red-600"
+          @kind == :info && "text-emerald-500",
+          @kind == :error && "text-red-500"
         ]}
       >
         <.icon :if={@kind == :info} name="hero-information-circle-mini" class="h-4 w-4" />
@@ -210,7 +210,7 @@ defmodule BetaSigmaWeb.CoreComponents do
   def simple_form(assigns) do
     ~H"""
     <.form :let={f} for={@for} as={@as} {@rest}>
-      <div class="space-y-6 bg-white">
+      <div class="space-y-6">
         {render_slot(@inner_block, f)}
         <div :for={action <- @actions} class="mt-2 flex items-center justify-between gap-6">
           {render_slot(action, f)}
@@ -239,7 +239,7 @@ defmodule BetaSigmaWeb.CoreComponents do
     <button
       type={@type}
       class={[
-        "phx-submit-loading:opacity-75 rounded-md bg-[#f26334] px-3 py-1.5 text-sm font-medium text-white transition hover:bg-[#d9532a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f26334]/40 focus-visible:ring-offset-0",
+        "phx-submit-loading:opacity-75 bg-accent px-4 py-2 text-sm font-medium text-n100 transition hover:bg-accentDeep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 focus-visible:ring-offset-0",
         @class
       ]}
       {@rest}
@@ -319,7 +319,7 @@ defmodule BetaSigmaWeb.CoreComponents do
 
     ~H"""
     <div>
-      <label class="flex items-center gap-4 text-sm leading-6 text-neutral-700">
+      <label class="flex items-center gap-4 text-sm leading-6 text-n500">
         <input type="hidden" name={@name} value="false" disabled={@rest[:disabled]} />
         <input
           type="checkbox"
@@ -327,7 +327,7 @@ defmodule BetaSigmaWeb.CoreComponents do
           name={@name}
           value="true"
           checked={@checked}
-          class="rounded border-neutral-300 text-[#f26334] focus:ring-[#f26334]/40"
+          class="rounded-none border-white/20 bg-transparent text-accent focus:ring-accent/40"
           {@rest}
         />
         {@label}
@@ -344,7 +344,7 @@ defmodule BetaSigmaWeb.CoreComponents do
       <select
         id={@id}
         name={@name}
-        class="mt-1.5 block w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-[#f26334] focus:ring-2 focus:ring-[#f26334]/30"
+        class="mt-1.5 block w-full border-b border-n600 bg-ink px-0 py-2 text-sm text-n100 focus:border-accent focus:outline-none"
         multiple={@multiple}
         {@rest}
       >
@@ -366,9 +366,9 @@ defmodule BetaSigmaWeb.CoreComponents do
         id={@id}
         name={@name}
         class={[
-          "mt-1.5 block w-full rounded-md border bg-white px-3 py-2 text-sm text-neutral-900 focus:ring-2 focus:ring-[#f26334]/30 min-h-[6rem]",
-          @errors == [] && "border-neutral-200 focus:border-[#f26334]",
-          @errors != [] && "border-red-400 focus:border-red-400",
+          "mt-1.5 block w-full border-b bg-transparent px-0 py-2 text-sm text-n100 focus:outline-none min-h-[6rem]",
+          @errors == [] && "border-n600 focus:border-accent",
+          @errors != [] && "border-red-500 focus:border-red-500",
           @textarea_class
         ]}
         {@rest}
@@ -389,9 +389,9 @@ defmodule BetaSigmaWeb.CoreComponents do
         id={@id}
         value={Phoenix.HTML.Form.normalize_value(@type, @value)}
         class={[
-          "mt-1.5 block w-full rounded-md border bg-white px-3 py-2 text-sm text-neutral-900 focus:ring-2 focus:ring-[#f26334]/30",
-          @errors == [] && "border-neutral-200 focus:border-[#f26334]",
-          @errors != [] && "border-red-400 focus:border-red-400"
+          "mt-1.5 block w-full border-b bg-transparent px-0 py-2 text-sm text-n100 focus:outline-none",
+          @errors == [] && "border-n600 focus:border-accent",
+          @errors != [] && "border-red-500 focus:border-red-500"
         ]}
         {@rest}
       />
@@ -408,7 +408,7 @@ defmodule BetaSigmaWeb.CoreComponents do
 
   def label(assigns) do
     ~H"""
-    <label for={@for} class="block text-sm font-medium text-neutral-700">
+    <label for={@for} class="block text-sm font-medium text-n100">
       {render_slot(@inner_block)}
     </label>
     """
@@ -421,7 +421,7 @@ defmodule BetaSigmaWeb.CoreComponents do
 
   def error(assigns) do
     ~H"""
-    <p class="mt-1.5 flex gap-1.5 text-sm leading-6 text-red-600">
+    <p class="mt-1.5 flex gap-1.5 text-sm leading-6 text-red-500">
       <.icon name="hero-exclamation-circle-mini" class="mt-0.5 h-5 w-5 flex-none" />
       {render_slot(@inner_block)}
     </p>
@@ -441,10 +441,10 @@ defmodule BetaSigmaWeb.CoreComponents do
     ~H"""
     <header class={[@actions != [] && "flex items-center justify-between gap-6", @class]}>
       <div>
-        <h1 class="text-2xl font-semibold tracking-tight text-neutral-900">
+        <h1 class="text-[32px] font-medium leading-[1.2] text-n100 sm:text-[38px] lg:text-[44px]">
           {render_slot(@inner_block)}
         </h1>
-        <p :if={@subtitle != []} class="mt-1 text-sm text-neutral-500">
+        <p :if={@subtitle != []} class="mt-2 text-base text-n600">
           {render_slot(@subtitle)}
         </p>
       </div>
@@ -487,10 +487,10 @@ defmodule BetaSigmaWeb.CoreComponents do
     ~H"""
     <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
       <table class="w-[40rem] mt-4 sm:w-full">
-        <thead class="text-xs font-medium text-left text-neutral-500">
-          <tr class="border-b border-neutral-200">
-            <th :for={col <- @col} class="pb-2 pr-6 font-medium">{col[:label]}</th>
-            <th :if={@action != []} class="relative pb-2">
+        <thead class="text-sm uppercase tracking-[0.1em] text-left text-n600">
+          <tr class="border-b border-white/10">
+            <th :for={col <- @col} class="pb-3 pr-6 font-medium">{col[:label]}</th>
+            <th :if={@action != []} class="relative pb-3">
               <span class="sr-only">{gettext("Actions")}</span>
             </th>
           </tr>
@@ -498,15 +498,15 @@ defmodule BetaSigmaWeb.CoreComponents do
         <tbody
           id={@id}
           phx-update={match?(%Phoenix.LiveView.LiveStream{}, @rows) && "stream"}
-          class="divide-y divide-neutral-200 text-sm leading-6 text-neutral-700"
+          class="divide-y divide-white/10 text-sm leading-6 text-n500"
         >
-          <tr :for={row <- @rows} id={@row_id && @row_id.(row)} class="group hover:bg-neutral-50">
+          <tr :for={row <- @rows} id={@row_id && @row_id.(row)} class="group hover:bg-white/5">
             <td
               :for={{col, i} <- Enum.with_index(@col)}
               phx-click={@row_click && @row_click.(row)}
               class={["py-3 pr-6", @row_click && "hover:cursor-pointer"]}
             >
-              <span class={[i == 0 && "font-medium text-neutral-900"]}>
+              <span class={[i == 0 && "font-medium text-n100"]}>
                 {render_slot(col, @row_item.(row))}
               </span>
             </td>
@@ -514,7 +514,7 @@ defmodule BetaSigmaWeb.CoreComponents do
               <div class="whitespace-nowrap text-right text-sm font-medium">
                 <span
                   :for={action <- @action}
-                  class="ml-4 font-medium text-neutral-600 hover:text-neutral-900"
+                  class="ml-4 font-medium text-n600 hover:text-accent"
                 >
                   {render_slot(action, @row_item.(row))}
                 </span>
@@ -544,10 +544,10 @@ defmodule BetaSigmaWeb.CoreComponents do
   def list(assigns) do
     ~H"""
     <div class="mt-4">
-      <dl class="-my-3 divide-y divide-neutral-200">
+      <dl class="-my-3 divide-y divide-white/10">
         <div :for={item <- @item} class="flex gap-4 py-3 text-sm leading-6 sm:gap-8">
-          <dt class="w-1/4 flex-none text-neutral-500">{item.title}</dt>
-          <dd class="text-neutral-700">{render_slot(item)}</dd>
+          <dt class="w-1/4 flex-none text-n600">{item.title}</dt>
+          <dd class="text-n500">{render_slot(item)}</dd>
         </div>
       </dl>
     </div>
@@ -567,7 +567,7 @@ defmodule BetaSigmaWeb.CoreComponents do
   def back(assigns) do
     ~H"""
     <div class="mt-8">
-      <.link navigate={@navigate} class="text-sm font-medium text-neutral-600 hover:text-neutral-900">
+      <.link navigate={@navigate} class="text-sm font-medium text-n600 hover:text-accent">
         <.icon name="hero-arrow-left-solid" class="h-3 w-3" />
         {render_slot(@inner_block)}
       </.link>
@@ -615,7 +615,7 @@ defmodule BetaSigmaWeb.CoreComponents do
   def avatar(assigns) do
     ~H"""
     <div class={[
-      "shrink-0 overflow-hidden rounded-full bg-neutral-700 flex items-center justify-center font-semibold text-white",
+      "shrink-0 overflow-hidden rounded-full bg-white/10 flex items-center justify-center font-semibold text-n100",
       @class
     ]}>
       <img

@@ -13,8 +13,20 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        becorp: ['"DM Sans"', "ui-sans-serif", "system-ui", "sans-serif"],
+      },
       colors: {
         brand: "#171717",
+        // BeCorp marketing site palette
+        ink: "#060606",
+        n100: "#ffffff",
+        n400: "#e1e1e1",
+        n500: "#bababa",
+        n600: "#8b8b8b",
+        n800: "#171717",
+        accent: "#4269e2",
+        accentDeep: "#2544a8",
         orange: {
           50: "#fafafa",
           100: "#f5f5f5",

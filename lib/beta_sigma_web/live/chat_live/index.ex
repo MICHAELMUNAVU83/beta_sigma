@@ -608,14 +608,14 @@ defmodule BetaSigmaWeb.ChatLive.Index do
       |> assign(:quick_reaction_emojis, @quick_reaction_emojis)
 
     ~H"""
-    <div class="flex h-[calc(96vh-4rem)] overflow-hidden rounded-lg border border-orange-100 bg-white shadow-sm">
+    <div class="flex h-[calc(96vh-4rem)] overflow-hidden rounded-lg border border-white/10 bg-ink shadow-sm">
       <%!-- Sidebar --%>
       <aside class={[
-        "flex-col border-r border-orange-100 bg-gradient-to-b from-orange-50/70 to-white sm:flex sm:w-56 sm:shrink-0",
+        "flex-col border-r border-white/10 bg-ink sm:flex sm:w-56 sm:shrink-0",
         if(@mobile_sidebar_open, do: "flex w-full", else: "hidden")
       ]}>
         <%!-- Panel tabs --%>
-        <div class="flex gap-1 border-b border-orange-100 p-2">
+        <div class="flex gap-1 border-b border-white/10 p-2">
           <button
             type="button"
             phx-click="switch_panel"
@@ -626,7 +626,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
               Channels
               <span
                 :if={@channel_unread_total > 0}
-                class="flex h-4 min-w-[1rem] items-center justify-center rounded bg-[#f26334] px-1 text-[10px] font-semibold text-white"
+                class="flex h-4 min-w-[1rem] items-center justify-center rounded bg-accent px-1 text-[10px] font-semibold text-white"
               >
                 {if @channel_unread_total > 99, do: "99+", else: @channel_unread_total}
               </span>
@@ -642,7 +642,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
               DMs
               <span
                 :if={@dm_unread_total > 0}
-                class="flex h-4 min-w-[1rem] items-center justify-center rounded bg-[#f26334] px-1 text-[10px] font-semibold text-white"
+                class="flex h-4 min-w-[1rem] items-center justify-center rounded bg-accent px-1 text-[10px] font-semibold text-white"
               >
                 {if @dm_unread_total > 99, do: "99+", else: @dm_unread_total}
               </span>
@@ -662,13 +662,13 @@ defmodule BetaSigmaWeb.ChatLive.Index do
         <%!-- Channels panel --%>
         <div :if={@active_panel == :channels} class="flex flex-1 flex-col overflow-hidden">
           <div class="flex items-center justify-between px-3 pb-1.5 pt-3">
-            <span class="text-xs font-medium text-neutral-400">
+            <span class="text-xs font-medium text-n600">
               Channels
             </span>
             <button
               type="button"
               phx-click="new_channel"
-              class="rounded-md p-1 text-neutral-500 hover:bg-neutral-100"
+              class="rounded-md p-1 text-n600 hover:bg-white/10"
               title="New channel"
             >
               <.icon name="hero-plus" class="h-3.5 w-3.5" />
@@ -685,16 +685,16 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                 )
               }
             >
-              <span class="mr-1 font-normal text-neutral-400">#</span>
+              <span class="mr-1 font-normal text-n600">#</span>
               <span class="truncate">{ch.name}</span>
               <span
                 :if={ch.unread_count > 0}
-                class="ml-auto flex h-4 min-w-[1rem] items-center justify-center rounded bg-[#f26334] px-1 text-[10px] font-semibold text-white"
+                class="ml-auto flex h-4 min-w-[1rem] items-center justify-center rounded bg-accent px-1 text-[10px] font-semibold text-white"
               >
                 {(ch.unread_count > 99 && "99+") || ch.unread_count}
               </span>
             </.link>
-            <p :if={@channels == []} class="px-2 py-1 text-sm text-neutral-400">
+            <p :if={@channels == []} class="px-2 py-1 text-sm text-n600">
               No channels yet.
             </p>
           </nav>
@@ -703,13 +703,13 @@ defmodule BetaSigmaWeb.ChatLive.Index do
         <%!-- DMs panel --%>
         <div :if={@active_panel == :dms} class="flex flex-1 flex-col overflow-hidden">
           <div class="flex items-center justify-between px-3 pb-1.5 pt-3">
-            <span class="text-xs font-medium text-neutral-400">
+            <span class="text-xs font-medium text-n600">
               Direct messages
             </span>
             <button
               type="button"
               phx-click="new_dm"
-              class="rounded-md p-1 text-neutral-500 hover:bg-neutral-100"
+              class="rounded-md p-1 text-n600 hover:bg-white/10"
               title="New DM"
             >
               <.icon name="hero-plus" class="h-3.5 w-3.5" />
@@ -730,19 +730,19 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                 <.avatar user={dm_other_user(conv, @current_user)} class="h-6 w-6 text-[9px]" />
                 <span
                   :if={online_user?(dm_other_user(conv, @current_user), @online_users)}
-                  class="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-neutral-50 bg-emerald-500"
+                  class="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-white/10 bg-emerald-500"
                 >
                 </span>
               </div>
               <span class="truncate">{dm_label(conv, @current_user)}</span>
               <span
                 :if={conv.unread_count > 0}
-                class="ml-auto flex h-4 min-w-[1rem] items-center justify-center rounded bg-[#f26334] px-1 text-[10px] font-semibold text-white"
+                class="ml-auto flex h-4 min-w-[1rem] items-center justify-center rounded bg-accent px-1 text-[10px] font-semibold text-white"
               >
                 {(conv.unread_count > 99 && "99+") || conv.unread_count}
               </span>
             </.link>
-            <p :if={@conversations == []} class="px-2 py-1 text-sm text-neutral-400">
+            <p :if={@conversations == []} class="px-2 py-1 text-sm text-n600">
               No conversations yet.
             </p>
           </nav>
@@ -751,7 +751,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
         <%!-- Search panel --%>
         <div :if={@active_panel == :search} class="flex flex-1 flex-col overflow-hidden">
           <div class="px-3 pb-1.5 pt-3">
-            <span class="text-xs font-medium text-neutral-400">
+            <span class="text-xs font-medium text-n600">
               Search
             </span>
             <input
@@ -759,25 +759,25 @@ defmodule BetaSigmaWeb.ChatLive.Index do
               value={@search_query}
               placeholder="Search messages..."
               phx-keyup="search_messages"
-              class="mt-2 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-[#f26334] focus:ring-2 focus:ring-[#f26334]/30 focus:outline-none"
+              class="mt-2 w-full rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n100 focus:border-accent focus:ring-2 focus:ring-accent/30 focus:outline-none"
             />
           </div>
           <div class="flex-1 space-y-1 overflow-y-auto px-2 pb-3">
             <p
               :if={@search_results == [] and @search_query != ""}
-              class="px-2 py-1 text-xs text-neutral-400"
+              class="px-2 py-1 text-xs text-n600"
             >
               No results.
             </p>
             <article
               :for={msg <- @search_results}
-              class="rounded-lg border border-neutral-200 bg-white p-2.5"
+              class="rounded-lg border border-white/10 bg-ink p-2.5"
             >
-              <p class="truncate text-xs font-semibold text-neutral-900">
+              <p class="truncate text-xs font-semibold text-n100">
                 {user_display_name(msg.user)}
               </p>
-              <p class="mt-0.5 line-clamp-2 text-xs text-neutral-500">{msg.body}</p>
-              <p class="mt-1 text-[10px] text-neutral-400">{format_time(msg.inserted_at)}</p>
+              <p class="mt-0.5 line-clamp-2 text-xs text-n600">{msg.body}</p>
+              <p class="mt-1 text-[10px] text-n600">{format_time(msg.inserted_at)}</p>
             </article>
           </div>
         </div>
@@ -791,24 +791,24 @@ defmodule BetaSigmaWeb.ChatLive.Index do
         <%!-- Header --%>
         <div
           :if={@active_channel || @active_conversation}
-          class="flex h-13 shrink-0 items-center gap-3 border-b border-orange-100 bg-white px-3 sm:px-5 py-2.5"
+          class="flex h-13 shrink-0 items-center gap-3 border-b border-white/10 bg-ink px-3 sm:px-5 py-2.5"
         >
           <button
             type="button"
             phx-click="open_sidebar"
-            class="sm:hidden -ml-0.5 rounded-md p-1.5 text-neutral-500 hover:bg-neutral-100"
+            class="sm:hidden -ml-0.5 rounded-md p-1.5 text-n600 hover:bg-white/10"
             title="Back"
           >
             <.icon name="hero-chevron-left" class="h-5 w-5" />
           </button>
           <div :if={@active_channel} class="flex flex-1 items-center justify-between">
             <div class="flex items-center gap-2">
-              <span class="text-lg font-light text-neutral-400">#</span>
-              <h2 class="text-sm font-semibold text-neutral-900">{@active_channel.name}</h2>
-              <span :if={@active_channel.topic} class="ml-1 text-xs text-neutral-400">
+              <span class="text-lg font-light text-n600">#</span>
+              <h2 class="text-sm font-semibold text-n100">{@active_channel.name}</h2>
+              <span :if={@active_channel.topic} class="ml-1 text-xs text-n600">
                 — {@active_channel.topic}
               </span>
-              <span class="ml-1 flex items-center gap-1 text-xs text-neutral-500">
+              <span class="ml-1 flex items-center gap-1 text-xs text-n600">
                 <span class="h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
                 {online_count(@online_users)} online
               </span>
@@ -817,13 +817,13 @@ defmodule BetaSigmaWeb.ChatLive.Index do
               <button
                 type="button"
                 phx-click="show_pinned"
-                class="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium text-neutral-500 hover:bg-neutral-100"
+                class="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium text-n600 hover:bg-white/10"
               >
                 <.icon name="hero-map-pin" class="h-4 w-4" />
                 <span>Pinned</span>
                 <span
                   :if={@pinned_messages != []}
-                  class="flex h-4 min-w-[1rem] items-center justify-center rounded bg-[#f26334] px-1 text-[10px] font-semibold text-white"
+                  class="flex h-4 min-w-[1rem] items-center justify-center rounded bg-accent px-1 text-[10px] font-semibold text-white"
                 >
                   {length(@pinned_messages)}
                 </span>
@@ -831,7 +831,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
               <button
                 type="button"
                 phx-click="manage_members"
-                class="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium text-neutral-500 hover:bg-neutral-100"
+                class="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium text-n600 hover:bg-white/10"
               >
                 <.icon name="hero-users" class="h-4 w-4" />
                 <span>Members</span>
@@ -849,15 +849,15 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                   :if={
                     online_user?(dm_other_user(@active_conversation, @current_user), @online_users)
                   }
-                  class="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-white bg-emerald-500"
+                  class="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-ink bg-emerald-500"
                 >
                 </span>
               </div>
               <div>
-                <h2 class="text-sm font-semibold text-neutral-900">
+                <h2 class="text-sm font-semibold text-n100">
                   {dm_label(@active_conversation, @current_user)}
                 </h2>
-                <p class="text-[11px] text-neutral-400">
+                <p class="text-[11px] text-n600">
                   {if online_user?(dm_other_user(@active_conversation, @current_user), @online_users),
                     do: "Online",
                     else: "Offline"}
@@ -867,13 +867,13 @@ defmodule BetaSigmaWeb.ChatLive.Index do
             <button
               type="button"
               phx-click="show_pinned"
-              class="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium text-neutral-500 hover:bg-neutral-100"
+              class="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-xs font-medium text-n600 hover:bg-white/10"
             >
               <.icon name="hero-map-pin" class="h-4 w-4" />
               <span>Pinned</span>
               <span
                 :if={@pinned_messages != []}
-                class="flex h-4 min-w-[1rem] items-center justify-center rounded bg-[#f26334] px-1 text-[10px] font-semibold text-white"
+                class="flex h-4 min-w-[1rem] items-center justify-center rounded bg-accent px-1 text-[10px] font-semibold text-white"
               >
                 {length(@pinned_messages)}
               </span>
@@ -887,8 +887,8 @@ defmodule BetaSigmaWeb.ChatLive.Index do
           class="flex flex-1 items-center justify-center"
         >
           <div class="text-center">
-            <.icon name="hero-chat-bubble-left-right" class="mx-auto h-10 w-10 text-neutral-300" />
-            <p class="mt-3 text-sm text-neutral-500">Select a channel or DM to start chatting</p>
+            <.icon name="hero-chat-bubble-left-right" class="mx-auto h-10 w-10 text-n600" />
+            <p class="mt-3 text-sm text-n600">Select a channel or DM to start chatting</p>
           </div>
         </div>
 
@@ -898,10 +898,10 @@ defmodule BetaSigmaWeb.ChatLive.Index do
           id="messages-container"
           phx-hook="ScrollToBottom"
           data-chat-key={active_chat_key(@active_channel, @active_conversation)}
-          class="flex-1 overflow-y-auto bg-orange-50/30 px-3 py-4 sm:px-5"
+          class="flex-1 overflow-y-auto bg-white/5 px-3 py-4 sm:px-5"
         >
           <div :if={@messages == []} class="flex h-full items-center justify-center">
-            <p class="text-sm text-neutral-500">No messages yet — say hello!</p>
+            <p class="text-sm text-n600">No messages yet — say hello!</p>
           </div>
 
           <div class="space-y-0.5">
@@ -910,7 +910,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
               id={"msg-#{msg.id}"}
               class={[
                 "group rounded-md px-2 py-0.5 hover:bg-white/80",
-                msg.user_id == @current_user.id && "bg-[#f26334]/[0.06]",
+                msg.user_id == @current_user.id && "bg-accent/[0.06]",
                 show_header && "mt-4 first:mt-0"
               ]}
             >
@@ -919,14 +919,14 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                 <.avatar user={msg.user} class="mt-0.5 h-8 w-8 text-xs" />
                 <div class="flex-1 min-w-0">
                   <div class="flex items-baseline gap-2">
-                    <span class="text-sm font-semibold text-neutral-900">
+                    <span class="text-sm font-semibold text-n100">
                       {user_display_name(msg.user)}
                     </span>
-                    <span class="text-[11px] text-neutral-400">{format_time(msg.inserted_at)}</span>
-                    <span :if={msg.edited_at} class="text-[11px] text-neutral-400">(edited)</span>
+                    <span class="text-[11px] text-n600">{format_time(msg.inserted_at)}</span>
+                    <span :if={msg.edited_at} class="text-[11px] text-n600">(edited)</span>
                     <span
                       :if={msg.pinned_at}
-                      class="inline-flex items-center gap-0.5 text-[11px] font-medium text-[#f26334]"
+                      class="inline-flex items-center gap-0.5 text-[11px] font-medium text-accent"
                     >
                       <.icon name="hero-map-pin" class="h-3 w-3" /> Pinned
                     </span>
@@ -934,7 +934,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                   <div :if={is_nil(msg.deleted_at)}>
                     <p
                       :if={msg.body && String.trim(msg.body) != ""}
-                      class="mt-0.5 break-words text-sm leading-6 text-neutral-700"
+                      class="mt-0.5 break-words text-sm leading-6 text-n600"
                     >
                       {render_message_body(msg.body, @current_user.id)}
                     </p>
@@ -945,7 +945,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                       quick_emojis={@quick_reaction_emojis}
                     />
                   </div>
-                  <p :if={msg.deleted_at} class="mt-0.5 text-sm italic text-neutral-400">
+                  <p :if={msg.deleted_at} class="mt-0.5 text-sm italic text-n600">
                     Message deleted.
                   </p>
                 </div>
@@ -958,10 +958,10 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                     phx-click="toggle_pin"
                     phx-value-id={msg.id}
                     class={[
-                      "rounded-md p-1 hover:bg-neutral-100",
+                      "rounded-md p-1 hover:bg-white/10",
                       if(msg.pinned_at,
-                        do: "text-[#f26334]",
-                        else: "text-neutral-400 hover:text-neutral-700"
+                        do: "text-accent",
+                        else: "text-n600 hover:text-n600"
                       )
                     ]}
                     title={if msg.pinned_at, do: "Unpin", else: "Pin"}
@@ -974,7 +974,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                     phx-click="delete_message"
                     phx-value-id={msg.id}
                     data-confirm="Delete this message?"
-                    class="rounded-md p-1 text-neutral-400 hover:bg-red-50 hover:text-red-600"
+                    class="rounded-md p-1 text-n600 hover:bg-red-500/10 hover:text-red-400"
                     title="Delete"
                   >
                     <.icon name="hero-trash" class="h-3.5 w-3.5" />
@@ -988,14 +988,14 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                 <div class="flex-1 min-w-0">
                   <span
                     :if={msg.pinned_at}
-                    class="mb-0.5 inline-flex items-center gap-0.5 text-[11px] font-medium text-[#f26334]"
+                    class="mb-0.5 inline-flex items-center gap-0.5 text-[11px] font-medium text-accent"
                   >
                     <.icon name="hero-map-pin" class="h-3 w-3" /> Pinned
                   </span>
                   <div :if={is_nil(msg.deleted_at)}>
                     <p
                       :if={msg.body && String.trim(msg.body) != ""}
-                      class="break-words text-sm leading-6 text-neutral-700"
+                      class="break-words text-sm leading-6 text-n600"
                     >
                       {render_message_body(msg.body, @current_user.id)}
                     </p>
@@ -1006,7 +1006,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                       quick_emojis={@quick_reaction_emojis}
                     />
                   </div>
-                  <p :if={msg.deleted_at} class="text-sm italic text-neutral-400">
+                  <p :if={msg.deleted_at} class="text-sm italic text-n600">
                     Message deleted.
                   </p>
                 </div>
@@ -1019,10 +1019,10 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                     phx-click="toggle_pin"
                     phx-value-id={msg.id}
                     class={[
-                      "rounded-md p-1 hover:bg-neutral-100",
+                      "rounded-md p-1 hover:bg-white/10",
                       if(msg.pinned_at,
-                        do: "text-[#f26334]",
-                        else: "text-neutral-400 hover:text-neutral-700"
+                        do: "text-accent",
+                        else: "text-n600 hover:text-n600"
                       )
                     ]}
                     title={if msg.pinned_at, do: "Unpin", else: "Pin"}
@@ -1035,7 +1035,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                     phx-click="delete_message"
                     phx-value-id={msg.id}
                     data-confirm="Delete this message?"
-                    class="rounded-md p-1 text-neutral-400 hover:bg-red-50 hover:text-red-600"
+                    class="rounded-md p-1 text-n600 hover:bg-red-500/10 hover:text-red-400"
                     title="Delete"
                   >
                     <.icon name="hero-trash" class="h-3.5 w-3.5" />
@@ -1049,18 +1049,18 @@ defmodule BetaSigmaWeb.ChatLive.Index do
         <%!-- Compose area --%>
         <div
           :if={@active_channel || @active_conversation}
-          class="shrink-0 border-t border-orange-100 bg-white px-3 py-3 sm:px-5"
+          class="shrink-0 border-t border-white/10 bg-ink px-3 py-3 sm:px-5"
         >
-          <p :if={typing_label(@typing_users)} class="mb-2 text-xs text-neutral-500">
+          <p :if={typing_label(@typing_users)} class="mb-2 text-xs text-n600">
             {typing_label(@typing_users)}
           </p>
           <form id="msg-form" phx-submit="send_message" phx-change="validate_upload">
             <%!-- Code editor panel --%>
-            <div :if={@code_mode} class="mb-2 overflow-hidden rounded-md border border-neutral-800">
-              <div class="flex items-center justify-between bg-neutral-800 px-3 py-2">
+            <div :if={@code_mode} class="mb-2 overflow-hidden rounded-md border border-white/10">
+              <div class="flex items-center justify-between bg-white/10 px-3 py-2">
                 <select
                   name="code_language"
-                  class="rounded-md bg-neutral-700 px-2 py-1 text-xs text-neutral-200 focus:outline-none focus:ring-1 focus:ring-neutral-500"
+                  class="rounded-md bg-white/10 px-2 py-1 text-xs text-n100 focus:outline-none focus:ring-1 focus:ring-white/10"
                 >
                   <option value="plaintext">Plain text</option>
                   <option value="bash">Bash / Shell</option>
@@ -1079,7 +1079,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                 <button
                   type="button"
                   phx-click="toggle_code_mode"
-                  class="rounded-md p-1 text-neutral-400 hover:bg-neutral-700 hover:text-neutral-200"
+                  class="rounded-md p-1 text-n600 hover:bg-white/10 hover:text-n100"
                   title="Close code editor"
                 >
                   <.icon name="hero-x-mark" class="h-4 w-4" />
@@ -1089,7 +1089,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                 name="code_content"
                 rows="6"
                 placeholder="Paste or type your code here…"
-                class="w-full resize-none bg-neutral-900 px-4 py-3 font-mono text-sm text-neutral-100 placeholder-neutral-500 focus:outline-none"
+                class="w-full resize-none bg-white/10 px-4 py-3 font-mono text-sm text-n100 placeholder-n600 focus:outline-none"
               ></textarea>
             </div>
 
@@ -1100,14 +1100,14 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                   <.live_img_preview
                     :if={String.starts_with?(entry.client_type, "image/")}
                     entry={entry}
-                    class="h-20 w-20 rounded-md border border-neutral-200 object-cover"
+                    class="h-20 w-20 rounded-md border border-white/10 object-cover"
                   />
                   <div
                     :if={String.starts_with?(entry.client_type, "video/")}
-                    class="flex h-20 w-24 flex-col items-center justify-center gap-1 rounded-md border border-neutral-200 bg-neutral-50"
+                    class="flex h-20 w-24 flex-col items-center justify-center gap-1 rounded-md border border-white/10 bg-white/10"
                   >
-                    <.icon name="hero-film" class="h-6 w-6 text-neutral-500" />
-                    <span class="line-clamp-1 px-1 text-center text-[10px] text-neutral-500">
+                    <.icon name="hero-film" class="h-6 w-6 text-n600" />
+                    <span class="line-clamp-1 px-1 text-center text-[10px] text-n600">
                       {entry.client_name}
                     </span>
                   </div>
@@ -1116,10 +1116,10 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                       !String.starts_with?(entry.client_type, "image/") &&
                         !String.starts_with?(entry.client_type, "video/")
                     }
-                    class="flex h-20 w-24 flex-col items-center justify-center gap-1 rounded-md border border-neutral-200 bg-neutral-50"
+                    class="flex h-20 w-24 flex-col items-center justify-center gap-1 rounded-md border border-white/10 bg-white/10"
                   >
-                    <.icon name="hero-paper-clip" class="h-6 w-6 text-neutral-500" />
-                    <span class="line-clamp-1 px-1 text-center text-[10px] text-neutral-500">
+                    <.icon name="hero-paper-clip" class="h-6 w-6 text-n600" />
+                    <span class="line-clamp-1 px-1 text-center text-[10px] text-n600">
                       {entry.client_name}
                     </span>
                   </div>
@@ -1127,13 +1127,13 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                     type="button"
                     phx-click="cancel_upload"
                     phx-value-ref={entry.ref}
-                    class="absolute -right-1.5 -top-1.5 rounded-full bg-neutral-700 p-0.5 text-white"
+                    class="absolute -right-1.5 -top-1.5 rounded-full bg-white/10 p-0.5 text-white"
                   >
                     <.icon name="hero-x-mark" class="h-3 w-3" />
                   </button>
                   <p
                     :for={err <- upload_errors(@uploads.chat_media, entry)}
-                    class="mt-0.5 text-[10px] text-red-600"
+                    class="mt-0.5 text-[10px] text-red-400"
                   >
                     {upload_error_msg(err)}
                   </p>
@@ -1143,7 +1143,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                 type="text"
                 name="media_caption"
                 placeholder="Add a caption (optional)…"
-                class="w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-[#f26334] focus:ring-2 focus:ring-[#f26334]/30 focus:outline-none"
+                class="w-full rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n100 focus:border-accent focus:ring-2 focus:ring-accent/30 focus:outline-none"
               />
             </div>
 
@@ -1159,14 +1159,14 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                 data-mention-users={Jason.encode!(@mention_users)}
                 placeholder={compose_placeholder(@active_channel, @active_conversation)}
                 rows="1"
-                class="max-h-32 flex-1 resize-none rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-[#f26334] focus:ring-2 focus:ring-[#f26334]/30 focus:outline-none"
+                class="max-h-32 flex-1 resize-none rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n100 focus:border-accent focus:ring-2 focus:ring-accent/30 focus:outline-none"
               />
               <button
                 type="submit"
                 disabled={
                   String.trim(@draft) == "" && @uploads.chat_media.entries == [] && !@code_mode
                 }
-                class="shrink-0 rounded-md bg-[#f26334] px-3 py-2 text-sm font-medium text-white hover:bg-[#d9532a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f26334]/40 disabled:cursor-not-allowed disabled:opacity-40"
+                class="shrink-0 rounded-md bg-accent px-3 py-2 text-sm font-medium text-white hover:bg-accentDeep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40 disabled:cursor-not-allowed disabled:opacity-40"
               >
                 Send
               </button>
@@ -1175,7 +1175,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
             <%!-- Toolbar --%>
             <div class="mt-2 flex items-center gap-1">
               <label
-                class="flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium text-neutral-500 hover:bg-neutral-100"
+                class="flex cursor-pointer items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium text-n600 hover:bg-white/10"
                 title="Attach photo, video, or document"
               >
                 <.icon name="hero-paper-clip" class="h-4 w-4" />
@@ -1189,8 +1189,8 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                 class={[
                   "flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-medium",
                   if(@code_mode,
-                    do: "bg-neutral-100 text-neutral-900",
-                    else: "text-neutral-500 hover:bg-neutral-100"
+                    do: "bg-white/10 text-n100",
+                    else: "text-n600 hover:bg-white/10"
                   )
                 ]}
               >
@@ -1203,14 +1203,14 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                   type="button"
                   phx-click="insert_emoji"
                   phx-value-emoji={emoji}
-                  class="flex h-7 w-7 items-center justify-center rounded-md text-sm text-neutral-500 hover:bg-neutral-100"
+                  class="flex h-7 w-7 items-center justify-center rounded-md text-sm text-n600 hover:bg-white/10"
                   title={"Insert #{emoji}"}
                   aria-label={"Insert #{emoji}"}
                 >
                   {emoji}
                 </button>
               </div>
-              <span class="ml-auto text-[10px] text-neutral-400">
+              <span class="ml-auto text-[10px] text-n600">
                 Enter to send · Shift+Enter for new line
               </span>
             </div>
@@ -1225,8 +1225,8 @@ defmodule BetaSigmaWeb.ChatLive.Index do
         show
         on_cancel={JS.push("close_modal")}
       >
-        <h3 class="text-base font-semibold text-neutral-900">Create a channel</h3>
-        <p class="mt-1 text-sm text-neutral-500">
+        <h3 class="text-base font-semibold text-n100">Create a channel</h3>
+        <p class="mt-1 text-sm text-n600">
           Channels bring teams together around a topic, project, or team.
         </p>
         <.simple_form
@@ -1251,18 +1251,18 @@ defmodule BetaSigmaWeb.ChatLive.Index do
             />
 
             <div class="mt-4">
-              <label class="block text-sm font-medium text-neutral-700">Add members</label>
+              <label class="block text-sm font-medium text-n600">Add members</label>
               <div class="mt-2 flex flex-wrap gap-2">
                 <span
                   :for={user <- @new_channel_selected_users}
-                  class="inline-flex items-center gap-x-1.5 rounded-md bg-neutral-100 px-2 py-0.5 text-xs font-medium text-neutral-700"
+                  class="inline-flex items-center gap-x-1.5 rounded-md bg-white/10 px-2 py-0.5 text-xs font-medium text-n600"
                 >
                   {user.name || user.email}
                   <button
                     type="button"
                     phx-click="remove_channel_user"
                     phx-value-id={user.id}
-                    class="text-neutral-400 hover:text-neutral-600"
+                    class="text-n600 hover:text-n600"
                   >
                     <.icon name="hero-x-mark" class="h-3 w-3" />
                   </button>
@@ -1273,22 +1273,22 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                 value={@new_channel_user_query}
                 placeholder="Search users to add..."
                 phx-keyup="search_channel_users"
-                class="mt-2 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-[#f26334] focus:ring-2 focus:ring-[#f26334]/30 focus:outline-none"
+                class="mt-2 w-full rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n100 focus:border-accent focus:ring-2 focus:ring-accent/30 focus:outline-none"
               />
               <div
                 :if={@new_channel_user_results != []}
-                class="mt-2 max-h-40 overflow-y-auto rounded-md border border-neutral-200 bg-white shadow-md"
+                class="mt-2 max-h-40 overflow-y-auto rounded-md border border-white/10 bg-ink shadow-md"
               >
                 <button
                   :for={user <- @new_channel_user_results}
                   type="button"
                   phx-click="add_channel_user"
                   phx-value-id={user.id}
-                  class="flex w-full items-center gap-3 px-3 py-1.5 text-left text-sm hover:bg-neutral-100"
+                  class="flex w-full items-center gap-3 px-3 py-1.5 text-left text-sm hover:bg-white/10"
                 >
                   <.avatar user={user} class="h-6 w-6 text-[10px]" />
                   <div>
-                    <p class="text-sm font-medium text-neutral-900">{user.name || user.email}</p>
+                    <p class="text-sm font-medium text-n100">{user.name || user.email}</p>
                   </div>
                 </button>
               </div>
@@ -1298,7 +1298,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
             <button
               type="button"
               phx-click="close_modal"
-              class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 hover:bg-white/10"
             >
               Cancel
             </button>
@@ -1309,8 +1309,8 @@ defmodule BetaSigmaWeb.ChatLive.Index do
 
       <%!-- New DM Modal --%>
       <.modal :if={@active_modal == :new_dm} id="new-dm-modal" show on_cancel={JS.push("close_modal")}>
-        <h3 class="text-base font-semibold text-neutral-900">Start a DM</h3>
-        <p class="mt-1 text-sm text-neutral-500">
+        <h3 class="text-base font-semibold text-n100">Start a DM</h3>
+        <p class="mt-1 text-sm text-n600">
           Search for a team member to message directly.
         </p>
         <div class="mt-6">
@@ -1319,31 +1319,31 @@ defmodule BetaSigmaWeb.ChatLive.Index do
             value={@new_dm_query}
             placeholder="Search by name or email..."
             phx-keyup="search_dm_users"
-            class="w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-[#f26334] focus:ring-2 focus:ring-[#f26334]/30 focus:outline-none"
+            class="w-full rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n100 focus:border-accent focus:ring-2 focus:ring-accent/30 focus:outline-none"
             autofocus
           />
         </div>
         <div
           :if={@new_dm_users != []}
-          class="mt-4 divide-y divide-neutral-200 rounded-lg border border-neutral-200"
+          class="mt-4 divide-y divide-white/10 rounded-lg border border-white/10"
         >
           <button
             :for={user <- @new_dm_users}
             type="button"
             phx-click="start_dm"
             phx-value-user_id={user.id}
-            class="flex w-full items-center gap-3 px-3 py-2 text-left first:rounded-t-lg last:rounded-b-lg hover:bg-neutral-50"
+            class="flex w-full items-center gap-3 px-3 py-2 text-left first:rounded-t-lg last:rounded-b-lg hover:bg-white/10"
           >
             <.avatar user={user} class="h-8 w-8 text-xs" />
             <div>
-              <p class="text-sm font-medium text-neutral-900">{user.name || user.email}</p>
-              <p class="text-xs text-neutral-500">{user.email}</p>
+              <p class="text-sm font-medium text-n100">{user.name || user.email}</p>
+              <p class="text-xs text-n600">{user.email}</p>
             </div>
           </button>
         </div>
         <div
           :if={@new_dm_users == [] and byte_size(@new_dm_query) >= 2}
-          class="mt-4 text-sm text-neutral-500"
+          class="mt-4 text-sm text-n600"
         >
           No users found.
         </div>
@@ -1357,7 +1357,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
         on_cancel={JS.push("close_modal")}
       >
         <div class="flex items-center justify-between">
-          <h3 class="text-base font-semibold text-neutral-900">Manage members</h3>
+          <h3 class="text-base font-semibold text-n100">Manage members</h3>
         </div>
 
         <div class="mt-4">
@@ -1367,26 +1367,26 @@ defmodule BetaSigmaWeb.ChatLive.Index do
             placeholder="Search users to add..."
             phx-keyup="search_new_members"
             autofocus
-            class="w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-[#f26334] focus:ring-2 focus:ring-[#f26334]/30 focus:outline-none"
+            class="w-full rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n100 focus:border-accent focus:ring-2 focus:ring-accent/30 focus:outline-none"
           />
-          <div class="mt-2 max-h-48 overflow-y-auto rounded-md border border-neutral-200 bg-white shadow-md">
+          <div class="mt-2 max-h-48 overflow-y-auto rounded-md border border-white/10 bg-ink shadow-md">
             <button
               :for={user <- @manage_members_results}
               type="button"
               phx-click="add_member_to_channel"
               phx-value-id={user.id}
-              class="flex w-full items-center gap-3 px-3 py-2 text-left hover:bg-neutral-100 border-b border-neutral-200 last:border-0"
+              class="flex w-full items-center gap-3 px-3 py-2 text-left hover:bg-white/10 border-b border-white/10 last:border-0"
             >
               <.avatar user={user} class="h-7 w-7 text-[10px]" />
               <div class="flex-1 min-w-0">
-                <p class="text-sm font-medium text-neutral-900 truncate">{user.name || user.email}</p>
-                <p class="text-xs text-neutral-400 truncate">{user.email}</p>
+                <p class="text-sm font-medium text-n100 truncate">{user.name || user.email}</p>
+                <p class="text-xs text-n600 truncate">{user.email}</p>
               </div>
-              <span class="shrink-0 text-xs font-medium text-[#f26334]">Add</span>
+              <span class="shrink-0 text-xs font-medium text-accent">Add</span>
             </button>
             <p
               :if={@manage_members_results == []}
-              class="px-3 py-4 text-sm text-neutral-400 text-center"
+              class="px-3 py-4 text-sm text-n600 text-center"
             >
               {if byte_size(@manage_members_query) > 0,
                 do: "No users match your search.",
@@ -1396,16 +1396,16 @@ defmodule BetaSigmaWeb.ChatLive.Index do
         </div>
 
         <div class="mt-5">
-          <h4 class="text-xs font-medium text-neutral-500">
+          <h4 class="text-xs font-medium text-n600">
             Current members
           </h4>
-          <ul class="mt-3 max-h-52 overflow-y-auto divide-y divide-neutral-200">
+          <ul class="mt-3 max-h-52 overflow-y-auto divide-y divide-white/10">
             <li :for={member <- @channel_members} class="flex items-center justify-between py-2.5">
               <div class="flex items-center gap-3">
                 <.avatar user={member} class="h-8 w-8 text-xs" />
                 <div>
-                  <p class="text-sm font-medium text-neutral-900">{member.name || member.email}</p>
-                  <p class="text-xs text-neutral-500">{member.email}</p>
+                  <p class="text-sm font-medium text-n100">{member.name || member.email}</p>
+                  <p class="text-xs text-n600">{member.email}</p>
                 </div>
               </div>
               <button
@@ -1414,11 +1414,11 @@ defmodule BetaSigmaWeb.ChatLive.Index do
                 phx-click="remove_member_from_channel"
                 phx-value-id={member.id}
                 data-confirm="Are you sure you want to remove this member?"
-                class="rounded-md px-2 py-1 text-xs font-medium text-red-600 hover:bg-red-50"
+                class="rounded-md px-2 py-1 text-xs font-medium text-red-400 hover:bg-red-500/10"
               >
                 Remove
               </button>
-              <span :if={member.id == @current_user.id} class="text-xs text-neutral-400">You</span>
+              <span :if={member.id == @current_user.id} class="text-xs text-n600">You</span>
             </li>
           </ul>
         </div>
@@ -1431,25 +1431,25 @@ defmodule BetaSigmaWeb.ChatLive.Index do
         show
         on_cancel={JS.push("close_modal")}
       >
-        <h3 class="text-base font-semibold text-neutral-900">Pinned messages</h3>
+        <h3 class="text-base font-semibold text-n100">Pinned messages</h3>
         <div class="mt-4 max-h-96 space-y-3 overflow-y-auto">
           <article
             :for={msg <- @pinned_messages}
-            class="rounded-lg border border-neutral-200 bg-white p-3"
+            class="rounded-lg border border-white/10 bg-ink p-3"
           >
             <div class="flex items-start justify-between gap-2">
               <div class="flex items-center gap-2">
                 <.avatar user={msg.user} class="h-6 w-6 text-[9px]" />
-                <span class="text-sm font-semibold text-neutral-900">
+                <span class="text-sm font-semibold text-n100">
                   {user_display_name(msg.user)}
                 </span>
-                <span class="text-[11px] text-neutral-400">{format_time(msg.inserted_at)}</span>
+                <span class="text-[11px] text-n600">{format_time(msg.inserted_at)}</span>
               </div>
               <button
                 type="button"
                 phx-click="toggle_pin"
                 phx-value-id={msg.id}
-                class="rounded-md p-1 text-[#f26334] hover:bg-neutral-100"
+                class="rounded-md p-1 text-accent hover:bg-white/10"
                 title="Unpin"
               >
                 <.icon name="hero-map-pin" class="h-3.5 w-3.5" />
@@ -1457,13 +1457,13 @@ defmodule BetaSigmaWeb.ChatLive.Index do
             </div>
             <p
               :if={msg.body && String.trim(msg.body) != ""}
-              class="mt-1.5 break-words text-sm text-neutral-700"
+              class="mt-1.5 break-words text-sm text-n600"
             >
               {render_message_body(msg.body, @current_user.id)}
             </p>
             <.message_attachments attachments={msg.attachments || []} message_id={msg.id} />
           </article>
-          <p :if={@pinned_messages == []} class="py-4 text-center text-sm text-neutral-400">
+          <p :if={@pinned_messages == []} class="py-4 text-center text-sm text-n600">
             No pinned messages yet.
           </p>
         </div>
@@ -1508,7 +1508,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
             <img
               src={att["url"]}
               alt={att["caption"] || att["filename"] || "image"}
-              class="max-h-72 max-w-xs rounded-md border border-neutral-200 object-cover transition-opacity hover:opacity-90"
+              class="max-h-72 max-w-xs rounded-md border border-white/10 object-cover transition-opacity hover:opacity-90"
             />
           </button>
           <div :if={att["type"] == "video"} class="group relative">
@@ -1517,7 +1517,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
               controls
               muted
               playsinline
-              class="max-h-72 max-w-xs rounded-md border border-neutral-200"
+              class="max-h-72 max-w-xs rounded-md border border-white/10"
             >
             </video>
             <button
@@ -1529,7 +1529,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
               <.icon name="hero-arrows-pointing-out" class="h-4 w-4" />
             </button>
           </div>
-          <p :if={att["caption"] && att["caption"] != ""} class="text-xs text-neutral-500">
+          <p :if={att["caption"] && att["caption"] != ""} class="text-xs text-n600">
             {att["caption"]}
           </p>
 
@@ -1571,15 +1571,15 @@ defmodule BetaSigmaWeb.ChatLive.Index do
       <%!-- Documents / generic files --%>
       <div
         :for={{att, idx} <- @file_attachments}
-        class="flex max-w-xs items-center gap-2 rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2"
+        class="flex max-w-xs items-center gap-2 rounded-md border border-white/10 bg-white/10 px-3 py-2"
       >
-        <.icon name="hero-document" class="h-5 w-5 shrink-0 text-neutral-500" />
+        <.icon name="hero-document" class="h-5 w-5 shrink-0 text-n600" />
         <a
           href={att["url"]}
           target="_blank"
           rel="noopener noreferrer"
           download={att["filename"]}
-          class="truncate text-sm font-medium text-[#f26334] underline underline-offset-2 hover:text-[#d9532a]"
+          class="truncate text-sm font-medium text-accent underline underline-offset-2 hover:text-accentDeep"
         >
           {att["filename"] || "Download file"}
         </a>
@@ -1587,7 +1587,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
           :if={String.ends_with?(String.downcase(att["filename"] || att["url"] || ""), ".pdf")}
           type="button"
           phx-click={JS.show(to: "#lb-file-#{@message_id}-#{idx}", display: "flex")}
-          class="ml-auto shrink-0 rounded-md p-1 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-700"
+          class="ml-auto shrink-0 rounded-md p-1 text-n600 hover:bg-white/10 hover:text-n600"
           title="View"
         >
           <.icon name="hero-arrows-pointing-out" class="h-4 w-4" />
@@ -1608,22 +1608,22 @@ defmodule BetaSigmaWeb.ChatLive.Index do
           >
             <.icon name="hero-x-mark" class="h-5 w-5" />
           </button>
-          <iframe src={att["url"]} class="h-full w-full max-w-4xl rounded-md bg-white"></iframe>
+          <iframe src={att["url"]} class="h-full w-full max-w-4xl rounded-md bg-ink"></iframe>
         </div>
       </div>
 
       <%!-- Code blocks --%>
       <div
         :for={att <- Enum.filter(@attachments, &(&1["type"] == "code"))}
-        class="overflow-hidden rounded-md border border-neutral-800"
+        class="overflow-hidden rounded-md border border-white/10"
       >
-        <div class="flex items-center gap-2 bg-neutral-800 px-3 py-2">
-          <span class="inline-flex items-center gap-1 rounded bg-neutral-700 px-2 py-0.5 font-mono text-[11px] font-medium text-neutral-300">
+        <div class="flex items-center gap-2 bg-white/10 px-3 py-2">
+          <span class="inline-flex items-center gap-1 rounded bg-white/10 px-2 py-0.5 font-mono text-[11px] font-medium text-n600">
             <.icon name="hero-code-bracket" class="h-3 w-3" />
             {att["language"] || "code"}
           </span>
         </div>
-        <pre class="overflow-x-auto bg-neutral-900 px-4 py-3 text-sm leading-relaxed text-neutral-100"><code class="font-mono">{att["content"]}</code></pre>
+        <pre class="overflow-x-auto bg-white/10 px-4 py-3 text-sm leading-relaxed text-n100"><code class="font-mono">{att["content"]}</code></pre>
       </div>
     </div>
     """
@@ -1645,9 +1645,9 @@ defmodule BetaSigmaWeb.ChatLive.Index do
         class={[
           "flex h-7 min-w-7 items-center justify-center rounded-md border px-1.5 text-sm transition-colors",
           reacted?(@grouped_reactions, emoji, @current_user.id) &&
-            "border-[#f26334]/30 bg-[#f26334]/10 text-[#f26334]",
+            "border-accent/30 bg-accent/10 text-accent",
           !reacted?(@grouped_reactions, emoji, @current_user.id) &&
-            "border-transparent text-neutral-400 opacity-0 hover:border-neutral-200 hover:bg-neutral-100 hover:text-neutral-700 group-hover:opacity-100"
+            "border-transparent text-n600 opacity-0 hover:border-white/10 hover:bg-white/10 hover:text-n600 group-hover:opacity-100"
         ]}
         title={"React #{emoji}"}
         aria-label={"React #{emoji}"}
@@ -1664,9 +1664,9 @@ defmodule BetaSigmaWeb.ChatLive.Index do
         class={[
           "flex h-7 items-center gap-1 rounded-md border px-2 text-sm transition-colors",
           reacted?(reaction, @current_user.id) &&
-            "border-[#f26334]/30 bg-[#f26334]/10 text-[#f26334]",
+            "border-accent/30 bg-accent/10 text-accent",
           !reacted?(reaction, @current_user.id) &&
-            "border-neutral-200 bg-white text-neutral-600 hover:bg-neutral-100"
+            "border-white/10 bg-ink text-n600 hover:bg-white/10"
         ]}
         title={"React #{emoji}"}
         aria-label={"React #{emoji}"}
@@ -1677,7 +1677,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
       <span
         :for={{emoji, reaction} <- @grouped_reactions}
         :if={emoji in @quick_emojis && reaction.count > 0}
-        class="ml-0.5 rounded bg-neutral-100 px-1.5 text-[11px] font-medium text-neutral-500"
+        class="ml-0.5 rounded bg-white/10 px-1.5 text-[11px] font-medium text-n600"
       >
         {emoji} {reaction.count}
       </span>
@@ -1781,27 +1781,27 @@ defmodule BetaSigmaWeb.ChatLive.Index do
   defp compose_placeholder(_, _), do: "Message..."
 
   defp panel_tab_class(true) do
-    "flex-1 rounded-md bg-white shadow-sm py-1.5 text-sm font-semibold text-[#f26334] text-center"
+    "flex-1 rounded-md bg-ink shadow-sm py-1.5 text-sm font-semibold text-accent text-center"
   end
 
   defp panel_tab_class(false) do
-    "flex-1 rounded-md py-1.5 text-sm font-medium text-neutral-500 text-center hover:bg-white/70 hover:text-neutral-800"
+    "flex-1 rounded-md py-1.5 text-sm font-medium text-n600 text-center hover:bg-white/70 hover:text-n100"
   end
 
   defp sidebar_item_class(is_active, unread?)
 
   defp sidebar_item_class(true, _) do
-    "flex items-center rounded-md px-2 py-1.5 text-sm font-semibold text-[#d9532a] bg-[#f26334]/10 border border-[#f26334]/20"
+    "flex items-center rounded-md px-2 py-1.5 text-sm font-semibold text-accentDeep bg-accent/10 border border-accent/20"
   end
 
   defp sidebar_item_class(nil, unread?), do: sidebar_item_class(false, unread?)
 
   defp sidebar_item_class(false, true) do
-    "flex items-center rounded-md px-2 py-1.5 text-sm font-semibold text-neutral-900 hover:bg-white/70"
+    "flex items-center rounded-md px-2 py-1.5 text-sm font-semibold text-n100 hover:bg-white/70"
   end
 
   defp sidebar_item_class(false, false) do
-    "flex items-center rounded-md px-2 py-1.5 text-sm font-medium text-neutral-600 hover:bg-white/70 hover:text-neutral-900"
+    "flex items-center rounded-md px-2 py-1.5 text-sm font-medium text-n600 hover:bg-white/70 hover:text-n100"
   end
 
   defp with_headers([]), do: []
@@ -1982,7 +1982,7 @@ defmodule BetaSigmaWeb.ChatLive.Index do
     Regex.replace(@url_regex, body, fn url ->
       {href, trailing} = trim_trailing_url_punctuation(url)
 
-      ~s(<a href="#{href}" target="_blank" rel="noopener noreferrer" class="font-medium text-[#f26334] underline underline-offset-2 hover:text-[#d9532a]">#{href}</a>#{trailing})
+      ~s(<a href="#{href}" target="_blank" rel="noopener noreferrer" class="font-medium text-accent underline underline-offset-2 hover:text-accentDeep">#{href}</a>#{trailing})
     end)
   end
 
@@ -1996,9 +1996,9 @@ defmodule BetaSigmaWeb.ChatLive.Index do
   defp render_mentions(body, current_user_id) do
     Regex.replace(@mention_regex, body, fn _, name, uid_str ->
       if String.to_integer(uid_str) == current_user_id do
-        "<span class=\"rounded bg-amber-100 px-1 font-medium text-amber-800\">@#{name}</span>"
+        "<span class=\"rounded bg-amber-500/10 px-1 font-medium text-amber-400\">@#{name}</span>"
       else
-        "<span class=\"font-medium text-[#f26334]\">@#{name}</span>"
+        "<span class=\"font-medium text-accent\">@#{name}</span>"
       end
     end)
   end
@@ -2006,9 +2006,9 @@ defmodule BetaSigmaWeb.ChatLive.Index do
   defp render_markdown_images(body) do
     Regex.replace(@markdown_image_regex, body, fn _, alt, url ->
       """
-      <figure class="my-2 overflow-hidden rounded-md border border-neutral-200 bg-white">
+      <figure class="my-2 overflow-hidden rounded-md border border-white/10 bg-ink">
         <img src="#{url}" alt="#{alt}" loading="lazy" class="max-h-72 w-full object-contain" />
-        <figcaption class="truncate px-3 py-2 text-xs text-neutral-500">#{alt}</figcaption>
+        <figcaption class="truncate px-3 py-2 text-xs text-n600">#{alt}</figcaption>
       </figure>
       """
     end)

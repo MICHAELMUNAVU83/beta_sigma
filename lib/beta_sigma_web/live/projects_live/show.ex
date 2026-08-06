@@ -410,7 +410,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
         <div class="flex w-[100%] items-center justify-between gap-3 text-sm">
           <.link
             navigate={~p"/app/projects"}
-            class="inline-flex items-center gap-1 text-sm font-medium text-neutral-500 hover:text-neutral-900"
+            class="inline-flex items-center gap-1 text-sm font-medium text-n600 hover:text-n100"
           >
             <.icon name="hero-arrow-left" class="h-4 w-4" /> Back to all projects
           </.link>
@@ -419,7 +419,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
             <button
               type="button"
               phx-click="edit_project"
-              class="rounded-md bg-[#f26334] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#d9532a]"
+              class="rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-white hover:bg-accentDeep"
             >
               Edit Project
             </button>
@@ -427,7 +427,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
               type="button"
               phx-click="delete_project"
               data-confirm="Delete this project? All tasks, notes, expenses, time logs, and invoices for this project will also be deleted."
-              class="rounded-md px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50"
+              class="rounded-md px-3 py-1.5 text-sm font-medium text-red-400 hover:bg-red-500/10"
             >
               Delete
             </button>
@@ -437,14 +437,14 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
         <div class="mt-5 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <div class="flex flex-wrap items-center gap-3">
-              <h2 class="text-2xl font-semibold tracking-tight text-neutral-900">
+              <h2 class="text-2xl font-semibold tracking-tight text-n100">
                 {@project.name}
               </h2>
               <span class={project_status_badge(@project.status)}>
                 {project_status_label(@project.status)}
               </span>
             </div>
-            <p class="mt-4 max-w-3xl text-sm leading-6 text-neutral-700">
+            <p class="mt-4 max-w-3xl text-sm leading-6 text-n600">
               <%= if blank_description?(@project.description) do %>
                 Use the project editor to add context, scope, and timeline details for this delivery stream.
               <% else %>
@@ -452,7 +452,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
               <% end %>
             </p>
 
-            <div class="mt-4 max-w-2xl divide-y divide-neutral-200 rounded-lg border border-neutral-200 bg-white">
+            <div class="mt-4 max-w-2xl divide-y divide-white/10 rounded-lg border border-white/10 bg-ink">
               <.stat_row label="Deadline" value={format_date(@project.deadline)} />
               <.stat_row label="Budget" value={format_money(@project.budget)} />
             </div>
@@ -461,17 +461,17 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
       </section>
 
       <div class="grid gap-6 ">
-        <section class="min-w-0 rounded-lg border border-neutral-200 bg-white p-4">
+        <section class="min-w-0 rounded-lg border border-white/10 bg-ink p-4">
           <div class="flex items-start justify-between gap-4">
             <div class="min-w-0">
-              <h3 class="text-sm font-semibold text-neutral-900">
+              <h3 class="text-sm font-semibold text-n100">
                 Project documents
               </h3>
-              <p class="mt-1 max-w-2xl text-sm text-neutral-500">
+              <p class="mt-1 max-w-2xl text-sm text-n600">
                 Open the generated markdown document or any other project-level note saved as a document.
               </p>
             </div>
-            <span class="text-xs text-neutral-500">
+            <span class="text-xs text-n600">
               {length(@project_documents)} docs
             </span>
           </div>
@@ -482,29 +482,29 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
               type="button"
               phx-click="open_document"
               phx-value-id={document.id}
-              class="group min-w-0 rounded-lg border border-neutral-200 bg-white p-4 text-left transition hover:bg-neutral-50"
+              class="group min-w-0 rounded-lg border border-white/10 bg-ink p-4 text-left transition hover:bg-white/5"
             >
               <div class="flex items-start justify-between gap-3">
                 <div class="min-w-0">
-                  <p class="line-clamp-2 text-sm font-medium leading-6 text-neutral-900 [overflow-wrap:anywhere]">
+                  <p class="line-clamp-2 text-sm font-medium leading-6 text-n100 [overflow-wrap:anywhere]">
                     {document.title}
                   </p>
-                  <p class="mt-1 text-xs text-neutral-500">
+                  <p class="mt-1 text-xs text-n600">
                     {display_name(document.created_by)}
                   </p>
                 </div>
               </div>
 
-              <p class="mt-3 line-clamp-4 text-sm leading-6 text-neutral-500">
+              <p class="mt-3 line-clamp-4 text-sm leading-6 text-n600">
                 {markdown_preview(
                   document.body,
                   "Open this markdown document to review the full project brief."
                 )}
               </p>
 
-              <div class="mt-4 flex items-center justify-between text-xs text-neutral-500">
+              <div class="mt-4 flex items-center justify-between text-xs text-n600">
                 <span>{format_datetime(document.inserted_at)}</span>
-                <span class="text-[#f26334] transition group-hover:underline">
+                <span class="text-accent transition group-hover:underline">
                   Open document
                 </span>
               </div>
@@ -512,30 +512,30 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
 
             <div
               :if={@project_documents == []}
-              class="rounded-lg border border-dashed border-neutral-200 p-6 text-center text-sm text-neutral-500 md:col-span-2"
+              class="rounded-lg border border-dashed border-white/10 p-6 text-center text-sm text-n600 md:col-span-2"
             >
               No markdown project document yet. Create a project with AI assist to generate one automatically.
             </div>
           </div>
 
-          <div class="mt-6 border-t border-neutral-200 pt-6">
+          <div class="mt-6 border-t border-white/10 pt-6">
             <div class="flex items-start justify-between gap-4">
               <div class="min-w-0">
-                <h4 class="text-sm font-semibold text-neutral-900">
+                <h4 class="text-sm font-semibold text-n100">
                   Linked notes
                 </h4>
-                <p class="mt-1 max-w-2xl text-sm text-neutral-500">
+                <p class="mt-1 max-w-2xl text-sm text-n600">
                   Shared notes, decision logs, and markdown capture linked directly to this project.
                 </p>
               </div>
               <div class="flex items-center gap-3">
-                <span class="text-xs text-neutral-500">
+                <span class="text-xs text-n600">
                   {length(@linked_notes)} notes
                 </span>
                 <button
                   type="button"
                   phx-click="new_note"
-                  class="rounded-md bg-[#f26334] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#d9532a]"
+                  class="rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-white hover:bg-accentDeep"
                 >
                   New note
                 </button>
@@ -548,7 +548,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
                 type="button"
                 phx-click="open_document"
                 phx-value-id={note.id}
-                class="group min-w-0 rounded-lg border border-neutral-200 bg-white p-4 text-left transition hover:bg-neutral-50"
+                class="group min-w-0 rounded-lg border border-white/10 bg-ink p-4 text-left transition hover:bg-white/5"
               >
                 <div class="flex items-start justify-between gap-3">
                   <div class="min-w-0">
@@ -558,33 +558,33 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
                       </span>
                       <span
                         :if={markdown_title?(note.title)}
-                        class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-neutral-600"
+                        class="rounded bg-white/10 px-1.5 py-0.5 text-xs text-n600"
                       >
                         Markdown
                       </span>
                     </div>
-                    <p class="mt-2 line-clamp-2 text-sm font-medium leading-6 text-neutral-900 [overflow-wrap:anywhere]">
+                    <p class="mt-2 line-clamp-2 text-sm font-medium leading-6 text-n100 [overflow-wrap:anywhere]">
                       {note.title}
                     </p>
                   </div>
-                  <span class="shrink-0 text-xs text-neutral-500">
+                  <span class="shrink-0 text-xs text-n600">
                     {display_name(note.created_by)}
                   </span>
                 </div>
 
-                <p class="mt-3 line-clamp-4 text-sm leading-6 text-neutral-500">
+                <p class="mt-3 line-clamp-4 text-sm leading-6 text-n600">
                   {markdown_preview(note.body, "Open this note to review the full content.")}
                 </p>
 
-                <div class="mt-4 flex items-center justify-between text-xs text-neutral-500">
+                <div class="mt-4 flex items-center justify-between text-xs text-n600">
                   <span>{format_datetime(note.inserted_at)}</span>
-                  <span class="text-[#f26334] transition group-hover:underline">Open note</span>
+                  <span class="text-accent transition group-hover:underline">Open note</span>
                 </div>
               </button>
 
               <div
                 :if={@linked_notes == []}
-                class="rounded-lg border border-dashed border-neutral-200 p-6 text-center text-sm text-neutral-500 md:col-span-2"
+                class="rounded-lg border border-dashed border-white/10 p-6 text-center text-sm text-n600 md:col-span-2"
               >
                 No additional notes are linked to this project yet. Attach one from the Notes workspace to keep context close to delivery.
               </div>
@@ -593,7 +593,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
         </section>
       </div>
 
-      <section class="rounded-lg border border-neutral-200 bg-white p-4">
+      <section class="rounded-lg border border-white/10 bg-ink p-4">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <.header class="!mb-0">
             Project board
@@ -604,7 +604,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
           <div class="flex items-center gap-3">
             <.link
               navigate={~p"/app/sprints"}
-              class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 hover:bg-white/5"
             >
               Manage sprints
             </.link>
@@ -614,11 +614,11 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
           </div>
         </div>
 
-        <div class="mt-6 rounded-lg border border-neutral-200 bg-white p-4">
+        <div class="mt-6 rounded-lg border border-white/10 bg-ink p-4">
           <div class="flex flex-col gap-4">
             <form phx-change="filter_tasks" class="grid gap-3 md:grid-cols-2 xl:grid-cols-5 xl:gap-4">
               <label class="block md:col-span-2 xl:col-span-2">
-                <span class="text-xs font-medium text-neutral-500">
+                <span class="text-xs font-medium text-n600">
                   Search tasks
                 </span>
                 <input
@@ -627,17 +627,17 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
                   value={@task_search_query}
                   placeholder="Search title, description, phase, or assignee"
                   phx-debounce="300"
-                  class="mt-2 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 placeholder-neutral-400 focus:border-[#f26334] focus:ring-2 focus:ring-[#f26334]/30"
+                  class="mt-2 w-full rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n100 placeholder-n600 focus:border-accent focus:ring-2 focus:ring-accent/30"
                 />
               </label>
 
               <label class="block">
-                <span class="text-xs font-medium text-neutral-500">
+                <span class="text-xs font-medium text-n600">
                   Assignee
                 </span>
                 <select
                   name="task_filters[assignee_id]"
-                  class="mt-2 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-[#f26334] focus:ring-2 focus:ring-[#f26334]/30"
+                  class="mt-2 w-full rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n100 focus:border-accent focus:ring-2 focus:ring-accent/30"
                 >
                   <option value="all" selected={@task_assignee_filter == "all"}>All assignees</option>
                   <option
@@ -651,12 +651,12 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
               </label>
 
               <label class="block">
-                <span class="text-xs font-medium text-neutral-500">
+                <span class="text-xs font-medium text-n600">
                   Status
                 </span>
                 <select
                   name="task_filters[status]"
-                  class="mt-2 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-[#f26334] focus:ring-2 focus:ring-[#f26334]/30"
+                  class="mt-2 w-full rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n100 focus:border-accent focus:ring-2 focus:ring-accent/30"
                 >
                   <option value="all" selected={@task_status_filter == "all"}>All statuses</option>
                   <option
@@ -670,12 +670,12 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
               </label>
 
               <label class="block">
-                <span class="text-xs font-medium text-neutral-500">
+                <span class="text-xs font-medium text-n600">
                   Priority
                 </span>
                 <select
                   name="task_filters[priority]"
-                  class="mt-2 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-[#f26334] focus:ring-2 focus:ring-[#f26334]/30"
+                  class="mt-2 w-full rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n100 focus:border-accent focus:ring-2 focus:ring-accent/30"
                 >
                   <option value="all" selected={@task_priority_filter == "all"}>
                     All priorities
@@ -692,13 +692,13 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
             </form>
 
             <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <p class="text-xs text-neutral-500 whitespace-nowrap">
+              <p class="text-xs text-n600 whitespace-nowrap">
                 Showing {length(@filtered_tasks)} of {length(@project.tasks)} tasks
               </p>
               <button
                 type="button"
                 phx-click="reset_task_filters"
-                class="self-start rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50 sm:self-auto"
+                class="self-start rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 hover:bg-white/5 sm:self-auto"
               >
                 Clear filters
               </button>
@@ -708,7 +708,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
 
         <div
           :if={@filtered_tasks == []}
-          class="mt-6 rounded-lg border border-dashed border-neutral-200 p-6 text-center text-sm text-neutral-500"
+          class="mt-6 rounded-lg border border-dashed border-white/10 p-6 text-center text-sm text-n600"
         >
           No tasks match the current filters. Try a different search term or clear one of the filters above.
         </div>
@@ -719,11 +719,11 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
               <div class="flex items-center justify-between gap-3">
                 <div class="flex items-center gap-2">
                   <span class={column_badge(status)}></span>
-                  <p class="text-sm font-semibold text-neutral-900">
+                  <p class="text-sm font-semibold text-n100">
                     {humanize(status)}
                   </p>
                 </div>
-                <p class="text-xs text-neutral-500">
+                <p class="text-xs text-n600">
                   {task_count(@filtered_tasks, status)} items
                 </p>
               </div>
@@ -732,7 +732,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
                 id={"kanban-column-#{status}"}
                 phx-hook="KanbanColumn"
                 data-status={status}
-                class="kanban-dropzone mt-4 min-h-[20rem] space-y-3 rounded-lg border border-dashed border-neutral-200 bg-white p-2"
+                class="kanban-dropzone mt-4 min-h-[20rem] space-y-3 rounded-lg border border-dashed border-white/10 bg-ink p-2"
               >
                 <article
                   :for={task <- tasks_for_status(@filtered_tasks, status)}
@@ -748,7 +748,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
                   >
                     <div class="flex items-start justify-between gap-3">
                       <div class="space-y-2">
-                        <p class="text-sm font-medium leading-6 text-neutral-900 line-clamp-3">
+                        <p class="text-sm font-medium leading-6 text-n100 line-clamp-3">
                           {task.title}
                         </p>
 
@@ -759,19 +759,19 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
                           <span class={priority_badge(task.priority)}>{humanize(task.priority)}</span>
                           <span
                             :if={task.sprint}
-                            class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-neutral-600"
+                            class="rounded bg-white/10 px-1.5 py-0.5 text-xs text-n600"
                           >
                             {task.sprint.name}
                           </span>
                         </div>
                       </div>
 
-                      <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-neutral-400 hover:bg-neutral-100">
+                      <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-n600 hover:bg-white/10">
                         <.icon name="hero-pencil-square" class="h-4 w-4" />
                       </span>
                     </div>
 
-                    <div class="mt-3 line-clamp-4 text-sm leading-6 text-neutral-500">
+                    <div class="mt-3 line-clamp-4 text-sm leading-6 text-n600">
                       <%= if blank_description?(task.description) do %>
                         No description.
                       <% else %>
@@ -779,9 +779,9 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
                       <% end %>
                     </div>
 
-                    <dl class="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 border-t border-neutral-200 pt-3">
+                    <dl class="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 border-t border-white/10 pt-3">
                       <div>
-                        <dt class="text-xs text-neutral-500">
+                        <dt class="text-xs text-n600">
                           Due
                         </dt>
                         <dd class={task_meta_value_class(task, :due)}>
@@ -789,38 +789,38 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
                         </dd>
                       </div>
                       <div>
-                        <dt class="text-xs text-neutral-500">
+                        <dt class="text-xs text-n600">
                           Hours
                         </dt>
-                        <dd class="mt-0.5 text-sm font-medium text-neutral-900">
+                        <dd class="mt-0.5 text-sm font-medium text-n100">
                           {estimated_hours_label(task)}
                         </dd>
                       </div>
                       <div>
-                        <dt class="text-xs text-neutral-500">
+                        <dt class="text-xs text-n600">
                           Assigned
                         </dt>
-                        <dd class="mt-0.5 text-sm font-medium text-neutral-900">
+                        <dd class="mt-0.5 text-sm font-medium text-n100">
                           {task_assignee_count(task)}
                         </dd>
                       </div>
                       <div>
-                        <dt class="text-xs text-neutral-500">
+                        <dt class="text-xs text-n600">
                           Comments
                         </dt>
-                        <dd class="mt-0.5 text-sm font-medium text-neutral-900">
+                        <dd class="mt-0.5 text-sm font-medium text-n100">
                           {length(task.comments)}
                         </dd>
                       </div>
                     </dl>
                   </button>
 
-                  <div class="mt-3 flex flex-wrap gap-2 border-t border-neutral-200 pt-3">
+                  <div class="mt-3 flex flex-wrap gap-2 border-t border-white/10 pt-3">
                     <button
                       type="button"
                       phx-click="open_comments"
                       phx-value-id={task.id}
-                      class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+                      class="rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 hover:bg-white/5"
                     >
                       Open discussion
                     </button>
@@ -829,7 +829,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
 
                 <div
                   :if={tasks_for_status(@filtered_tasks, status) == []}
-                  class="rounded-lg border border-dashed border-neutral-200 p-6 text-center text-sm text-neutral-500"
+                  class="rounded-lg border border-dashed border-white/10 p-6 text-center text-sm text-n600"
                 >
                   {empty_column_message(status)}
                 </div>
@@ -847,10 +847,10 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
       >
         <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <h3 class="text-base font-semibold text-neutral-900">
+            <h3 class="text-base font-semibold text-n100">
               {@selected_task.title}
             </h3>
-            <p class="mt-1 text-sm text-neutral-500">
+            <p class="mt-1 text-sm text-n600">
               Review the full discussion and add a new comment without opening the task editor.
             </p>
           </div>
@@ -859,18 +859,18 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
             type="button"
             phx-click="edit_task"
             phx-value-id={@selected_task.id}
-            class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+            class="rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 hover:bg-white/5"
           >
             Edit task
           </button>
         </div>
 
-        <div class="mt-6 rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+        <div class="mt-6 rounded-lg border border-white/10 bg-white/5 p-4">
           <div class="flex items-center justify-between">
-            <p class="text-sm font-semibold text-neutral-900">
+            <p class="text-sm font-semibold text-n100">
               Discussion
             </p>
-            <span class="text-xs text-neutral-500">
+            <span class="text-xs text-n600">
               {length(@selected_task.comments)} comments
             </span>
           </div>
@@ -878,17 +878,17 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
           <div class="mt-4 space-y-3">
             <article
               :for={comment <- @selected_task.comments}
-              class="rounded-lg border border-neutral-200 bg-white px-4 py-3"
+              class="rounded-lg border border-white/10 bg-ink px-4 py-3"
             >
-              <p class="text-sm font-medium text-neutral-900">{display_name(comment.user)}</p>
-              <p class="mt-1 text-sm leading-6 text-neutral-700 whitespace-pre-wrap break-words">
+              <p class="text-sm font-medium text-n100">{display_name(comment.user)}</p>
+              <p class="mt-1 text-sm leading-6 text-n600 whitespace-pre-wrap break-words">
                 <.mention_text text={comment.body} />
               </p>
             </article>
 
             <div
               :if={@selected_task.comments == []}
-              class="rounded-lg border border-dashed border-neutral-200 p-6 text-center text-sm text-neutral-500"
+              class="rounded-lg border border-dashed border-white/10 p-6 text-center text-sm text-n600"
             >
               No comments yet. Start the discussion below.
             </div>
@@ -905,8 +905,8 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
                 phx-hook="MentionInput"
                 data-mention-users={@mention_users_json}
               />
-              <p class="mt-1 text-xs text-neutral-400">
-                Type <span class="font-medium text-neutral-500">@</span>
+              <p class="mt-1 text-xs text-n600">
+                Type <span class="font-medium text-n600">@</span>
                 to mention a teammate. They'll get a notification and an email.
               </p>
             </div>
@@ -915,7 +915,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
                 type="button"
                 phx-click="close_modal"
                 phx-value-modal="comments"
-                class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+                class="rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 hover:bg-white/5"
               >
                 Close
               </button>
@@ -933,10 +933,10 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
       >
         <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <h3 class="text-base font-semibold text-neutral-900">
+            <h3 class="text-base font-semibold text-n100">
               {@selected_document.title}
             </h3>
-            <p class="mt-1 text-sm text-neutral-500">
+            <p class="mt-1 text-sm text-n600">
               Linked project note stored in the database. Markdown headings and bullets are rendered below when present.
             </p>
           </div>
@@ -948,7 +948,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
               phx-hook="CopyToClipboard"
               data-copy-target={"#project-document-source-#{@selected_document.id}"}
               data-success-label="Copied"
-              class="inline-flex items-center gap-2 rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="inline-flex items-center gap-2 rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 hover:bg-white/5"
             >
               <.icon name="hero-document-duplicate" class="h-4 w-4" />
               <span data-copy-label>Copy</span>
@@ -958,26 +958,26 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
               type="button"
               phx-click="close_modal"
               phx-value-modal="document"
-              class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 hover:bg-white/5"
             >
               Close
             </button>
           </div>
         </div>
 
-        <div class="mt-6 rounded-lg border border-neutral-200 bg-neutral-50 p-4">
-          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-neutral-200 pb-4">
-            <p class="text-xs text-neutral-500">
+        <div class="mt-6 rounded-lg border border-white/10 bg-white/5 p-4">
+          <div class="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 pb-4">
+            <p class="text-xs text-n600">
               {display_name(@selected_document.created_by)}
             </p>
-            <span class="text-xs text-neutral-500">
+            <span class="text-xs text-n600">
               {format_datetime(@selected_document.inserted_at)}
             </span>
           </div>
 
           <textarea id={"project-document-source-#{@selected_document.id}"} class="sr-only" readonly>{@selected_document.body}</textarea>
 
-          <article class="mt-5 max-h-[65vh] overflow-y-auto rounded-lg border border-neutral-200 bg-white p-6">
+          <article class="mt-5 max-h-[65vh] overflow-y-auto rounded-lg border border-white/10 bg-ink p-6">
             <.markdown_viewer body={@selected_document.body} empty_copy="No note body yet." />
           </article>
         </div>
@@ -990,8 +990,8 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
         on_cancel={JS.push("close_modal", value: %{modal: "project"})}
       >
         <div>
-          <h3 class="text-base font-semibold text-neutral-900">Edit project</h3>
-          <p class="mt-1 text-sm text-neutral-500">
+          <h3 class="text-base font-semibold text-n100">Edit project</h3>
+          <p class="mt-1 text-sm text-n600">
             Update budget and timeline without leaving the project board.
           </p>
         </div>
@@ -1019,8 +1019,8 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
               phx-hook="MentionInput"
               data-mention-users={@mention_users_json}
             />
-            <p class="mt-1 text-xs text-neutral-400">
-              Type <span class="font-medium text-neutral-500">@</span>
+            <p class="mt-1 text-xs text-n600">
+              Type <span class="font-medium text-n600">@</span>
               to mention a teammate. They'll get a notification and an email.
             </p>
           </div>
@@ -1029,7 +1029,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
               type="button"
               phx-click="close_modal"
               phx-value-modal="project"
-              class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 hover:bg-white/5"
             >
               Cancel
             </button>
@@ -1045,10 +1045,10 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
         on_cancel={JS.push("close_modal", value: %{modal: "task"})}
       >
         <div>
-          <h3 class="text-base font-semibold text-neutral-900">
+          <h3 class="text-base font-semibold text-n100">
             {task_form_title(@task_mode)}
           </h3>
-          <p class="mt-1 text-sm text-neutral-500">
+          <p class="mt-1 text-sm text-n600">
             Create work items or update the selected task in a focused popup form.
           </p>
         </div>
@@ -1097,14 +1097,14 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
             <div class="mt-3 grid gap-2 sm:grid-cols-2">
               <label
                 :for={user <- @staff_users}
-                class="flex items-center gap-3 rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-700"
+                class="flex items-center gap-3 rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n600"
               >
                 <input
                   type="checkbox"
                   name="task[assignee_ids][]"
                   value={user.id}
                   checked={user.id in @task_assignee_ids}
-                  class="rounded border-neutral-300 text-[#f26334]"
+                  class="rounded border-white/10 text-accent"
                 />
                 <span>{display_name(user)}</span>
               </label>
@@ -1117,12 +1117,12 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
               id="task-description-toolbar"
               phx-hook="FormatToolbar"
               data-target="task-description-input"
-              class="mt-1.5 flex items-center gap-1 rounded-t-md border border-b-0 border-neutral-200 bg-neutral-50 px-2 py-1"
+              class="mt-1.5 flex items-center gap-1 rounded-t-md border border-b-0 border-white/10 bg-white/5 px-2 py-1"
             >
               <button
                 type="button"
                 data-format="bold"
-                class="rounded px-2 py-1 text-sm font-bold text-neutral-600 hover:bg-neutral-200"
+                class="rounded px-2 py-1 text-sm font-bold text-n600 hover:bg-white/10"
                 title="Bold"
               >
                 B
@@ -1130,13 +1130,13 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
               <button
                 type="button"
                 data-format="heading"
-                class="rounded px-2 py-1 text-xs font-bold text-neutral-600 hover:bg-neutral-200"
+                class="rounded px-2 py-1 text-xs font-bold text-n600 hover:bg-white/10"
                 title="Heading"
               >
                 H
               </button>
               <label
-                class="ml-auto flex cursor-pointer items-center gap-1.5 rounded px-2 py-1 text-xs font-medium text-neutral-600 hover:bg-neutral-200"
+                class="ml-auto flex cursor-pointer items-center gap-1.5 rounded px-2 py-1 text-xs font-medium text-n600 hover:bg-white/10"
                 title="Upload image"
               >
                 <.icon name="hero-photo" class="h-4 w-4" />
@@ -1146,17 +1146,17 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
             </div>
             <div
               :if={@uploads.task_images.entries != []}
-              class="border-x border-neutral-200 bg-neutral-50 px-3 py-2"
+              class="border-x border-white/10 bg-white/5 px-3 py-2"
             >
               <div class="flex flex-wrap items-start gap-2">
                 <div :for={entry <- @uploads.task_images.entries} class="relative">
-                  <div class="overflow-hidden rounded-md border border-neutral-200 bg-white">
+                  <div class="overflow-hidden rounded-md border border-white/10 bg-ink">
                     <.live_img_preview
                       :if={String.starts_with?(entry.client_type, "image/")}
                       entry={entry}
                       class="h-20 w-24 object-cover"
                     />
-                    <span class="block max-w-24 truncate px-2 py-1 text-[10px] text-neutral-500">
+                    <span class="block max-w-24 truncate px-2 py-1 text-[10px] text-n600">
                       {entry.client_name}
                     </span>
                   </div>
@@ -1164,13 +1164,13 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
                     type="button"
                     phx-click="cancel_task_image_upload"
                     phx-value-ref={entry.ref}
-                    class="absolute -right-1.5 -top-1.5 rounded-full bg-neutral-700 p-0.5 text-white"
+                    class="absolute -right-1.5 -top-1.5 rounded-full bg-white/10 p-0.5 text-white"
                   >
                     <.icon name="hero-x-mark" class="h-3 w-3" />
                   </button>
                   <p
                     :for={err <- upload_errors(@uploads.task_images, entry)}
-                    class="mt-0.5 text-[10px] text-red-600"
+                    class="mt-0.5 text-[10px] text-red-400"
                   >
                     {upload_error_msg(err)}
                   </p>
@@ -1179,7 +1179,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
                   type="button"
                   phx-click="insert_task_images"
                   disabled={Enum.any?(@uploads.task_images.entries, fn entry -> not entry.done? end)}
-                  class="self-center rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
+                  class="self-center rounded-md border border-white/10 bg-ink px-3 py-1.5 text-xs font-medium text-n600 hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   Insert into description
                 </button>
@@ -1194,10 +1194,10 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
               data-mention-users={@mention_users_json}
               textarea_class="!mt-0 rounded-t-none text-base leading-relaxed"
             />
-            <p class="mt-1 text-xs text-neutral-400">
-              Type <span class="font-medium text-neutral-500">@</span>
-              to mention a teammate. Use <span class="font-medium text-neutral-500">**bold**</span>
-              and <span class="font-medium text-neutral-500"># heading</span>
+            <p class="mt-1 text-xs text-n600">
+              Type <span class="font-medium text-n600">@</span>
+              to mention a teammate. Use <span class="font-medium text-n600">**bold**</span>
+              and <span class="font-medium text-n600"># heading</span>
               for formatting.
             </p>
             <.task_description_image_preview text={
@@ -1209,7 +1209,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
               type="button"
               phx-click="close_modal"
               phx-value-modal="task"
-              class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 hover:bg-white/5"
             >
               Cancel
             </button>
@@ -1225,10 +1225,10 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
         on_cancel={JS.push("close_modal", value: %{modal: "note"})}
       >
         <div>
-          <h3 class="text-base font-semibold text-neutral-900">
+          <h3 class="text-base font-semibold text-n100">
             Add note to project
           </h3>
-          <p class="mt-1 text-sm text-neutral-500">
+          <p class="mt-1 text-sm text-n600">
             Capture decisions, markdown briefs, meeting notes, or research directly against this project.
           </p>
         </div>
@@ -1254,7 +1254,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
               type="button"
               phx-click="close_modal"
               phx-value-modal="note"
-              class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 hover:bg-white/5"
             >
               Cancel
             </button>
@@ -1272,8 +1272,8 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
   defp stat_row(assigns) do
     ~H"""
     <div class="flex items-center justify-between gap-4 px-4 py-3">
-      <p class="text-xs text-neutral-500">{@label}</p>
-      <p class="text-sm font-medium text-neutral-900">{@value}</p>
+      <p class="text-xs text-n600">{@label}</p>
+      <p class="text-sm font-medium text-n100">{@value}</p>
     </div>
     """
   end
@@ -1318,7 +1318,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
       src={@url}
       alt={@alt}
       loading="lazy"
-      class="my-3 max-h-80 w-full rounded-md border border-neutral-200 object-contain"
+      class="my-3 max-h-80 w-full rounded-md border border-white/10 object-contain"
     />
     """
   end
@@ -1337,14 +1337,14 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
     """
   end
 
-  defp heading_class(1), do: "block text-base font-semibold text-neutral-900"
-  defp heading_class(2), do: "block text-sm font-semibold text-neutral-900"
-  defp heading_class(_level), do: "block text-sm font-semibold text-neutral-800"
+  defp heading_class(1), do: "block text-base font-semibold text-n100"
+  defp heading_class(2), do: "block text-sm font-semibold text-n100"
+  defp heading_class(_level), do: "block text-sm font-semibold text-n100"
 
   defp inline_segment_class({:mention, _name}),
-    do: "rounded bg-neutral-100 px-1 font-medium text-neutral-700"
+    do: "rounded bg-white/10 px-1 font-medium text-n600"
 
-  defp inline_segment_class({:bold, _value}), do: "font-semibold text-neutral-900"
+  defp inline_segment_class({:bold, _value}), do: "font-semibold text-n100"
   defp inline_segment_class({:text, _value}), do: nil
 
   defp inline_segment_text({:mention, name}), do: "@" <> name
@@ -1370,7 +1370,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
 
   defp task_tab_nav(assigns) do
     ~H"""
-    <div class="mt-4 flex gap-1 border-b border-neutral-200">
+    <div class="mt-4 flex gap-1 border-b border-white/10">
       <.task_tab_button tab={:details} label="Task details" active_tab={@active_tab} />
       <.task_tab_button tab={:assignees} label="Assignees" active_tab={@active_tab} />
       <.task_tab_button tab={:description} label="Description" active_tab={@active_tab} />
@@ -1390,9 +1390,9 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
       phx-value-tab={@tab}
       class={[
         "-mb-px border-b-2 px-3 py-2 text-sm font-medium",
-        @tab == @active_tab && "border-[#f26334] text-neutral-900",
+        @tab == @active_tab && "border-accent text-n100",
         @tab != @active_tab &&
-          "border-transparent text-neutral-500 hover:text-neutral-700"
+          "border-transparent text-n600 hover:text-n600"
       ]}
     >
       {@label}
@@ -1413,15 +1413,15 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
     assigns = assign(assigns, :images, task_description_images(assigns[:text]))
 
     ~H"""
-    <div :if={@images != []} class="mt-3 rounded-md border border-neutral-200 bg-neutral-50 p-3">
-      <p class="text-xs font-medium text-neutral-500">Image preview</p>
+    <div :if={@images != []} class="mt-3 rounded-md border border-white/10 bg-white/5 p-3">
+      <p class="text-xs font-medium text-n600">Image preview</p>
       <div class="mt-2 grid gap-3 sm:grid-cols-2">
         <figure
           :for={{alt, url} <- @images}
-          class="overflow-hidden rounded-md border border-neutral-200 bg-white"
+          class="overflow-hidden rounded-md border border-white/10 bg-ink"
         >
           <img src={url} alt={alt} loading="lazy" class="max-h-60 w-full object-contain" />
-          <figcaption class="truncate px-3 py-2 text-xs text-neutral-500">{alt}</figcaption>
+          <figcaption class="truncate px-3 py-2 text-xs text-n600">{alt}</figcaption>
         </figure>
       </div>
     </div>
@@ -1712,12 +1712,12 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
 
   defp task_card_class(task, selected_task_id) do
     base =
-      "block w-full rounded-lg border bg-white px-4 py-4 text-left transition hover:bg-neutral-50"
+      "block w-full rounded-lg border bg-ink px-4 py-4 text-left transition hover:bg-white/5"
 
     if task.id == selected_task_id do
-      base <> " border-[#f26334]"
+      base <> " border-accent"
     else
-      base <> " border-neutral-200"
+      base <> " border-white/10"
     end
   end
 
@@ -1728,13 +1728,13 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
     end
   end
 
-  defp column_badge(:backlog), do: "h-2.5 w-2.5 rounded-full bg-neutral-400"
+  defp column_badge(:backlog), do: "h-2.5 w-2.5 rounded-full bg-white/10"
   defp column_badge(:in_progress), do: "h-2.5 w-2.5 rounded-full bg-amber-500"
   defp column_badge(:review), do: "h-2.5 w-2.5 rounded-full bg-sky-500"
   defp column_badge(:done), do: "h-2.5 w-2.5 rounded-full bg-emerald-500"
 
   defp column_shell_class(_status),
-    do: "w-[21rem] shrink-0 rounded-lg border border-neutral-200 bg-neutral-50 p-3"
+    do: "w-[21rem] shrink-0 rounded-lg border border-white/10 bg-white/5 p-3"
 
   defp empty_column_message(:backlog),
     do: "No backlog tasks yet. Capture the next chunk of work here."
@@ -1744,19 +1744,19 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
   defp empty_column_message(:done), do: "Completed work will appear here."
 
   defp phase_badge(_phase),
-    do: "rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-neutral-600"
+    do: "rounded bg-white/10 px-1.5 py-0.5 text-xs text-n600"
 
   defp priority_badge(:urgent),
-    do: "rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-red-600"
+    do: "rounded bg-white/10 px-1.5 py-0.5 text-xs text-red-400"
 
   defp priority_badge(:high),
-    do: "rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-amber-600"
+    do: "rounded bg-white/10 px-1.5 py-0.5 text-xs text-amber-600"
 
   defp priority_badge(:medium),
-    do: "rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-neutral-600"
+    do: "rounded bg-white/10 px-1.5 py-0.5 text-xs text-n600"
 
   defp priority_badge(:low),
-    do: "rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-neutral-500"
+    do: "rounded bg-white/10 px-1.5 py-0.5 text-xs text-n600"
 
   defp due_label(task) do
     cond do
@@ -1771,14 +1771,14 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
 
   defp task_meta_value_class(task, :due) do
     if overdue_task?(task) do
-      "mt-0.5 text-sm font-medium text-red-600"
+      "mt-0.5 text-sm font-medium text-red-400"
     else
-      "mt-0.5 text-sm font-medium text-neutral-900"
+      "mt-0.5 text-sm font-medium text-n100"
     end
   end
 
   defp project_status_badge(:planning),
-    do: "inline-flex items-center gap-1 text-xs font-medium text-neutral-500"
+    do: "inline-flex items-center gap-1 text-xs font-medium text-n600"
 
   defp project_status_badge(:active),
     do: "inline-flex items-center gap-1 text-xs font-medium text-emerald-600"
@@ -1790,7 +1790,7 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
     do: "inline-flex items-center gap-1 text-xs font-medium text-sky-600"
 
   defp project_status_badge(:archived),
-    do: "inline-flex items-center gap-1 text-xs font-medium text-red-600"
+    do: "inline-flex items-center gap-1 text-xs font-medium text-red-400"
 
   defp project_status_badge(:backlog), do: project_status_badge(:planning)
   defp project_status_badge(:in_progress), do: project_status_badge(:on_hold)
@@ -1800,10 +1800,10 @@ defmodule BetaSigmaWeb.ProjectsLive.Show do
   defp project_status_label(status), do: "● " <> humanize(status)
 
   defp note_visibility_badge(:shared),
-    do: "rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-emerald-600"
+    do: "rounded bg-white/10 px-1.5 py-0.5 text-xs text-emerald-600"
 
   defp note_visibility_badge(:personal),
-    do: "rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-neutral-600"
+    do: "rounded bg-white/10 px-1.5 py-0.5 text-xs text-n600"
 
   defp project_status_options do
     [

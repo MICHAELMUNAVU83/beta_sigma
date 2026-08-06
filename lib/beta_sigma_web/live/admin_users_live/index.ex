@@ -223,36 +223,36 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
     <div class="space-y-6">
       <section class="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h2 class="text-2xl font-semibold tracking-tight text-neutral-900">Users</h2>
-          <p class="mt-1 text-sm text-neutral-500">
+          <h2 class="text-2xl font-semibold tracking-tight text-n100">Users</h2>
+          <p class="mt-1 text-sm text-n600">
             {@stats.total} total · {@stats.admin} admins · {@stats.staff} staff
           </p>
         </div>
         <button
           type="button"
           phx-click="new_user"
-          class="rounded-md bg-[#f26334] px-3 py-1.5 text-sm font-medium text-white transition hover:bg-[#d9532a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f26334]/40"
+          class="rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-white transition hover:bg-accentDeep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
         >
           New user account
         </button>
       </section>
 
       <section class="grid gap-4 md:grid-cols-3">
-        <article class="rounded-lg border border-neutral-200 bg-white p-4">
-          <p class="text-sm text-neutral-500">Total</p>
-          <p class="mt-1 text-2xl font-semibold text-neutral-900">{@stats.total}</p>
+        <article class="rounded-lg border border-white/10 bg-ink p-4">
+          <p class="text-sm text-n600">Total</p>
+          <p class="mt-1 text-2xl font-semibold text-n100">{@stats.total}</p>
         </article>
-        <article class="rounded-lg border border-neutral-200 bg-white p-4">
-          <p class="text-sm text-neutral-500">Admins</p>
-          <p class="mt-1 text-2xl font-semibold text-neutral-900">{@stats.admin}</p>
+        <article class="rounded-lg border border-white/10 bg-ink p-4">
+          <p class="text-sm text-n600">Admins</p>
+          <p class="mt-1 text-2xl font-semibold text-n100">{@stats.admin}</p>
         </article>
-        <article class="rounded-lg border border-neutral-200 bg-white p-4">
-          <p class="text-sm text-neutral-500">Staff</p>
-          <p class="mt-1 text-2xl font-semibold text-neutral-900">{@stats.staff}</p>
+        <article class="rounded-lg border border-white/10 bg-ink p-4">
+          <p class="text-sm text-n600">Staff</p>
+          <p class="mt-1 text-2xl font-semibold text-n100">{@stats.staff}</p>
         </article>
       </section>
 
-      <section class="rounded-lg border border-neutral-200 bg-white p-4">
+      <section class="rounded-lg border border-white/10 bg-ink p-4">
         <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
           <.header class="!mb-0">
             All users
@@ -275,7 +275,7 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
             </div>
 
             <div class="relative">
-              <span class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-neutral-400">
+              <span class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-n600">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="h-4 w-4"
@@ -296,7 +296,7 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
                 value={@search_query}
                 placeholder="Search by name or email"
                 phx-keyup="search_users"
-                class="w-full rounded-md border border-neutral-200 bg-white py-2 pl-9 pr-4 text-sm text-neutral-900 placeholder-neutral-400 focus:border-[#f26334] focus:outline-none focus:ring-2 focus:ring-[#f26334]/30 sm:w-72"
+                class="w-full rounded-md border border-white/10 bg-ink py-2 pl-9 pr-4 text-sm text-n100 placeholder-n600 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30 sm:w-72"
               />
             </div>
           </div>
@@ -304,46 +304,46 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
 
         <div
           :if={@filtered_users == []}
-          class="mt-6 rounded-lg border border-dashed border-neutral-200 p-6 text-center text-sm leading-6 text-neutral-500"
+          class="mt-6 rounded-lg border border-dashed border-white/10 p-6 text-center text-sm leading-6 text-n600"
         >
           No user accounts match this view.
         </div>
 
         <div
           :if={@filtered_users != []}
-          class="mt-6 divide-y divide-neutral-200 border-t border-neutral-200"
+          class="mt-6 divide-y divide-white/10 border-t border-white/10"
         >
           <article
             :for={user <- @filtered_users}
-            class="flex flex-col gap-4 px-3 py-3 transition hover:bg-neutral-50 sm:flex-row sm:items-start sm:justify-between"
+            class="flex flex-col gap-4 px-3 py-3 transition hover:bg-white/10 sm:flex-row sm:items-start sm:justify-between"
           >
             <div class="min-w-0 flex-1">
               <div class="flex flex-wrap items-center gap-2">
-                <h3 class="text-sm font-semibold text-neutral-900">
+                <h3 class="text-sm font-semibold text-n100">
                   {display_name(user)}
                 </h3>
                 <span class={role_badge_class(user.role)}>{humanize(user.role)}</span>
                 <span
                   :if={user.confirmed_at}
-                  class="inline-flex items-center gap-1 text-xs font-medium text-emerald-600"
+                  class="inline-flex items-center gap-1 text-xs font-medium text-emerald-400"
                 >
                   <span class="h-1.5 w-1.5 rounded-full bg-emerald-600"></span> Confirmed
                 </span>
                 <span
                   :if={is_nil(user.confirmed_at)}
-                  class="inline-flex items-center gap-1 text-xs font-medium text-amber-600"
+                  class="inline-flex items-center gap-1 text-xs font-medium text-amber-400"
                 >
                   <span class="h-1.5 w-1.5 rounded-full bg-amber-600"></span> Unconfirmed
                 </span>
               </div>
-              <p class="mt-1 truncate text-sm text-neutral-500">{user.email}</p>
-              <p class="mt-1 text-xs text-neutral-400">
+              <p class="mt-1 truncate text-sm text-n600">{user.email}</p>
+              <p class="mt-1 text-xs text-n600">
                 Joined {Calendar.strftime(user.inserted_at, "%d %b %Y")}
               </p>
-              <p class="mt-3 text-sm font-medium text-neutral-500">
+              <p class="mt-3 text-sm font-medium text-n600">
                 Page access
               </p>
-              <p class="mt-1 text-xs text-neutral-500">
+              <p class="mt-1 text-xs text-n600">
                 {access_summary(user)}
               </p>
             </div>
@@ -353,7 +353,7 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
                 type="button"
                 phx-click="edit_access"
                 phx-value-id={user.id}
-                class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                class="rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 transition hover:bg-white/10"
               >
                 Edit access
               </button>
@@ -362,7 +362,7 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
                 phx-click="send_reset_password"
                 phx-value-id={user.id}
                 data-confirm={"Send a password reset link to #{user.email}?"}
-                class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                class="rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 transition hover:bg-white/10"
               >
                 Reset password
               </button>
@@ -372,7 +372,7 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
                 phx-click="send_confirmation"
                 phx-value-id={user.id}
                 data-confirm={"Send a confirmation email to #{user.email}?"}
-                class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                class="rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 transition hover:bg-white/10"
               >
                 Resend confirmation
               </button>
@@ -389,10 +389,10 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
       >
         <div class="space-y-6">
           <div>
-            <h3 class="text-base font-semibold text-neutral-900">
+            <h3 class="text-base font-semibold text-n100">
               New user account
             </h3>
-            <p class="mt-1 text-sm text-neutral-500">
+            <p class="mt-1 text-sm text-n600">
               Create an account and grant the pages they should see.
             </p>
           </div>
@@ -427,10 +427,10 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
 
             <div class="space-y-4">
               <div class="flex items-center justify-between">
-                <p class="text-sm font-semibold text-neutral-900">
+                <p class="text-sm font-semibold text-n100">
                   Page access
                 </p>
-                <p class="text-xs text-neutral-500">
+                <p class="text-xs text-n600">
                   Admins have full access regardless of the selection below.
                 </p>
               </div>
@@ -438,29 +438,29 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
               <div class="space-y-4">
                 <div
                   :for={section <- Pages.sections()}
-                  class="rounded-lg border border-neutral-200 bg-neutral-50 p-4"
+                  class="rounded-lg border border-white/10 bg-white/10 p-4"
                 >
                   <div class="flex items-center justify-between">
                     <div>
-                      <p class="text-sm font-semibold text-neutral-900">{section.label}</p>
-                      <p class="text-xs text-neutral-500">{section.description}</p>
+                      <p class="text-sm font-semibold text-n100">{section.label}</p>
+                      <p class="text-xs text-n600">{section.description}</p>
                     </div>
                   </div>
 
                   <div class="mt-3 grid gap-2 sm:grid-cols-2">
                     <label
                       :for={page <- Pages.pages_in_section(section.id)}
-                      class="flex items-center gap-3 rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-700 transition hover:bg-neutral-50"
+                      class="flex items-center gap-3 rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n600 transition hover:bg-white/10"
                     >
                       <input
                         type="checkbox"
                         phx-click="new_toggle_permission"
                         phx-value-key={Atom.to_string(page.key)}
                         checked={Atom.to_string(page.key) in @new_user_permissions}
-                        class="h-4 w-4 rounded border-neutral-300 text-[#f26334] focus:ring-[#f26334]"
+                        class="h-4 w-4 rounded border-white/10 text-accent focus:ring-accent"
                       />
                       <span class="flex-1">{page.label}</span>
-                      <span class="text-xs text-neutral-400">
+                      <span class="text-xs text-n600">
                         {page.badge}
                       </span>
                     </label>
@@ -469,7 +469,7 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
               </div>
             </div>
 
-            <div class="rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-4 text-sm leading-6 text-neutral-500">
+            <div class="rounded-lg border border-white/10 bg-white/10 px-4 py-4 text-sm leading-6 text-n600">
               A temporary password will be generated. The user will receive an email with a link to set their own password.
             </div>
 
@@ -478,7 +478,7 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
                 type="button"
                 phx-click="close_modal"
                 phx-value-modal="user"
-                class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                class="rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 transition hover:bg-white/10"
               >
                 Cancel
               </button>
@@ -498,16 +498,16 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
       >
         <div class="space-y-6">
           <div>
-            <h3 class="text-base font-semibold text-neutral-900">
+            <h3 class="text-base font-semibold text-n100">
               Edit access
             </h3>
-            <p class="mt-1 text-sm text-neutral-500">
+            <p class="mt-1 text-sm text-n600">
               Update role and page access for {@editing_user.email}
             </p>
           </div>
 
           <div class="space-y-3">
-            <p class="text-sm font-semibold text-neutral-900">Role</p>
+            <p class="text-sm font-semibold text-n100">Role</p>
             <div class="grid gap-3 sm:grid-cols-3">
               <button
                 :for={role <- [:admin, :staff]}
@@ -517,17 +517,17 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
                 class={role_select_button_class(role, safe_role_atom(@editing_role))}
               >
                 <span class="text-sm font-semibold">{humanize(role)}</span>
-                <span class="text-xs text-neutral-500">{role_description(role)}</span>
+                <span class="text-xs text-n600">{role_description(role)}</span>
               </button>
             </div>
           </div>
 
           <div class="space-y-4">
             <div class="flex items-center justify-between">
-              <p class="text-sm font-semibold text-neutral-900">
+              <p class="text-sm font-semibold text-n100">
                 Page access
               </p>
-              <p :if={@editing_role == "admin"} class="text-xs text-emerald-600">
+              <p :if={@editing_role == "admin"} class="text-xs text-emerald-400">
                 Admins have full access regardless of this selection.
               </p>
             </div>
@@ -535,19 +535,19 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
             <div class="space-y-4">
               <div
                 :for={section <- Pages.sections()}
-                class="rounded-lg border border-neutral-200 bg-neutral-50 p-4"
+                class="rounded-lg border border-white/10 bg-white/10 p-4"
               >
                 <div class="flex items-center justify-between gap-3">
                   <div>
-                    <p class="text-sm font-semibold text-neutral-900">{section.label}</p>
-                    <p class="text-xs text-neutral-500">{section.description}</p>
+                    <p class="text-sm font-semibold text-n100">{section.label}</p>
+                    <p class="text-xs text-n600">{section.description}</p>
                   </div>
                   <div class="flex gap-2">
                     <button
                       type="button"
                       phx-click="edit_select_all"
                       phx-value-section={section.id}
-                      class="rounded-md border border-neutral-200 bg-white px-2 py-1 text-xs font-medium text-neutral-600 transition hover:bg-neutral-50"
+                      class="rounded-md border border-white/10 bg-ink px-2 py-1 text-xs font-medium text-n600 transition hover:bg-white/10"
                     >
                       All
                     </button>
@@ -555,7 +555,7 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
                       type="button"
                       phx-click="edit_clear_section"
                       phx-value-section={section.id}
-                      class="rounded-md border border-neutral-200 bg-white px-2 py-1 text-xs font-medium text-neutral-600 transition hover:bg-neutral-50"
+                      class="rounded-md border border-white/10 bg-ink px-2 py-1 text-xs font-medium text-n600 transition hover:bg-white/10"
                     >
                       None
                     </button>
@@ -565,17 +565,17 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
                 <div class="mt-3 grid gap-2 sm:grid-cols-2">
                   <label
                     :for={page <- Pages.pages_in_section(section.id)}
-                    class="flex items-center gap-3 rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-700 transition hover:bg-neutral-50"
+                    class="flex items-center gap-3 rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n600 transition hover:bg-white/10"
                   >
                     <input
                       type="checkbox"
                       phx-click="edit_toggle_permission"
                       phx-value-key={Atom.to_string(page.key)}
                       checked={Atom.to_string(page.key) in @editing_permissions}
-                      class="h-4 w-4 rounded border-neutral-300 text-[#f26334] focus:ring-[#f26334]"
+                      class="h-4 w-4 rounded border-white/10 text-accent focus:ring-accent"
                     />
                     <span class="flex-1">{page.label}</span>
-                    <span class="text-xs text-neutral-400">
+                    <span class="text-xs text-n600">
                       {page.badge}
                     </span>
                   </label>
@@ -589,14 +589,14 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
               type="button"
               phx-click="close_modal"
               phx-value-modal="edit_access"
-              class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+              class="rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 transition hover:bg-white/10"
             >
               Cancel
             </button>
             <button
               type="button"
               phx-click="save_access"
-              class="rounded-md bg-[#f26334] px-3 py-1.5 text-sm font-medium text-white transition hover:bg-[#d9532a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f26334]/40"
+              class="rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-white transition hover:bg-accentDeep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
             >
               Save changes
             </button>
@@ -668,27 +668,27 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
   end
 
   defp filter_button_class(current, value) when current == value do
-    "rounded-md border border-neutral-200 bg-neutral-100 px-3 py-1.5 text-sm font-medium text-neutral-900 transition"
+    "rounded-md border border-white/10 bg-white/10 px-3 py-1.5 text-sm font-medium text-n100 transition"
   end
 
   defp filter_button_class(_current, _value) do
-    "rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-600 transition hover:bg-neutral-50"
+    "rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 transition hover:bg-white/10"
   end
 
   defp role_badge_class(:admin),
-    do: "rounded px-1.5 py-0.5 text-xs font-medium bg-neutral-100 text-neutral-600"
+    do: "rounded px-1.5 py-0.5 text-xs font-medium bg-white/10 text-n600"
 
   defp role_badge_class(:staff),
-    do: "rounded px-1.5 py-0.5 text-xs font-medium bg-neutral-100 text-neutral-600"
+    do: "rounded px-1.5 py-0.5 text-xs font-medium bg-white/10 text-n600"
 
   defp role_select_button_class(role, active_role) do
     base =
       "flex flex-col gap-1 rounded-md border px-4 py-3 text-left transition"
 
     if role == active_role do
-      base <> " border-[#f26334] bg-[#f26334] text-white [&_span]:text-white"
+      base <> " border-accent bg-accent text-white [&_span]:text-white"
     else
-      base <> " border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-50"
+      base <> " border-white/10 bg-ink text-n600 hover:bg-white/10"
     end
   end
 

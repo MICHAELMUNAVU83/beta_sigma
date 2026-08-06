@@ -426,7 +426,7 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
       <section>
         <.link
           navigate={~p"/app/sprints"}
-          class="inline-flex items-center gap-1 text-sm font-medium text-neutral-500 hover:text-neutral-900"
+          class="inline-flex items-center gap-1 text-sm font-medium text-n600 hover:text-n100"
         >
           <.icon name="hero-arrow-left" class="h-4 w-4" /> Back to all sprints
         </.link>
@@ -434,17 +434,17 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
         <div class="mt-5 flex flex-col gap-5 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <div class="flex flex-wrap items-center gap-3">
-              <h2 class="text-2xl font-semibold tracking-tight text-neutral-900">
+              <h2 class="text-2xl font-semibold tracking-tight text-n100">
                 {@sprint.name}
               </h2>
-              <span class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs font-medium text-neutral-600">
+              <span class="rounded bg-white/10 px-1.5 py-0.5 text-xs font-medium text-n600">
                 {humanize(@sprint.cadence)}
               </span>
             </div>
-            <p class="mt-2 text-sm text-neutral-500">
+            <p class="mt-2 text-sm text-n600">
               {format_date(@sprint.start_date)} → {format_date(@sprint.end_date)}
             </p>
-            <p class="mt-4 max-w-3xl text-sm leading-6 text-neutral-700">
+            <p class="mt-4 max-w-3xl text-sm leading-6 text-n600">
               <%= if blank?(@sprint.goal) do %>
                 No goal set for this sprint yet.
               <% else %>
@@ -457,7 +457,7 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
             <button
               type="button"
               phx-click="edit_sprint"
-              class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="rounded-md border border-white/10 bg-transparent px-3 py-1.5 text-sm font-medium text-n100 hover:bg-white/5"
             >
               Edit sprint
             </button>
@@ -465,7 +465,7 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
               type="button"
               phx-click="delete_sprint"
               data-confirm="Delete this sprint? Tasks will be unassigned from it."
-              class="rounded-md px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50"
+              class="rounded-md px-3 py-1.5 text-sm font-medium text-red-400 hover:bg-red-500/10"
             >
               Delete
             </button>
@@ -473,7 +473,7 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
         </div>
       </section>
 
-      <section class="rounded-lg border border-neutral-200 bg-white p-4">
+      <section class="rounded-lg border border-white/10 bg-ink p-4">
         <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <.header class="!mb-0">
             Sprint board
@@ -483,21 +483,21 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
             <button
               type="button"
               phx-click="download_bulk_tasks_md"
-              class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="rounded-md border border-white/10 bg-transparent px-3 py-1.5 text-sm font-medium text-n100 hover:bg-white/5"
             >
               Download MD
             </button>
             <button
               type="button"
               phx-click="open_bulk_tasks"
-              class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="rounded-md border border-white/10 bg-transparent px-3 py-1.5 text-sm font-medium text-n100 hover:bg-white/5"
             >
               Bulk add via AI
             </button>
             <button
               type="button"
               phx-click="open_add_task"
-              class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="rounded-md border border-white/10 bg-transparent px-3 py-1.5 text-sm font-medium text-n100 hover:bg-white/5"
             >
               Add existing task
             </button>
@@ -507,25 +507,25 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
           </div>
         </div>
 
-        <div class="mt-6 rounded-lg border border-neutral-200 bg-white p-4">
+        <div class="mt-6 rounded-lg border border-white/10 bg-ink p-4">
           <div class="flex flex-col gap-4">
             <form phx-change="filter_tasks" class="grid gap-3 md:grid-cols-2 xl:grid-cols-4 xl:gap-4">
               <label class="block">
-                <span class="text-xs font-medium text-neutral-500">Search</span>
+                <span class="text-xs font-medium text-n600">Search</span>
                 <input
                   type="text"
                   name="task_filters[search]"
                   value={@task_search_filter}
                   placeholder="Search title or description"
-                  class="mt-2 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-[#f26334] focus:ring-2 focus:ring-[#f26334]/30"
+                  class="mt-2 w-full rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n100 focus:border-accent focus:ring-2 focus:ring-accent/30"
                 />
               </label>
 
               <label class="block">
-                <span class="text-xs font-medium text-neutral-500">Project</span>
+                <span class="text-xs font-medium text-n600">Project</span>
                 <select
                   name="task_filters[project_id]"
-                  class="mt-2 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-[#f26334] focus:ring-2 focus:ring-[#f26334]/30"
+                  class="mt-2 w-full rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n100 focus:border-accent focus:ring-2 focus:ring-accent/30"
                 >
                   <option value="all" selected={@task_project_filter == "all"}>All projects</option>
                   <option
@@ -539,10 +539,10 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
               </label>
 
               <label class="block">
-                <span class="text-xs font-medium text-neutral-500">Assignee</span>
+                <span class="text-xs font-medium text-n600">Assignee</span>
                 <select
                   name="task_filters[assignee_id]"
-                  class="mt-2 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-[#f26334] focus:ring-2 focus:ring-[#f26334]/30"
+                  class="mt-2 w-full rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n100 focus:border-accent focus:ring-2 focus:ring-accent/30"
                 >
                   <option value="all" selected={@task_assignee_filter == "all"}>
                     All assignees
@@ -558,10 +558,10 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
               </label>
 
               <label class="block">
-                <span class="text-xs font-medium text-neutral-500">Status</span>
+                <span class="text-xs font-medium text-n600">Status</span>
                 <select
                   name="task_filters[status]"
-                  class="mt-2 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-[#f26334] focus:ring-2 focus:ring-[#f26334]/30"
+                  class="mt-2 w-full rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n100 focus:border-accent focus:ring-2 focus:ring-accent/30"
                 >
                   <option value="all" selected={@task_status_filter == "all"}>All statuses</option>
                   <option
@@ -576,13 +576,13 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
             </form>
 
             <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <p class="text-xs text-neutral-500 whitespace-nowrap">
+              <p class="text-xs text-n600 whitespace-nowrap">
                 Showing {length(@filtered_tasks)} of {length(@sprint.tasks)} tasks
               </p>
               <button
                 type="button"
                 phx-click="reset_task_filters"
-                class="self-start rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50 sm:self-auto"
+                class="self-start rounded-md border border-white/10 bg-transparent px-3 py-1.5 text-sm font-medium text-n100 hover:bg-white/5 sm:self-auto"
               >
                 Clear filters
               </button>
@@ -592,7 +592,7 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
 
         <div
           :if={@filtered_tasks == []}
-          class="mt-6 rounded-lg border border-dashed border-neutral-200 p-6 text-center text-sm text-neutral-500"
+          class="mt-6 rounded-lg border border-dashed border-white/10 p-6 text-center text-sm text-n600"
         >
           No tasks match the current filters.
         </div>
@@ -603,11 +603,11 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
               <div class="flex items-center justify-between gap-3">
                 <div class="flex items-center gap-2">
                   <span class={column_badge(status)}></span>
-                  <p class="text-sm font-semibold text-neutral-900">
+                  <p class="text-sm font-semibold text-n100">
                     {humanize(status)}
                   </p>
                 </div>
-                <p class="text-xs text-neutral-500">
+                <p class="text-xs text-n600">
                   {task_count(@filtered_tasks, status)} items
                 </p>
               </div>
@@ -616,7 +616,7 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
                 id={"sprint-kanban-column-#{status}"}
                 phx-hook="KanbanColumn"
                 data-status={status}
-                class="kanban-dropzone mt-4 min-h-[20rem] space-y-3 rounded-lg border border-dashed border-neutral-200 bg-white p-2"
+                class="kanban-dropzone mt-4 min-h-[20rem] space-y-3 rounded-lg border border-dashed border-white/10 bg-ink p-2"
               >
                 <article
                   :for={task <- tasks_for_status(@filtered_tasks, status)}
@@ -632,12 +632,12 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
                   >
                     <div class="flex items-start justify-between gap-3">
                       <div class="space-y-2">
-                        <p class="text-sm font-medium leading-6 text-neutral-900 line-clamp-3">
+                        <p class="text-sm font-medium leading-6 text-n100 line-clamp-3">
                           {task.title}
                         </p>
 
                         <div class="flex flex-wrap items-center gap-1.5">
-                          <span class="rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-neutral-600">
+                          <span class="rounded bg-white/10 px-1.5 py-0.5 text-xs text-n600">
                             {task.project.name}
                           </span>
                           <span :if={present?(task.phase)} class={phase_badge(task.phase)}>
@@ -647,12 +647,12 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
                         </div>
                       </div>
 
-                      <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-neutral-400 hover:bg-neutral-100">
+                      <span class="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-n600 hover:bg-white/10">
                         <.icon name="hero-pencil-square" class="h-4 w-4" />
                       </span>
                     </div>
 
-                    <div class="mt-3 line-clamp-4 text-sm leading-6 text-neutral-500">
+                    <div class="mt-3 line-clamp-4 text-sm leading-6 text-n600">
                       <%= if blank_description?(task.description) do %>
                         No description.
                       <% else %>
@@ -660,40 +660,40 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
                       <% end %>
                     </div>
 
-                    <dl class="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 border-t border-neutral-200 pt-3">
+                    <dl class="mt-4 grid grid-cols-2 gap-x-4 gap-y-2 border-t border-white/10 pt-3">
                       <div>
-                        <dt class="text-xs text-neutral-500">Due</dt>
+                        <dt class="text-xs text-n600">Due</dt>
                         <dd class={task_meta_value_class(task, :due)}>
                           {due_label(task)}
                         </dd>
                       </div>
                       <div>
-                        <dt class="text-xs text-neutral-500">Hours</dt>
-                        <dd class="mt-0.5 text-sm font-medium text-neutral-900">
+                        <dt class="text-xs text-n600">Hours</dt>
+                        <dd class="mt-0.5 text-sm font-medium text-n100">
                           {estimated_hours_label(task)}
                         </dd>
                       </div>
                       <div>
-                        <dt class="text-xs text-neutral-500">Assigned</dt>
-                        <dd class="mt-0.5 text-sm font-medium text-neutral-900">
+                        <dt class="text-xs text-n600">Assigned</dt>
+                        <dd class="mt-0.5 text-sm font-medium text-n100">
                           {task_assignee_count(task)}
                         </dd>
                       </div>
                       <div>
-                        <dt class="text-xs text-neutral-500">Comments</dt>
-                        <dd class="mt-0.5 text-sm font-medium text-neutral-900">
+                        <dt class="text-xs text-n600">Comments</dt>
+                        <dd class="mt-0.5 text-sm font-medium text-n100">
                           {length(task.comments)}
                         </dd>
                       </div>
                     </dl>
                   </button>
 
-                  <div class="mt-3 flex flex-wrap gap-2 border-t border-neutral-200 pt-3">
+                  <div class="mt-3 flex flex-wrap gap-2 border-t border-white/10 pt-3">
                     <button
                       type="button"
                       phx-click="open_comments"
                       phx-value-id={task.id}
-                      class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+                      class="rounded-md border border-white/10 bg-transparent px-3 py-1.5 text-sm font-medium text-n100 hover:bg-white/5"
                     >
                       Open discussion
                     </button>
@@ -701,7 +701,7 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
                       type="button"
                       phx-click="remove_task_from_sprint"
                       phx-value-id={task.id}
-                      class="rounded-md px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50"
+                      class="rounded-md px-3 py-1.5 text-sm font-medium text-red-400 hover:bg-red-500/10"
                     >
                       Remove from sprint
                     </button>
@@ -710,7 +710,7 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
 
                 <div
                   :if={tasks_for_status(@filtered_tasks, status) == []}
-                  class="rounded-lg border border-dashed border-neutral-200 p-6 text-center text-sm text-neutral-500"
+                  class="rounded-lg border border-dashed border-white/10 p-6 text-center text-sm text-n600"
                 >
                   {empty_column_message(status)}
                 </div>
@@ -727,8 +727,8 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
         on_cancel={JS.push("close_modal", value: %{modal: "sprint"})}
       >
         <div>
-          <h3 class="text-base font-semibold text-neutral-900">Edit sprint</h3>
-          <p class="mt-1 text-sm text-neutral-500">Update the goal, title, or dates.</p>
+          <h3 class="text-base font-semibold text-n100">Edit sprint</h3>
+          <p class="mt-1 text-sm text-n600">Update the goal, title, or dates.</p>
         </div>
 
         <.simple_form for={@sprint_form} phx-change="validate_sprint" phx-submit="save_sprint">
@@ -743,9 +743,9 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
             />
             <.input field={@sprint_form[:start_date]} type="date" label="Start date" />
           </div>
-          <div class="rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-4 text-sm text-neutral-700">
-            <p class="text-xs text-neutral-500">Ends</p>
-            <p class="mt-1 text-sm font-medium text-neutral-900">
+          <div class="rounded-lg border border-white/10 bg-white/5 px-4 py-4 text-sm text-n600">
+            <p class="text-xs text-n600">Ends</p>
+            <p class="mt-1 text-sm font-medium text-n100">
               {format_date(end_date(@sprint_form.source))}
             </p>
           </div>
@@ -754,7 +754,7 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
               type="button"
               phx-click="close_modal"
               phx-value-modal="sprint"
-              class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="rounded-md border border-white/10 bg-transparent px-3 py-1.5 text-sm font-medium text-n100 hover:bg-white/5"
             >
               Cancel
             </button>
@@ -770,10 +770,10 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
         on_cancel={JS.push("close_modal", value: %{modal: "task"})}
       >
         <div>
-          <h3 class="text-base font-semibold text-neutral-900">
+          <h3 class="text-base font-semibold text-n100">
             {task_form_title(@task_mode)}
           </h3>
-          <p class="mt-1 text-sm text-neutral-500">
+          <p class="mt-1 text-sm text-n600">
             Create work items or update the selected task without leaving the sprint board.
           </p>
         </div>
@@ -822,14 +822,14 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
             <div class="mt-3 grid gap-2 sm:grid-cols-2">
               <label
                 :for={user <- @staff_users}
-                class="flex items-center gap-3 rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-700"
+                class="flex items-center gap-3 rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n600"
               >
                 <input
                   type="checkbox"
                   name="task[assignee_ids][]"
                   value={user.id}
                   checked={user.id in @task_assignee_ids}
-                  class="rounded border-neutral-300 text-[#f26334]"
+                  class="rounded border-white/10 text-accent"
                 />
                 <span>{display_name(user)}</span>
               </label>
@@ -842,12 +842,12 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
               id="sprint-task-description-toolbar"
               phx-hook="FormatToolbar"
               data-target="sprint-task-description-input"
-              class="mt-1.5 flex items-center gap-1 rounded-t-md border border-b-0 border-neutral-200 bg-neutral-50 px-2 py-1"
+              class="mt-1.5 flex items-center gap-1 rounded-t-md border border-b-0 border-white/10 bg-white/5 px-2 py-1"
             >
               <button
                 type="button"
                 data-format="bold"
-                class="rounded px-2 py-1 text-sm font-bold text-neutral-600 hover:bg-neutral-200"
+                class="rounded px-2 py-1 text-sm font-bold text-n600 hover:bg-white/10"
                 title="Bold"
               >
                 B
@@ -855,13 +855,13 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
               <button
                 type="button"
                 data-format="heading"
-                class="rounded px-2 py-1 text-xs font-bold text-neutral-600 hover:bg-neutral-200"
+                class="rounded px-2 py-1 text-xs font-bold text-n600 hover:bg-white/10"
                 title="Heading"
               >
                 H
               </button>
               <label
-                class="ml-auto flex cursor-pointer items-center gap-1.5 rounded px-2 py-1 text-xs font-medium text-neutral-600 hover:bg-neutral-200"
+                class="ml-auto flex cursor-pointer items-center gap-1.5 rounded px-2 py-1 text-xs font-medium text-n600 hover:bg-white/10"
                 title="Upload image"
               >
                 <.icon name="hero-photo" class="h-4 w-4" />
@@ -871,17 +871,17 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
             </div>
             <div
               :if={@uploads.task_images.entries != []}
-              class="border-x border-neutral-200 bg-neutral-50 px-3 py-2"
+              class="border-x border-white/10 bg-white/5 px-3 py-2"
             >
               <div class="flex flex-wrap items-start gap-2">
                 <div :for={entry <- @uploads.task_images.entries} class="relative">
-                  <div class="overflow-hidden rounded-md border border-neutral-200 bg-white">
+                  <div class="overflow-hidden rounded-md border border-white/10 bg-ink">
                     <.live_img_preview
                       :if={String.starts_with?(entry.client_type, "image/")}
                       entry={entry}
                       class="h-20 w-24 object-cover"
                     />
-                    <span class="block max-w-24 truncate px-2 py-1 text-[10px] text-neutral-500">
+                    <span class="block max-w-24 truncate px-2 py-1 text-[10px] text-n600">
                       {entry.client_name}
                     </span>
                   </div>
@@ -889,13 +889,13 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
                     type="button"
                     phx-click="cancel_task_image_upload"
                     phx-value-ref={entry.ref}
-                    class="absolute -right-1.5 -top-1.5 rounded-full bg-neutral-700 p-0.5 text-white"
+                    class="absolute -right-1.5 -top-1.5 rounded-full bg-n800 p-0.5 text-white"
                   >
                     <.icon name="hero-x-mark" class="h-3 w-3" />
                   </button>
                   <p
                     :for={err <- upload_errors(@uploads.task_images, entry)}
-                    class="mt-0.5 text-[10px] text-red-600"
+                    class="mt-0.5 text-[10px] text-red-400"
                   >
                     {upload_error_msg(err)}
                   </p>
@@ -904,7 +904,7 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
                   type="button"
                   phx-click="insert_task_images"
                   disabled={Enum.any?(@uploads.task_images.entries, fn entry -> not entry.done? end)}
-                  class="self-center rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-xs font-medium text-neutral-700 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
+                  class="self-center rounded-md border border-white/10 bg-transparent px-3 py-1.5 text-xs font-medium text-n100 hover:bg-white/5 disabled:cursor-not-allowed disabled:opacity-50"
                 >
                   Insert into description
                 </button>
@@ -919,10 +919,10 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
               data-mention-users={@mention_users_json}
               textarea_class="!mt-0 rounded-t-none text-base leading-relaxed"
             />
-            <p class="mt-1 text-xs text-neutral-400">
-              Type <span class="font-medium text-neutral-500">@</span>
-              to mention a teammate. Use <span class="font-medium text-neutral-500">**bold**</span>
-              and <span class="font-medium text-neutral-500"># heading</span>
+            <p class="mt-1 text-xs text-n600">
+              Type <span class="font-medium text-n600">@</span>
+              to mention a teammate. Use <span class="font-medium text-n600">**bold**</span>
+              and <span class="font-medium text-n600"># heading</span>
               for formatting.
             </p>
             <.task_description_image_preview text={
@@ -934,7 +934,7 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
               type="button"
               phx-click="close_modal"
               phx-value-modal="task"
-              class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="rounded-md border border-white/10 bg-transparent px-3 py-1.5 text-sm font-medium text-n100 hover:bg-white/5"
             >
               Cancel
             </button>
@@ -951,10 +951,10 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
       >
         <div class="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
-            <h3 class="text-base font-semibold text-neutral-900">
+            <h3 class="text-base font-semibold text-n100">
               {@selected_task.title}
             </h3>
-            <p class="mt-1 text-sm text-neutral-500">
+            <p class="mt-1 text-sm text-n600">
               Review the full discussion and add a new comment without opening the task editor.
             </p>
           </div>
@@ -963,16 +963,16 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
             type="button"
             phx-click="select_task"
             phx-value-id={@selected_task.id}
-            class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+            class="rounded-md border border-white/10 bg-transparent px-3 py-1.5 text-sm font-medium text-n100 hover:bg-white/5"
           >
             Edit task
           </button>
         </div>
 
-        <div class="mt-6 rounded-lg border border-neutral-200 bg-neutral-50 p-4">
+        <div class="mt-6 rounded-lg border border-white/10 bg-white/5 p-4">
           <div class="flex items-center justify-between">
-            <p class="text-sm font-semibold text-neutral-900">Discussion</p>
-            <span class="text-xs text-neutral-500">
+            <p class="text-sm font-semibold text-n100">Discussion</p>
+            <span class="text-xs text-n600">
               {length(@selected_task.comments)} comments
             </span>
           </div>
@@ -980,15 +980,15 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
           <div class="mt-4 space-y-3">
             <article
               :for={comment <- @selected_task.comments}
-              class="rounded-lg border border-neutral-200 bg-white px-4 py-3"
+              class="rounded-lg border border-white/10 bg-ink px-4 py-3"
             >
-              <p class="text-sm font-medium text-neutral-900">{display_name(comment.user)}</p>
-              <p class="mt-1 text-sm leading-6 text-neutral-700">{comment.body}</p>
+              <p class="text-sm font-medium text-n100">{display_name(comment.user)}</p>
+              <p class="mt-1 text-sm leading-6 text-n600">{comment.body}</p>
             </article>
 
             <div
               :if={@selected_task.comments == []}
-              class="rounded-lg border border-dashed border-neutral-200 p-6 text-center text-sm text-neutral-500"
+              class="rounded-lg border border-dashed border-white/10 p-6 text-center text-sm text-n600"
             >
               No comments yet. Start the discussion below.
             </div>
@@ -1001,7 +1001,7 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
                 type="button"
                 phx-click="close_modal"
                 phx-value-modal="comments"
-                class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+                class="rounded-md border border-white/10 bg-transparent px-3 py-1.5 text-sm font-medium text-n100 hover:bg-white/5"
               >
                 Close
               </button>
@@ -1018,29 +1018,29 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
         on_cancel={JS.push("close_modal", value: %{modal: "add_task"})}
       >
         <div>
-          <h3 class="text-base font-semibold text-neutral-900">Add existing task to sprint</h3>
-          <p class="mt-1 text-sm text-neutral-500">
+          <h3 class="text-base font-semibold text-n100">Add existing task to sprint</h3>
+          <p class="mt-1 text-sm text-n600">
             Pick a task from any project. Tasks already in another sprint will be moved into this one.
           </p>
         </div>
 
         <form phx-change="filter_add_task" class="mt-4 grid gap-3 sm:grid-cols-2">
           <label class="block">
-            <span class="text-xs font-medium text-neutral-500">Search</span>
+            <span class="text-xs font-medium text-n600">Search</span>
             <input
               type="text"
               name="add_task_filters[search]"
               value={@add_task_search}
               placeholder="Search task title"
               phx-debounce="300"
-              class="mt-2 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-[#f26334] focus:ring-2 focus:ring-[#f26334]/30"
+              class="mt-2 w-full rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n100 focus:border-accent focus:ring-2 focus:ring-accent/30"
             />
           </label>
           <label class="block">
-            <span class="text-xs font-medium text-neutral-500">Project</span>
+            <span class="text-xs font-medium text-n600">Project</span>
             <select
               name="add_task_filters[project_id]"
-              class="mt-2 w-full rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-900 focus:border-[#f26334] focus:ring-2 focus:ring-[#f26334]/30"
+              class="mt-2 w-full rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n100 focus:border-accent focus:ring-2 focus:ring-accent/30"
             >
               <option value="all" selected={@add_task_project_filter == "all"}>All projects</option>
               <option
@@ -1057,11 +1057,11 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
         <div class="mt-4 max-h-96 space-y-2 overflow-y-auto">
           <div
             :for={task <- @assignable_tasks}
-            class="flex items-center justify-between gap-3 rounded-lg border border-neutral-200 bg-white px-4 py-3"
+            class="flex items-center justify-between gap-3 rounded-lg border border-white/10 bg-ink px-4 py-3"
           >
             <div class="min-w-0">
-              <p class="truncate text-sm font-medium text-neutral-900">{task.title}</p>
-              <p class="mt-0.5 text-xs text-neutral-500">
+              <p class="truncate text-sm font-medium text-n100">{task.title}</p>
+              <p class="mt-0.5 text-xs text-n600">
                 {task.project.name}
                 <span :if={task.sprint}>· currently in {task.sprint.name}</span>
               </p>
@@ -1070,7 +1070,7 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
               type="button"
               phx-click="add_task_to_sprint"
               phx-value-id={task.id}
-              class="shrink-0 rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="shrink-0 rounded-md border border-white/10 bg-transparent px-3 py-1.5 text-sm font-medium text-n100 hover:bg-white/5"
             >
               Add
             </button>
@@ -1078,7 +1078,7 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
 
           <div
             :if={@assignable_tasks == []}
-            class="rounded-lg border border-dashed border-neutral-200 p-6 text-center text-sm text-neutral-500"
+            class="rounded-lg border border-dashed border-white/10 p-6 text-center text-sm text-n600"
           >
             No matching tasks found.
           </div>
@@ -1092,8 +1092,8 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
         on_cancel={JS.push("close_modal", value: %{modal: "bulk_tasks"})}
       >
         <div>
-          <h3 class="text-base font-semibold text-neutral-900">Bulk add tasks via AI Markdown</h3>
-          <p class="mt-1 text-sm text-neutral-500">
+          <h3 class="text-base font-semibold text-n100">Bulk add tasks via AI Markdown</h3>
+          <p class="mt-1 text-sm text-n600">
             Download the template, let AI fill it, paste the result here, preview, then create tasks.
           </p>
         </div>
@@ -1126,47 +1126,47 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
             <div class="mt-3 grid gap-2 sm:grid-cols-2">
               <label
                 :for={user <- @staff_users}
-                class="flex items-center gap-3 rounded-md border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-700"
+                class="flex items-center gap-3 rounded-md border border-white/10 bg-ink px-3 py-2 text-sm text-n600"
               >
                 <input
                   type="checkbox"
                   name="bulk_tasks[assignee_ids][]"
                   value={user.id}
                   checked={user.id in @bulk_task_assignee_ids}
-                  class="rounded border-neutral-300 text-[#f26334]"
+                  class="rounded border-white/10 text-accent"
                 />
                 <span>{display_name(user)}</span>
               </label>
             </div>
-            <p class="mt-2 text-xs leading-5 text-neutral-500">
+            <p class="mt-2 text-xs leading-5 text-n600">
               Selected members are shuffled, then assigned one task at a time so work is spread evenly.
             </p>
           </div>
 
           <div
             :if={@bulk_task_drafts != []}
-            class="rounded-lg border border-neutral-200 bg-neutral-50 p-4"
+            class="rounded-lg border border-white/10 bg-white/5 p-4"
           >
             <div class="flex items-center justify-between gap-3">
-              <p class="text-sm font-semibold text-neutral-900">Preview</p>
-              <span class="text-xs text-neutral-500">{length(@bulk_task_drafts)} tasks</span>
+              <p class="text-sm font-semibold text-n100">Preview</p>
+              <span class="text-xs text-n600">{length(@bulk_task_drafts)} tasks</span>
             </div>
             <div class="mt-3 max-h-64 space-y-2 overflow-y-auto">
               <article
                 :for={draft <- @bulk_task_drafts}
-                class="rounded-md border border-neutral-200 bg-white px-3 py-2"
+                class="rounded-md border border-white/10 bg-ink px-3 py-2"
               >
                 <div class="flex flex-wrap items-center gap-2">
-                  <p class="text-sm font-medium text-neutral-900">{draft.title}</p>
+                  <p class="text-sm font-medium text-n100">{draft.title}</p>
                   <span :if={present?(draft.phase)} class={phase_badge(draft.phase)}>
                     {draft.phase}
                   </span>
                   <span class={priority_badge(draft.priority)}>{humanize(draft.priority)}</span>
-                  <span class="text-xs text-neutral-500">
+                  <span class="text-xs text-n600">
                     {estimated_hours_label(%Task{estimated_hours: draft.estimated_hours})}
                   </span>
                 </div>
-                <p class="mt-1 line-clamp-2 text-xs leading-5 text-neutral-500">
+                <p class="mt-1 line-clamp-2 text-xs leading-5 text-n600">
                   {draft.description || "No description."}
                 </p>
               </article>
@@ -1177,7 +1177,7 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
             <button
               type="button"
               phx-click="download_bulk_tasks_md"
-              class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="rounded-md border border-white/10 bg-transparent px-3 py-1.5 text-sm font-medium text-n100 hover:bg-white/5"
             >
               Download template
             </button>
@@ -1206,7 +1206,7 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
 
   defp task_tab_nav(assigns) do
     ~H"""
-    <div class="mt-4 flex gap-1 border-b border-neutral-200">
+    <div class="mt-4 flex gap-1 border-b border-white/10">
       <.task_tab_button tab={:details} label="Task details" active_tab={@active_tab} />
       <.task_tab_button tab={:assignees} label="Assignees" active_tab={@active_tab} />
       <.task_tab_button tab={:description} label="Description" active_tab={@active_tab} />
@@ -1226,9 +1226,9 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
       phx-value-tab={@tab}
       class={[
         "-mb-px border-b-2 px-3 py-2 text-sm font-medium",
-        @tab == @active_tab && "border-[#f26334] text-neutral-900",
+        @tab == @active_tab && "border-accent text-n100",
         @tab != @active_tab &&
-          "border-transparent text-neutral-500 hover:text-neutral-700"
+          "border-transparent text-n600 hover:text-n600"
       ]}
     >
       {@label}
@@ -1249,15 +1249,15 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
     assigns = assign(assigns, :images, task_description_images(assigns[:text]))
 
     ~H"""
-    <div :if={@images != []} class="mt-3 rounded-md border border-neutral-200 bg-neutral-50 p-3">
-      <p class="text-xs font-medium text-neutral-500">Image preview</p>
+    <div :if={@images != []} class="mt-3 rounded-md border border-white/10 bg-white/5 p-3">
+      <p class="text-xs font-medium text-n600">Image preview</p>
       <div class="mt-2 grid gap-3 sm:grid-cols-2">
         <figure
           :for={{alt, url} <- @images}
-          class="overflow-hidden rounded-md border border-neutral-200 bg-white"
+          class="overflow-hidden rounded-md border border-white/10 bg-ink"
         >
           <img src={url} alt={alt} loading="lazy" class="max-h-60 w-full object-contain" />
-          <figcaption class="truncate px-3 py-2 text-xs text-neutral-500">{alt}</figcaption>
+          <figcaption class="truncate px-3 py-2 text-xs text-n600">{alt}</figcaption>
         </figure>
       </div>
     </div>
@@ -1380,7 +1380,7 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
       src={@url}
       alt={@alt}
       loading="lazy"
-      class="my-3 max-h-80 w-full rounded-md border border-neutral-200 object-contain"
+      class="my-3 max-h-80 w-full rounded-md border border-white/10 object-contain"
     />
     """
   end
@@ -1399,14 +1399,14 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
     """
   end
 
-  defp heading_class(1), do: "block text-base font-semibold text-neutral-900"
-  defp heading_class(2), do: "block text-sm font-semibold text-neutral-900"
-  defp heading_class(_level), do: "block text-sm font-semibold text-neutral-800"
+  defp heading_class(1), do: "block text-base font-semibold text-n100"
+  defp heading_class(2), do: "block text-sm font-semibold text-n100"
+  defp heading_class(_level), do: "block text-sm font-semibold text-n100"
 
   defp inline_segment_class({:mention, _name}),
-    do: "rounded bg-neutral-100 px-1 font-medium text-neutral-700"
+    do: "rounded bg-white/10 px-1 font-medium text-n600"
 
-  defp inline_segment_class({:bold, _value}), do: "font-semibold text-neutral-900"
+  defp inline_segment_class({:bold, _value}), do: "font-semibold text-n100"
   defp inline_segment_class({:text, _value}), do: nil
 
   defp inline_segment_text({:mention, name}), do: "@" <> name
@@ -1596,12 +1596,12 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
 
   defp task_card_class(task, selected_task_id) do
     base =
-      "block w-full rounded-lg border bg-white px-4 py-4 text-left transition hover:bg-neutral-50"
+      "block w-full rounded-lg border bg-ink px-4 py-4 text-left transition hover:bg-white/5"
 
     if task.id == selected_task_id do
-      base <> " border-[#f26334]"
+      base <> " border-accent"
     else
-      base <> " border-neutral-200"
+      base <> " border-white/10"
     end
   end
 
@@ -1612,13 +1612,13 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
     end
   end
 
-  defp column_badge(:backlog), do: "h-2.5 w-2.5 rounded-full bg-neutral-400"
+  defp column_badge(:backlog), do: "h-2.5 w-2.5 rounded-full bg-n600"
   defp column_badge(:in_progress), do: "h-2.5 w-2.5 rounded-full bg-amber-500"
   defp column_badge(:review), do: "h-2.5 w-2.5 rounded-full bg-sky-500"
   defp column_badge(:done), do: "h-2.5 w-2.5 rounded-full bg-emerald-500"
 
   defp column_shell_class(_status),
-    do: "w-[21rem] shrink-0 rounded-lg border border-neutral-200 bg-neutral-50 p-3"
+    do: "w-[21rem] shrink-0 rounded-lg border border-white/10 bg-white/5 p-3"
 
   defp empty_column_message(:backlog),
     do: "No backlog tasks yet. Add one to get the sprint started."
@@ -1628,7 +1628,7 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
   defp empty_column_message(:done), do: "Completed work will appear here."
 
   defp phase_badge(_phase),
-    do: "rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-neutral-600"
+    do: "rounded bg-white/10 px-1.5 py-0.5 text-xs text-n600"
 
   defp due_label(task) do
     cond do
@@ -1658,9 +1658,9 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
 
   defp task_meta_value_class(task, :due) do
     if overdue_task?(task) do
-      "mt-0.5 text-sm font-medium text-red-600"
+      "mt-0.5 text-sm font-medium text-red-400"
     else
-      "mt-0.5 text-sm font-medium text-neutral-900"
+      "mt-0.5 text-sm font-medium text-n100"
     end
   end
 
@@ -1671,16 +1671,16 @@ defmodule BetaSigmaWeb.SprintsLive.Show do
   defp overdue_task?(_task), do: false
 
   defp priority_badge(:urgent),
-    do: "rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-red-600"
+    do: "rounded bg-red-500/10 px-1.5 py-0.5 text-xs text-red-400"
 
   defp priority_badge(:high),
-    do: "rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-amber-600"
+    do: "rounded bg-amber-500/10 px-1.5 py-0.5 text-xs text-amber-400"
 
   defp priority_badge(:medium),
-    do: "rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-neutral-600"
+    do: "rounded bg-white/10 px-1.5 py-0.5 text-xs text-n600"
 
   defp priority_badge(:low),
-    do: "rounded bg-neutral-100 px-1.5 py-0.5 text-xs text-neutral-500"
+    do: "rounded bg-white/10 px-1.5 py-0.5 text-xs text-n600"
 
   defp task_status_options do
     [

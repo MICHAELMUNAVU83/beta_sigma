@@ -84,15 +84,15 @@ defmodule BetaSigmaWeb.SprintsLive.Index do
     <div class="space-y-6">
       <section class="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h1 class="text-2xl font-semibold tracking-tight text-neutral-900">Sprints</h1>
-          <p class="mt-1 text-sm text-neutral-500">
+          <h1 class="text-2xl font-semibold tracking-tight text-n100">Sprints</h1>
+          <p class="mt-1 text-sm text-n600">
             {length(@sprints)} total · {count_active(@sprints)} in progress
           </p>
         </div>
         <button
           type="button"
           phx-click="new_sprint"
-          class="rounded-md bg-[#f26334] px-3 py-1.5 text-sm font-medium text-white transition hover:bg-[#d9532a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f26334]/40"
+          class="rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-white transition hover:bg-accentDeep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
         >
           New sprint
         </button>
@@ -101,7 +101,7 @@ defmodule BetaSigmaWeb.SprintsLive.Index do
       <section class="grid gap-4 lg:grid-cols-2 xl:grid-cols-3">
         <div
           :for={sprint <- @sprints}
-          class="rounded-lg border border-neutral-200 bg-white p-4 transition hover:bg-neutral-50"
+          class="rounded-lg border border-white/10 bg-ink p-4 transition hover:bg-white/5"
         >
           <div class="flex items-start justify-between gap-3">
             <span class={sprint_status_badge(sprint)}>{sprint_status_label(sprint)}</span>
@@ -110,23 +110,23 @@ defmodule BetaSigmaWeb.SprintsLive.Index do
               phx-click="delete_sprint"
               phx-value-id={sprint.id}
               data-confirm="Delete this sprint? Tasks will be unassigned from it."
-              class="shrink-0 rounded-md px-2 py-1 text-xs font-medium text-red-600 hover:bg-red-50"
+              class="shrink-0 rounded-md px-2 py-1 text-xs font-medium text-red-400 hover:bg-red-500/10"
             >
               Delete
             </button>
           </div>
 
           <.link navigate={~p"/app/sprints/#{sprint.id}"} class="mt-2 block">
-            <p class="text-base font-semibold text-neutral-900">{sprint.name}</p>
-            <p class="mt-0.5 text-xs text-neutral-500">
+            <p class="text-base font-semibold text-n100">{sprint.name}</p>
+            <p class="mt-0.5 text-xs text-n600">
               {format_date(sprint.start_date)} → {format_date(sprint.end_date)}
             </p>
 
-            <p class="mt-3 line-clamp-3 text-sm leading-6 text-neutral-500">
+            <p class="mt-3 line-clamp-3 text-sm leading-6 text-n600">
               {sprint.goal || "Add a goal to describe what this sprint should accomplish."}
             </p>
 
-            <div class="mt-4 flex items-center justify-between text-xs text-neutral-500">
+            <div class="mt-4 flex items-center justify-between text-xs text-n600">
               <span>{length(sprint.tasks)} tasks</span>
               <span>{humanize(sprint.cadence)}</span>
             </div>
@@ -135,7 +135,7 @@ defmodule BetaSigmaWeb.SprintsLive.Index do
 
         <div
           :if={@sprints == []}
-          class="rounded-lg border border-dashed border-neutral-200 p-6 text-center text-sm text-neutral-500 lg:col-span-2 xl:col-span-3"
+          class="rounded-lg border border-dashed border-white/10 p-6 text-center text-sm text-n600 lg:col-span-2 xl:col-span-3"
         >
           No sprints yet. Create one to start planning work across projects.
         </div>
@@ -148,8 +148,8 @@ defmodule BetaSigmaWeb.SprintsLive.Index do
         on_cancel={JS.push("close_modal", value: %{modal: "sprint"})}
       >
         <div>
-          <h3 class="text-base font-semibold text-neutral-900">New sprint</h3>
-          <p class="mt-1 text-sm text-neutral-500">
+          <h3 class="text-base font-semibold text-n100">New sprint</h3>
+          <p class="mt-1 text-sm text-n600">
             Sprints are independent of any single project — add tasks from any project once it's created.
           </p>
         </div>
@@ -177,9 +177,9 @@ defmodule BetaSigmaWeb.SprintsLive.Index do
             />
             <.input field={to_form(@sprint_changeset)[:start_date]} type="date" label="Start date" />
           </div>
-          <div class="rounded-lg border border-neutral-200 bg-neutral-50 px-4 py-4 text-sm text-neutral-700">
-            <p class="text-xs text-neutral-500">Ends</p>
-            <p class="mt-1 text-sm font-medium text-neutral-900">
+          <div class="rounded-lg border border-white/10 bg-white/5 px-4 py-4 text-sm text-n600">
+            <p class="text-xs text-n600">Ends</p>
+            <p class="mt-1 text-sm font-medium text-n100">
               {format_date(end_date(@sprint_changeset))}
             </p>
           </div>
@@ -188,7 +188,7 @@ defmodule BetaSigmaWeb.SprintsLive.Index do
               type="button"
               phx-click="close_modal"
               phx-value-modal="sprint"
-              class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="rounded-md border border-white/10 bg-transparent px-3 py-1.5 text-sm font-medium text-n100 hover:bg-white/5"
             >
               Cancel
             </button>
@@ -224,12 +224,12 @@ defmodule BetaSigmaWeb.SprintsLive.Index do
   end
 
   defp sprint_status_badge(sprint) do
-    base = "shrink-0 rounded bg-neutral-100 px-1.5 py-0.5 text-xs font-medium"
+    base = "shrink-0 rounded bg-white/10 px-1.5 py-0.5 text-xs font-medium"
 
     case sprint_status_label(sprint) do
-      "Upcoming" -> base <> " text-neutral-500"
-      "In progress" -> base <> " text-emerald-600"
-      "Completed" -> base <> " text-sky-600"
+      "Upcoming" -> base <> " text-n600"
+      "In progress" -> base <> " text-emerald-400"
+      "Completed" -> base <> " text-sky-400"
     end
   end
 

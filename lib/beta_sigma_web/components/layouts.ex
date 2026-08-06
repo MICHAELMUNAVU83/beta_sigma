@@ -10,6 +10,8 @@ defmodule BetaSigmaWeb.Layouts do
   """
   use BetaSigmaWeb, :html
 
+  import BetaSigmaWeb.MarketingComponents
+
   embed_templates "layouts/*"
 
   def chat_title_prefix(assigns) do
@@ -17,5 +19,10 @@ defmodule BetaSigmaWeb.Layouts do
       count when is_integer(count) and count > 0 -> "(#{count}) "
       _other -> ""
     end
+  end
+
+  def meta_description(assigns) do
+    assigns[:meta_description] ||
+      "BeCorp is a diversified investment and operating company that builds, scales and manages high-growth businesses across strategic sectors in Africa."
   end
 end

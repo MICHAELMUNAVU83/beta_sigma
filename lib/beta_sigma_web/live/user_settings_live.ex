@@ -9,8 +9,8 @@ defmodule BetaSigmaWeb.UserSettingsLive do
     <div class="max-w-5xl space-y-6">
       <section class="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h2 class="text-2xl font-semibold tracking-tight text-neutral-900">Account settings</h2>
-          <p class="mt-1 text-sm text-neutral-500">
+          <h2 class="text-2xl font-semibold tracking-tight text-n100">Account settings</h2>
+          <p class="mt-1 text-sm text-n600">
             Signed in as {display_name(@current_user)} · {@current_email} · {humanize(
               @current_user.role
             )} access
@@ -19,30 +19,30 @@ defmodule BetaSigmaWeb.UserSettingsLive do
       </section>
 
       <section class="grid gap-4 md:grid-cols-3">
-        <article class="rounded-lg border border-neutral-200 bg-white p-4">
-          <p class="text-sm font-medium text-neutral-500">
+        <article class="rounded-lg border border-white/10 bg-ink p-4">
+          <p class="text-sm font-medium text-n600">
             Current email
           </p>
-          <p class="mt-1 text-base font-semibold text-neutral-900 break-all">
+          <p class="mt-1 text-base font-semibold text-n100 break-all">
             {@current_email}
           </p>
         </article>
-        <article class="rounded-lg border border-neutral-200 bg-white p-4">
-          <p class="text-sm font-medium text-neutral-500">
+        <article class="rounded-lg border border-white/10 bg-ink p-4">
+          <p class="text-sm font-medium text-n600">
             Access level
           </p>
-          <p class="mt-1 text-2xl font-semibold text-neutral-900">
+          <p class="mt-1 text-2xl font-semibold text-n100">
             {humanize(@current_user.role)}
           </p>
         </article>
-        <article class="rounded-lg border border-neutral-200 bg-white p-4">
-          <p class="text-sm font-medium text-neutral-500">
+        <article class="rounded-lg border border-white/10 bg-ink p-4">
+          <p class="text-sm font-medium text-n600">
             Security check
           </p>
-          <p class="mt-1 text-base font-semibold text-neutral-900">
+          <p class="mt-1 text-base font-semibold text-n100">
             Current password required
           </p>
-          <p class="mt-2 text-sm text-neutral-700 leading-6">
+          <p class="mt-2 text-sm text-n600 leading-6">
             Both account changes verify your existing credentials before they are applied.
           </p>
         </article>
@@ -50,9 +50,9 @@ defmodule BetaSigmaWeb.UserSettingsLive do
 
       <div class="grid gap-6">
         <div class="space-y-6">
-          <section class="rounded-lg border border-neutral-200 bg-white p-4 sm:p-5">
-            <h3 class="text-center text-sm font-semibold text-neutral-900">Profile picture</h3>
-            <p class="mt-1 text-center text-sm text-neutral-500">
+          <section class="rounded-lg border border-white/10 bg-ink p-4 sm:p-5">
+            <h3 class="text-center text-sm font-semibold text-n100">Profile picture</h3>
+            <p class="mt-1 text-center text-sm text-n600">
               Update your avatar to personalize your account across the workspace.
             </p>
 
@@ -69,7 +69,7 @@ defmodule BetaSigmaWeb.UserSettingsLive do
             >
               <div class="flex flex-col items-center gap-3">
                 <div class="relative">
-                  <div class="relative flex h-36 w-36 items-center justify-center overflow-hidden rounded-full bg-neutral-100 text-4xl font-semibold text-neutral-600 ring-2 ring-neutral-200">
+                  <div class="relative flex h-36 w-36 items-center justify-center overflow-hidden rounded-full bg-white/10 text-4xl font-semibold text-n600 ring-2 ring-white/10">
                     <img
                       data-avatar-preview-image
                       src={@current_user.avatar_url || ""}
@@ -89,7 +89,7 @@ defmodule BetaSigmaWeb.UserSettingsLive do
                       <button
                         type="button"
                         data-avatar-menu-toggle
-                        class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[#f26334] text-white shadow-lg transition hover:bg-[#de562b] focus:outline-none focus:ring-2 focus:ring-[#f26334]/30"
+                        class="inline-flex h-11 w-11 items-center justify-center rounded-full bg-accent text-white shadow-lg transition hover:bg-accentDeep focus:outline-none focus:ring-2 focus:ring-accent/30"
                         aria-label="Profile photo actions"
                       >
                         <.icon name="hero-camera" class="h-5 w-5" />
@@ -97,12 +97,12 @@ defmodule BetaSigmaWeb.UserSettingsLive do
 
                       <div
                         data-avatar-menu
-                        class="pointer-events-none absolute right-0 top-[calc(100%+0.35rem)] z-20 min-w-[10rem] origin-top-right overflow-hidden rounded-xl border border-neutral-200 bg-white py-1 text-left opacity-0 shadow-xl shadow-neutral-900/10 transition duration-150 ease-out translate-y-1 scale-95 invisible"
+                        class="pointer-events-none absolute right-0 top-[calc(100%+0.35rem)] z-20 min-w-[10rem] origin-top-right overflow-hidden rounded-xl border border-white/10 bg-ink py-1 text-left opacity-0 shadow-xl shadow-black/30 transition duration-150 ease-out translate-y-1 scale-95 invisible"
                       >
                         <button
                           type="button"
                           data-avatar-trigger
-                          class="flex w-full items-center gap-2 px-3 py-2 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50 hover:text-neutral-900"
+                          class="flex w-full items-center gap-2 px-3 py-2 text-sm font-medium text-n600 transition hover:bg-white/5 hover:text-n100"
                         >
                           <.icon name="hero-pencil-square" class="h-4 w-4" /> Edit
                         </button>
@@ -112,7 +112,7 @@ defmodule BetaSigmaWeb.UserSettingsLive do
                           type="button"
                           phx-click="remove_avatar"
                           data-avatar-delete
-                          class="flex w-full items-center gap-2 px-3 py-2 text-sm font-medium text-red-600 transition hover:bg-red-50"
+                          class="flex w-full items-center gap-2 px-3 py-2 text-sm font-medium text-red-400 transition hover:bg-red-500/10"
                         >
                           <.icon name="hero-trash" class="h-4 w-4" /> Delete profile
                         </button>
@@ -122,7 +122,7 @@ defmodule BetaSigmaWeb.UserSettingsLive do
                 </div>
 
                 <div class="space-y-1 text-center">
-                  <p class="text-sm font-medium text-neutral-900">Profile photo</p>
+                  <p class="text-sm font-medium text-n100">Profile photo</p>
                 </div>
 
                 <input
@@ -142,39 +142,39 @@ defmodule BetaSigmaWeb.UserSettingsLive do
               </div>
 
               <div class="space-y-1 text-center">
-                <p :for={err <- upload_errors(@uploads.avatar)} class="text-sm text-red-600">
+                <p :for={err <- upload_errors(@uploads.avatar)} class="text-sm text-red-400">
                   {error_to_string(err)}
                 </p>
                 <p :for={entry <- @uploads.avatar.entries} class="hidden">
                   {entry.client_name}
                 </p>
-                <p class="hidden text-sm text-red-600" data-avatar-inline-error></p>
+                <p class="hidden text-sm text-red-400" data-avatar-inline-error></p>
               </div>
 
               <div
                 id="avatar-crop-modal"
-                class="fixed inset-0 z-50 hidden overflow-y-auto bg-neutral-950/45 backdrop-blur-[2px]"
+                class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/60 backdrop-blur-[2px]"
                 data-avatar-modal
               >
                 <div class="flex min-h-full items-center justify-center p-4 sm:p-6">
-                  <div class="w-full max-w-[26rem] rounded-[24px] border border-neutral-200 bg-white shadow-2xl shadow-neutral-900/15">
+                  <div class="w-full max-w-[26rem] rounded-[24px] border border-white/10 bg-ink shadow-2xl shadow-black/40">
                     <div
                       id="avatar-cropper-state"
                       phx-update="ignore"
                       data-avatar-cropper-state
                       class="hidden"
                     >
-                      <div class="relative flex items-center justify-center border-b border-neutral-200/80 px-4 py-2.5">
+                      <div class="relative flex items-center justify-center border-b border-white/10 px-4 py-2.5">
                         <button
                           type="button"
                           data-avatar-reset
-                          class="absolute left-3 top-1/2 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full text-neutral-600 transition hover:bg-neutral-100 hover:text-neutral-900"
+                          class="absolute left-3 top-1/2 inline-flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full text-n600 transition hover:bg-white/10 hover:text-n100"
                           aria-label="Close avatar editor"
                         >
                           <.icon name="hero-x-mark" class="h-5 w-5" />
                         </button>
 
-                        <p class="truncate px-10 text-center text-sm font-semibold text-neutral-900">
+                        <p class="truncate px-10 text-center text-sm font-semibold text-n100">
                           Drag the image to adjust
                         </p>
                       </div>
@@ -183,7 +183,7 @@ defmodule BetaSigmaWeb.UserSettingsLive do
                         <div class="relative mx-auto w-full max-w-[22rem]">
                           <div
                             data-avatar-crop-surface
-                            class="relative h-[22rem] w-full overflow-hidden rounded-[18px] bg-neutral-900 shadow-inner shadow-neutral-950/30"
+                            class="relative h-[22rem] w-full overflow-hidden rounded-[18px] bg-n800 shadow-inner shadow-black/30"
                           >
                             <img
                               data-avatar-cropper-image
@@ -193,11 +193,11 @@ defmodule BetaSigmaWeb.UserSettingsLive do
                           </div>
 
                           <div class="pointer-events-none absolute inset-y-0 right-0 z-10 flex items-center pr-2.5">
-                            <div class="pointer-events-auto flex flex-col items-center gap-2 rounded-[20px] border border-neutral-200/90 bg-white/95 px-2 py-2.5 shadow-lg shadow-neutral-900/10 backdrop-blur">
+                            <div class="pointer-events-auto flex flex-col items-center gap-2 rounded-[20px] border border-white/10 bg-ink/95 px-2 py-2.5 shadow-lg shadow-black/30 backdrop-blur">
                               <button
                                 type="button"
                                 data-avatar-zoom-in
-                                class="inline-flex h-8 w-8 items-center justify-center rounded-full text-neutral-600 transition hover:bg-neutral-100 hover:text-neutral-900"
+                                class="inline-flex h-8 w-8 items-center justify-center rounded-full text-n600 transition hover:bg-white/10 hover:text-n100"
                                 aria-label="Zoom in"
                               >
                                 <.icon name="hero-plus" class="h-4 w-4" />
@@ -206,7 +206,7 @@ defmodule BetaSigmaWeb.UserSettingsLive do
                               <button
                                 type="button"
                                 data-avatar-zoom-out
-                                class="inline-flex h-8 w-8 items-center justify-center rounded-full text-neutral-600 transition hover:bg-neutral-100 hover:text-neutral-900"
+                                class="inline-flex h-8 w-8 items-center justify-center rounded-full text-n600 transition hover:bg-white/10 hover:text-n100"
                                 aria-label="Zoom out"
                               >
                                 <.icon name="hero-minus" class="h-4 w-4" />
@@ -215,14 +215,14 @@ defmodule BetaSigmaWeb.UserSettingsLive do
                           </div>
                         </div>
 
-                        <p class="mt-2 hidden text-center text-sm text-red-600" data-avatar-error></p>
+                        <p class="mt-2 hidden text-center text-sm text-red-400" data-avatar-error></p>
                       </div>
 
-                      <div class="flex items-center justify-end border-t border-neutral-200/80 bg-neutral-50/80 px-4 pb-4 pt-3">
+                      <div class="flex items-center justify-end border-t border-white/10 bg-white/5 px-4 pb-4 pt-3">
                         <button
                           type="submit"
                           data-avatar-save-floating
-                          class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-[#f26334] text-white shadow-lg shadow-[#f26334]/25 transition hover:scale-[1.02] hover:bg-[#de562b] disabled:cursor-not-allowed disabled:opacity-50"
+                          class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-accent text-white shadow-lg shadow-accent/25 transition hover:scale-[1.02] hover:bg-accentDeep disabled:cursor-not-allowed disabled:opacity-50"
                           aria-label="Save profile photo"
                         >
                           <.icon name="hero-check" class="h-6 w-6" />
@@ -239,20 +239,20 @@ defmodule BetaSigmaWeb.UserSettingsLive do
                 data-avatar-view-modal
               >
                 <div class="flex min-h-full items-center justify-center p-4 sm:p-6">
-                  <div class="w-full max-w-2xl rounded-lg border border-neutral-200 bg-white shadow-2xl">
-                    <div class="flex items-center justify-between border-b border-neutral-200 px-4 py-3 text-neutral-900 sm:px-5">
-                      <p class="text-sm font-semibold text-neutral-900">Profile photo</p>
+                  <div class="w-full max-w-2xl rounded-lg border border-white/10 bg-ink shadow-2xl">
+                    <div class="flex items-center justify-between border-b border-white/10 px-4 py-3 text-n100 sm:px-5">
+                      <p class="text-sm font-semibold text-n100">Profile photo</p>
                       <button
                         type="button"
                         data-avatar-view-close
-                        class="inline-flex items-center gap-2 rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
+                        class="inline-flex items-center gap-2 rounded-md border border-white/10 bg-transparent px-3 py-1.5 text-sm font-medium text-n100 transition hover:bg-white/5"
                       >
                         <.icon name="hero-x-mark" class="h-4 w-4" /> Close
                       </button>
                     </div>
 
-                    <div class="bg-neutral-50 p-4 sm:p-5">
-                      <div class="mx-auto flex h-[400px] w-[400px] max-w-full items-center justify-center overflow-hidden rounded-lg bg-neutral-900">
+                    <div class="bg-white/5 p-4 sm:p-5">
+                      <div class="mx-auto flex h-[400px] w-[400px] max-w-full items-center justify-center overflow-hidden rounded-lg bg-n800">
                         <img
                           data-avatar-view-image
                           src={@current_user.avatar_url || ""}
@@ -267,17 +267,17 @@ defmodule BetaSigmaWeb.UserSettingsLive do
             </form>
           </section>
 
-          <section class="rounded-lg border border-neutral-200 bg-white p-4">
-            <h3 class="text-sm font-semibold text-neutral-900">Update email address</h3>
-            <p class="mt-1 text-sm text-neutral-500">
+          <section class="rounded-lg border border-white/10 bg-ink p-4">
+            <h3 class="text-sm font-semibold text-n100">Update email address</h3>
+            <p class="mt-1 text-sm text-n600">
               Change the address used for sign-in and notifications. A confirmation link will be sent to the new inbox before the update is finalized.
             </p>
 
-            <div class="mt-6 rounded-lg border border-neutral-200 bg-neutral-50 p-4">
-              <p class="text-sm font-medium text-neutral-500">
+            <div class="mt-6 rounded-lg border border-white/10 bg-white/5 p-4">
+              <p class="text-sm font-medium text-n600">
                 Current address on file
               </p>
-              <p class="mt-1 text-base font-semibold text-neutral-900 break-all">{@current_email}</p>
+              <p class="mt-1 text-base font-semibold text-n100 break-all">{@current_email}</p>
             </div>
 
             <.form
@@ -300,8 +300,8 @@ defmodule BetaSigmaWeb.UserSettingsLive do
                 />
               </div>
 
-              <div class="flex flex-col gap-4 border-t border-neutral-200 pt-5 sm:flex-row sm:items-center sm:justify-between">
-                <p class="text-sm text-neutral-700 leading-6">
+              <div class="flex flex-col gap-4 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
+                <p class="text-sm text-n600 leading-6">
                   You will keep using your current email until the confirmation link is opened.
                 </p>
 
@@ -312,9 +312,9 @@ defmodule BetaSigmaWeb.UserSettingsLive do
             </.form>
           </section>
 
-          <section class="rounded-lg border border-neutral-200 bg-white p-4">
-            <h3 class="text-sm font-semibold text-neutral-900">Update password</h3>
-            <p class="mt-1 text-sm text-neutral-500">
+          <section class="rounded-lg border border-white/10 bg-ink p-4">
+            <h3 class="text-sm font-semibold text-n100">Update password</h3>
+            <p class="mt-1 text-sm text-n600">
               Set a new password for this account. The password update posts back through the authenticated flow once the change succeeds.
             </p>
 
@@ -359,17 +359,17 @@ defmodule BetaSigmaWeb.UserSettingsLive do
                 required
               />
 
-              <div class="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
-                <p class="text-sm font-medium text-neutral-500">
+              <div class="rounded-lg border border-white/10 bg-white/5 p-4">
+                <p class="text-sm font-medium text-n600">
                   Password guidance
                 </p>
-                <p class="mt-1 text-sm text-neutral-700 leading-6">
+                <p class="mt-1 text-sm text-n600 leading-6">
                   Use a unique password for this workspace. You will be asked to sign in again after the update completes.
                 </p>
               </div>
 
-              <div class="flex flex-col gap-4 border-t border-neutral-200 pt-5 sm:flex-row sm:items-center sm:justify-between">
-                <p class="text-sm text-neutral-700 leading-6">
+              <div class="flex flex-col gap-4 border-t border-white/10 pt-5 sm:flex-row sm:items-center sm:justify-between">
+                <p class="text-sm text-n600 leading-6">
                   Keep your current password nearby so the change can be verified.
                 </p>
 

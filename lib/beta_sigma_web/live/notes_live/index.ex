@@ -193,15 +193,15 @@ defmodule BetaSigmaWeb.NotesLive.Index do
     <div class="space-y-6">
       <section class="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h2 class="text-2xl font-semibold tracking-tight text-neutral-900">Notes</h2>
-          <p class="mt-1 text-sm text-neutral-500">
+          <h2 class="text-2xl font-semibold tracking-tight text-n100">Notes</h2>
+          <p class="mt-1 text-sm text-n600">
             {length(@notes)} total
           </p>
         </div>
         <button
           type="button"
           phx-click="new_note"
-          class="rounded-md bg-[#f26334] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#d9532a] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#f26334]/40"
+          class="rounded-md bg-accent px-3 py-1.5 text-sm font-medium text-white hover:bg-accentDeep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent/40"
         >
           New note
         </button>
@@ -209,12 +209,12 @@ defmodule BetaSigmaWeb.NotesLive.Index do
 
       <div class="grid gap-6 xl:grid-cols-[22rem_minmax(0,1fr)]">
         <aside
-          class="flex flex-col overflow-hidden rounded-lg border border-neutral-200 bg-white xl:sticky xl:top-6"
+          class="flex flex-col overflow-hidden rounded-lg border border-white/10 bg-ink xl:sticky xl:top-6"
           style="max-height: calc(100vh - 6rem);"
         >
           <div class="flex-shrink-0 space-y-4 p-4">
             <div>
-              <p class="text-sm font-medium text-neutral-500">
+              <p class="text-sm font-medium text-n600">
                 Visibility
               </p>
               <div class="mt-3 flex flex-wrap gap-2">
@@ -231,7 +231,7 @@ defmodule BetaSigmaWeb.NotesLive.Index do
             </div>
 
             <div class="relative">
-              <span class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-neutral-400">
+              <span class="pointer-events-none absolute inset-y-0 left-3 flex items-center text-n600">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="h-4 w-4"
@@ -252,20 +252,20 @@ defmodule BetaSigmaWeb.NotesLive.Index do
                 placeholder="Search notes..."
                 value={@search_query}
                 phx-keyup="search_notes"
-                class="w-full rounded-md border border-neutral-200 bg-white py-2 pl-9 pr-3 text-sm text-neutral-900 placeholder-neutral-400 focus:border-[#f26334] focus:outline-none focus:ring-2 focus:ring-[#f26334]/30"
+                class="w-full rounded-md border border-white/10 bg-ink py-2 pl-9 pr-3 text-sm text-n100 placeholder-n600 focus:border-accent focus:outline-none focus:ring-2 focus:ring-accent/30"
               />
             </div>
           </div>
 
-          <div class="flex flex-shrink-0 items-center justify-between border-t border-neutral-200 px-4 py-2">
-            <p class="text-xs font-medium text-neutral-500">Notes</p>
-            <span class="text-xs text-neutral-400">
+          <div class="flex flex-shrink-0 items-center justify-between border-t border-white/10 px-4 py-2">
+            <p class="text-xs font-medium text-n600">Notes</p>
+            <span class="text-xs text-n600">
               {length(@filtered_notes)} total
             </span>
           </div>
 
           <div class="flex-1 overflow-y-auto">
-            <div class="divide-y divide-neutral-200">
+            <div class="divide-y divide-white/10">
               <button
                 :for={note <- @filtered_notes}
                 type="button"
@@ -275,52 +275,52 @@ defmodule BetaSigmaWeb.NotesLive.Index do
               >
                 <div class="flex items-start justify-between gap-3">
                   <div class="min-w-0 flex-1">
-                    <p class="line-clamp-2 text-left text-sm font-medium leading-6 text-neutral-900 [overflow-wrap:anywhere]">
+                    <p class="line-clamp-2 text-left text-sm font-medium leading-6 text-n100 [overflow-wrap:anywhere]">
                       {note.title}
                     </p>
-                    <p class="mt-1 line-clamp-2 text-left text-xs leading-5 text-neutral-500 [overflow-wrap:anywhere]">
+                    <p class="mt-1 line-clamp-2 text-left text-xs leading-5 text-n600 [overflow-wrap:anywhere]">
                       {markdown_preview(note.body, "No content preview yet.")}
                     </p>
-                    <div class="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-neutral-500">
+                    <div class="mt-2 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-n600">
                       <span class={visibility_badge(note.visibility)}>
                         {humanize(note.visibility)}
                       </span>
-                      <span :if={markdown_title?(note.title)} class="text-neutral-400">
+                      <span :if={markdown_title?(note.title)} class="text-n600">
                         Markdown
                       </span>
-                      <span class="text-neutral-400">·</span>
+                      <span class="text-n600">·</span>
                       <span class="[overflow-wrap:anywhere]">{note_scope_label(note)}</span>
                     </div>
                   </div>
-                  <span class="flex-shrink-0 text-xs text-neutral-400">
+                  <span class="flex-shrink-0 text-xs text-n600">
                     {display_name(note.created_by)}
                   </span>
                 </div>
               </button>
-              <p :if={@filtered_notes == []} class="px-4 py-4 text-center text-sm text-neutral-400">
+              <p :if={@filtered_notes == []} class="px-4 py-4 text-center text-sm text-n600">
                 No notes match your search.
               </p>
             </div>
           </div>
         </aside>
 
-        <section class="flex min-w-0 flex-col overflow-hidden rounded-lg border border-neutral-200 bg-white p-6 xl:sticky xl:top-6 xl:h-[calc(100vh-6rem)]">
+        <section class="flex min-w-0 flex-col overflow-hidden rounded-lg border border-white/10 bg-ink p-6 xl:sticky xl:top-6 xl:h-[calc(100vh-6rem)]">
           <%= if @selected_note do %>
             <div class="flex min-h-0 flex-1 flex-col">
               <div class="flex flex-shrink-0 flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                 <div class="min-w-0">
                   <div class="flex flex-wrap items-center gap-3">
-                    <h3 class="min-w-0 text-2xl font-semibold tracking-tight text-neutral-900 [overflow-wrap:anywhere]">
+                    <h3 class="min-w-0 text-2xl font-semibold tracking-tight text-n100 [overflow-wrap:anywhere]">
                       {@selected_note.title}
                     </h3>
                     <span class={visibility_badge(@selected_note.visibility)}>
                       {humanize(@selected_note.visibility)}
                     </span>
-                    <span :if={markdown_title?(@selected_note.title)} class="text-xs text-neutral-400">
+                    <span :if={markdown_title?(@selected_note.title)} class="text-xs text-n600">
                       Markdown
                     </span>
                   </div>
-                  <p class="mt-2 text-sm text-neutral-500">
+                  <p class="mt-2 text-sm text-n600">
                     Created by {display_name(@selected_note.created_by)}
                   </p>
                 </div>
@@ -330,7 +330,7 @@ defmodule BetaSigmaWeb.NotesLive.Index do
                     type="button"
                     phx-click="edit_note"
                     phx-value-id={@selected_note.id}
-                    class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+                    class="rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 hover:bg-white/10"
                   >
                     Edit
                   </button>
@@ -338,7 +338,7 @@ defmodule BetaSigmaWeb.NotesLive.Index do
                     type="button"
                     phx-click="delete_note"
                     phx-value-id={@selected_note.id}
-                    class="rounded-md px-3 py-1.5 text-sm font-medium text-red-600 hover:bg-red-50"
+                    class="rounded-md px-3 py-1.5 text-sm font-medium text-red-400 hover:bg-red-500/10"
                   >
                     Delete
                   </button>
@@ -346,7 +346,7 @@ defmodule BetaSigmaWeb.NotesLive.Index do
               </div>
 
               <div class="mt-6 flex-1 overflow-y-auto xl:pr-2">
-                <article class="min-h-[8rem] overflow-hidden rounded-lg border border-neutral-200 bg-white p-4">
+                <article class="min-h-[8rem] overflow-hidden rounded-lg border border-white/10 bg-ink p-4">
                   <.markdown_viewer body={@selected_note.body} empty_copy="No body content yet." />
                 </article>
 
@@ -357,27 +357,27 @@ defmodule BetaSigmaWeb.NotesLive.Index do
                 />
 
                 <div class="mt-6 grid gap-4 lg:grid-cols-3">
-                  <div class="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
-                    <p class="text-sm font-medium text-neutral-500">
+                  <div class="rounded-lg border border-white/10 bg-white/10 p-4">
+                    <p class="text-sm font-medium text-n600">
                       Linked project
                     </p>
-                    <p class="mt-1 text-sm font-medium text-neutral-900">
+                    <p class="mt-1 text-sm font-medium text-n100">
                       {(@selected_note.project && @selected_note.project.name) || "No linked project"}
                     </p>
                   </div>
-                  <div class="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
-                    <p class="text-sm font-medium text-neutral-500">
+                  <div class="rounded-lg border border-white/10 bg-white/10 p-4">
+                    <p class="text-sm font-medium text-n600">
                       Linked task
                     </p>
-                    <p class="mt-1 text-sm font-medium text-neutral-900">
+                    <p class="mt-1 text-sm font-medium text-n100">
                       {(@selected_note.task && @selected_note.task.title) || "No linked task"}
                     </p>
                   </div>
-                  <div class="rounded-lg border border-neutral-200 bg-neutral-50 p-4">
-                    <p class="text-sm font-medium text-neutral-500">
+                  <div class="rounded-lg border border-white/10 bg-white/10 p-4">
+                    <p class="text-sm font-medium text-n600">
                       Format
                     </p>
-                    <p class="mt-1 text-sm font-medium text-neutral-900">
+                    <p class="mt-1 text-sm font-medium text-n100">
                       {note_format_label(@selected_note)}
                     </p>
                   </div>
@@ -385,7 +385,7 @@ defmodule BetaSigmaWeb.NotesLive.Index do
               </div>
             </div>
           <% else %>
-            <div class="flex flex-1 items-center justify-center rounded-lg border border-dashed border-neutral-200 p-6 text-center text-sm leading-6 text-neutral-500">
+            <div class="flex flex-1 items-center justify-center rounded-lg border border-dashed border-white/10 p-6 text-center text-sm leading-6 text-n600">
               Select a note from the left to inspect details, or start a fresh note from the editor.
             </div>
           <% end %>
@@ -399,10 +399,10 @@ defmodule BetaSigmaWeb.NotesLive.Index do
         on_cancel={JS.push("close_modal", value: %{modal: "note"})}
       >
         <div>
-          <h3 class="text-base font-semibold text-neutral-900">
+          <h3 class="text-base font-semibold text-n100">
             {note_form_title(@note_mode)}
           </h3>
-          <p class="mt-1 text-sm text-neutral-500">
+          <p class="mt-1 text-sm text-n600">
             Attach notes to a project or task when the idea should stay close to the work itself.
           </p>
         </div>
@@ -432,23 +432,23 @@ defmodule BetaSigmaWeb.NotesLive.Index do
           <.input field={@note_form[:body]} type="textarea" label="Body" rows="10" />
 
           <div>
-            <p class="text-sm font-medium leading-6 text-neutral-800">Attachments</p>
-            <p class="mt-1 text-xs text-neutral-500">Attach PDF or Word documents (max 25 MB each).</p>
+            <p class="text-sm font-medium leading-6 text-n100">Attachments</p>
+            <p class="mt-1 text-xs text-n600">Attach PDF or Word documents (max 25 MB each).</p>
 
             <div :if={@note_attachments != []} class="mt-3 space-y-2">
               <div
                 :for={attachment <- @note_attachments}
-                class="flex items-center gap-2 rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2"
+                class="flex items-center gap-2 rounded-md border border-white/10 bg-white/10 px-3 py-2"
               >
-                <.icon name="hero-document" class="h-5 w-5 shrink-0 text-neutral-500" />
-                <span class="min-w-0 flex-1 truncate text-sm text-neutral-700">
+                <.icon name="hero-document" class="h-5 w-5 shrink-0 text-n600" />
+                <span class="min-w-0 flex-1 truncate text-sm text-n600">
                   {attachment["filename"]}
                 </span>
                 <button
                   type="button"
                   phx-click="remove_note_attachment"
                   phx-value-url={attachment["url"]}
-                  class="shrink-0 rounded-md p-1 text-neutral-400 hover:bg-neutral-100 hover:text-red-600"
+                  class="shrink-0 rounded-md p-1 text-n600 hover:bg-white/10 hover:text-red-400"
                   title="Remove attachment"
                 >
                   <.icon name="hero-x-mark" class="h-4 w-4" />
@@ -459,33 +459,33 @@ defmodule BetaSigmaWeb.NotesLive.Index do
             <div :if={@uploads.note_files.entries != []} class="mt-3 space-y-2">
               <div
                 :for={entry <- @uploads.note_files.entries}
-                class="flex items-center gap-2 rounded-md border border-neutral-200 bg-neutral-50 px-3 py-2"
+                class="flex items-center gap-2 rounded-md border border-white/10 bg-white/10 px-3 py-2"
               >
-                <.icon name="hero-paper-clip" class="h-5 w-5 shrink-0 text-neutral-500" />
-                <span class="min-w-0 flex-1 truncate text-sm text-neutral-700">
+                <.icon name="hero-paper-clip" class="h-5 w-5 shrink-0 text-n600" />
+                <span class="min-w-0 flex-1 truncate text-sm text-n600">
                   {entry.client_name}
                 </span>
                 <button
                   type="button"
                   phx-click="cancel_note_upload"
                   phx-value-ref={entry.ref}
-                  class="shrink-0 rounded-md p-1 text-neutral-400 hover:bg-neutral-100 hover:text-red-600"
+                  class="shrink-0 rounded-md p-1 text-n600 hover:bg-white/10 hover:text-red-400"
                   title="Cancel upload"
                 >
                   <.icon name="hero-x-mark" class="h-4 w-4" />
                 </button>
-                <p :for={err <- upload_errors(@uploads.note_files, entry)} class="text-xs text-red-600">
+                <p :for={err <- upload_errors(@uploads.note_files, entry)} class="text-xs text-red-400">
                   {upload_error_msg(err)}
                 </p>
               </div>
             </div>
 
-            <label class="mt-3 flex w-fit cursor-pointer items-center gap-1.5 rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50">
+            <label class="mt-3 flex w-fit cursor-pointer items-center gap-1.5 rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 hover:bg-white/10">
               <.icon name="hero-paper-clip" class="h-4 w-4" />
               <span>Attach file</span>
               <.live_file_input upload={@uploads.note_files} class="sr-only" />
             </label>
-            <p :for={err <- upload_errors(@uploads.note_files)} class="mt-1 text-xs text-red-600">
+            <p :for={err <- upload_errors(@uploads.note_files)} class="mt-1 text-xs text-red-400">
               {upload_error_msg(err)}
             </p>
           </div>
@@ -495,7 +495,7 @@ defmodule BetaSigmaWeb.NotesLive.Index do
               type="button"
               phx-click="close_modal"
               phx-value-modal="note"
-              class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 hover:bg-white/10"
             >
               Cancel
             </button>
@@ -516,32 +516,32 @@ defmodule BetaSigmaWeb.NotesLive.Index do
 
     ~H"""
     <div class="mt-6 space-y-2">
-      <p class="text-sm font-medium text-neutral-500">Attachments</p>
-      <div :for={{attachment, idx} <- @attachments} class="rounded-lg border border-neutral-200">
+      <p class="text-sm font-medium text-n600">Attachments</p>
+      <div :for={{attachment, idx} <- @attachments} class="rounded-lg border border-white/10">
         <div class="flex items-center gap-2 px-3 py-2">
-          <.icon name="hero-document" class="h-5 w-5 shrink-0 text-neutral-500" />
+          <.icon name="hero-document" class="h-5 w-5 shrink-0 text-n600" />
           <a
             href={attachment["url"]}
             target="_blank"
             rel="noopener noreferrer"
             download={attachment["filename"]}
-            class="min-w-0 flex-1 truncate text-sm font-medium text-[#f26334] underline underline-offset-2 hover:text-[#d9532a]"
+            class="min-w-0 flex-1 truncate text-sm font-medium text-accent underline underline-offset-2 hover:text-accentDeep"
           >
             {attachment["filename"] || "Download file"}
           </a>
           <button
             type="button"
             phx-click={JS.toggle(to: "#note-attachment-preview-#{@note_id}-#{idx}")}
-            class="shrink-0 rounded-md p-1 text-neutral-400 hover:bg-neutral-100 hover:text-neutral-700"
+            class="shrink-0 rounded-md p-1 text-n600 hover:bg-white/10 hover:text-n600"
             title="Preview"
           >
             <.icon name="hero-eye" class="h-4 w-4" />
           </button>
         </div>
-        <div id={"note-attachment-preview-#{@note_id}-#{idx}"} class="hidden border-t border-neutral-200">
+        <div id={"note-attachment-preview-#{@note_id}-#{idx}"} class="hidden border-t border-white/10">
           <iframe
             src={attachment_preview_src(attachment)}
-            class="h-[32rem] w-full rounded-b-lg bg-white"
+            class="h-[32rem] w-full rounded-b-lg bg-ink"
             title={attachment["filename"] || "Attachment preview"}
           >
           </iframe>
@@ -688,17 +688,17 @@ defmodule BetaSigmaWeb.NotesLive.Index do
     base = "rounded-md px-3 py-1.5 text-sm font-medium transition"
 
     if active == value do
-      base <> " bg-neutral-100 text-neutral-900"
+      base <> " bg-white/10 text-n100"
     else
-      base <> " border border-neutral-200 bg-white text-neutral-600 hover:bg-neutral-50"
+      base <> " border border-white/10 bg-ink text-n600 hover:bg-white/10"
     end
   end
 
   defp note_list_item_class(true),
-    do: "block w-full px-3 py-2 text-left bg-neutral-50"
+    do: "block w-full px-3 py-2 text-left bg-white/10"
 
   defp note_list_item_class(false),
-    do: "block w-full px-3 py-2 text-left hover:bg-neutral-50"
+    do: "block w-full px-3 py-2 text-left hover:bg-white/10"
 
   defp note_scope_label(note) do
     cond do
@@ -737,7 +737,7 @@ defmodule BetaSigmaWeb.NotesLive.Index do
 
   defp visibility_badge(:personal),
     do:
-      "inline-flex items-center gap-1 text-xs font-medium text-neutral-500 before:h-1.5 before:w-1.5 before:rounded-full before:bg-neutral-400 before:content-['']"
+      "inline-flex items-center gap-1 text-xs font-medium text-n600 before:h-1.5 before:w-1.5 before:rounded-full before:bg-white/10 before:content-['']"
 
   defp note_form_title(:new), do: "New note"
   defp note_form_title(_mode), do: "Edit note"

@@ -35,8 +35,6 @@ const hideDialog = (id) => {
   if (!el) return;
   el.classList.add("hidden");
 };
-import AptitudeProctoring from "./hooks/aptitude_proctoring";
-import MeetingRecorder from "./hooks/meeting_recorder";
 import MentionInput from "./hooks/mention_input";
 import FormatToolbar from "./hooks/format_toolbar";
 
@@ -1270,8 +1268,6 @@ Hooks.ChatCompose = {
   },
 };
 
-Hooks.AptitudeProctoring = AptitudeProctoring;
-Hooks.MeetingRecorder = MeetingRecorder;
 Hooks.MentionInput = MentionInput;
 Hooks.FormatToolbar = FormatToolbar;
 

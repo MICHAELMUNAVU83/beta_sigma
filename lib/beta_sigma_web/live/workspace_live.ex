@@ -73,47 +73,47 @@ defmodule BetaSigmaWeb.WorkspaceLive do
 
   def render(assigns) do
     ~H"""
-    <div :if={@live_action == :notifications} class="max-w-5xl space-y-6">
+    <div :if={@live_action == :notifications} class="w-full space-y-6">
       <section class="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h2 class="text-2xl font-semibold tracking-tight text-neutral-900">Notifications</h2>
-          <p class="mt-1 text-sm text-neutral-500">
+          <h2 class="text-2xl font-semibold tracking-tight text-n100">Notifications</h2>
+          <p class="mt-1 text-sm text-n600">
             {@unread_count} unread · {@notification_stats.total} total
           </p>
         </div>
       </section>
 
       <section class="grid gap-4 md:grid-cols-3">
-        <article class="rounded-lg border border-neutral-200 bg-white p-4">
-          <p class="text-sm font-medium text-neutral-500">Unread</p>
-          <p class="mt-1 text-2xl font-semibold text-neutral-900">
+        <article class="rounded-lg border border-white/10 bg-ink p-4">
+          <p class="text-sm font-medium text-n600">Unread</p>
+          <p class="mt-1 text-2xl font-semibold text-n100">
             {@notification_stats.unread}
           </p>
         </article>
-        <article class="rounded-lg border border-neutral-200 bg-white p-4">
-          <p class="text-sm font-medium text-neutral-500">
+        <article class="rounded-lg border border-white/10 bg-ink p-4">
+          <p class="text-sm font-medium text-n600">
             Linked alerts
           </p>
-          <p class="mt-1 text-2xl font-semibold text-neutral-900">
+          <p class="mt-1 text-2xl font-semibold text-n100">
             {@notification_stats.linked}
           </p>
         </article>
-        <article class="rounded-lg border border-neutral-200 bg-white p-4">
-          <p class="text-sm font-medium text-neutral-500">
+        <article class="rounded-lg border border-white/10 bg-ink p-4">
+          <p class="text-sm font-medium text-n600">
             Live feed items
           </p>
-          <p class="mt-1 text-2xl font-semibold text-neutral-900">
+          <p class="mt-1 text-2xl font-semibold text-n100">
             {length(@live_activity)}
           </p>
         </article>
       </section>
 
       <div class="grid gap-6">
-        <section class="rounded-lg border border-neutral-200 bg-white p-4">
+        <section class="rounded-lg border border-white/10 bg-ink p-4">
           <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h3 class="text-sm font-semibold text-neutral-900">Inbox</h3>
-              <p class="mt-1 text-sm text-neutral-500">
+              <h3 class="text-sm font-semibold text-n100">Inbox</h3>
+              <p class="mt-1 text-sm text-n600">
                 Mark alerts read or unread and jump back into the linked workflow.
               </p>
             </div>
@@ -122,20 +122,20 @@ defmodule BetaSigmaWeb.WorkspaceLive do
               :if={@notification_stats.unread > 0}
               type="button"
               phx-click="mark_all_read"
-              class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+              class="rounded-md border border-white/10 bg-transparent px-3 py-1.5 text-sm font-medium text-n100 hover:bg-white/5"
             >
               Mark all read
             </button>
           </div>
 
-          <div class="mt-4 divide-y divide-neutral-200 border-t border-neutral-200">
-            <article :for={notification <- @notifications} class="px-3 py-2 hover:bg-neutral-50">
+          <div class="mt-4 divide-y divide-white/10 border-t border-white/10">
+            <article :for={notification <- @notifications} class="px-3 py-2 hover:bg-white/5">
               <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
                 <div>
                   <div class="flex flex-wrap items-center gap-2">
                     <span
                       :if={!notification.read}
-                      class="h-2 w-2 rounded-full bg-[#f26334]"
+                      class="h-2 w-2 rounded-full bg-accent"
                       aria-label="Unread"
                     >
                     </span>
@@ -143,8 +143,8 @@ defmodule BetaSigmaWeb.WorkspaceLive do
                       {humanize(notification.type || "update")}
                     </span>
                   </div>
-                  <p class="mt-2 text-sm font-medium text-neutral-900">{notification.message}</p>
-                  <p class="mt-1 text-xs text-neutral-500">
+                  <p class="mt-2 text-sm font-medium text-n100">{notification.message}</p>
+                  <p class="mt-1 text-xs text-n600">
                     {Calendar.strftime(notification.inserted_at, "%d %b %Y • %H:%M")}
                   </p>
                 </div>
@@ -153,7 +153,7 @@ defmodule BetaSigmaWeb.WorkspaceLive do
                   <.link
                     :if={notification.link}
                     navigate={notification.link}
-                    class="rounded-md border border-neutral-200 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 hover:bg-neutral-50"
+                    class="rounded-md border border-white/10 bg-transparent px-3 py-1.5 text-sm font-medium text-n100 hover:bg-white/5"
                   >
                     Open
                   </.link>
@@ -161,7 +161,7 @@ defmodule BetaSigmaWeb.WorkspaceLive do
                     type="button"
                     phx-click="toggle_notification"
                     phx-value-id={notification.id}
-                    class="rounded-md px-2 py-1.5 text-sm font-medium text-neutral-500 hover:bg-neutral-100"
+                    class="rounded-md px-2 py-1.5 text-sm font-medium text-n600 hover:bg-white/10"
                   >
                     {if(notification.read, do: "Mark unread", else: "Mark read")}
                   </button>
@@ -170,9 +170,9 @@ defmodule BetaSigmaWeb.WorkspaceLive do
             </article>
             <div
               :if={@notifications == []}
-              class="rounded-lg border border-dashed border-neutral-200 p-6 text-center"
+              class="rounded-lg border border-dashed border-white/10 p-6 text-center"
             >
-              <p class="text-sm text-neutral-500">No notifications yet.</p>
+              <p class="text-sm text-n600">No notifications yet.</p>
             </div>
           </div>
         </section>
@@ -201,7 +201,7 @@ defmodule BetaSigmaWeb.WorkspaceLive do
   end
 
   defp notification_type_badge(_type),
-    do: "rounded bg-neutral-100 px-1.5 py-0.5 text-xs font-medium text-neutral-600"
+    do: "rounded bg-white/10 px-1.5 py-0.5 text-xs font-medium text-n600"
 
   defp humanize(value) when is_atom(value), do: value |> Atom.to_string() |> humanize()
 

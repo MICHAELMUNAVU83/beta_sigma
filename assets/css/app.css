@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&display=swap");
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
@@ -8,18 +9,18 @@ html {
 }
 
 :root {
-  --page-bg: #f5f5f5;
-  --page-bg-soft: #ffffff;
-  --page-ink: #0a0a0a;
-  --page-title: #0a0a0a;
-  --page-font: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
-  --landing-font: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
-  --page-accent: #171717;
-  --page-accent-soft: #f5f5f5;
-  --page-accent-border: #d4d4d4;
-  --page-cta: #171717;
-  --panel-bg: rgba(255, 255, 255, 0.82);
-  --panel-border: rgba(212, 212, 212, 0.9);
+  --page-bg: #060606;
+  --page-bg-soft: #171717;
+  --page-ink: #ffffff;
+  --page-title: #ffffff;
+  --page-font: "DM Sans", "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+  --landing-font: "DM Sans", "Avenir Next", "Segoe UI", sans-serif;
+  --page-accent: #4269e2;
+  --page-accent-soft: rgba(255, 255, 255, 0.05);
+  --page-accent-border: rgba(255, 255, 255, 0.1);
+  --page-cta: #4269e2;
+  --panel-bg: rgba(6, 6, 6, 0.82);
+  --panel-border: rgba(255, 255, 255, 0.1);
 }
 
 @layer base {
