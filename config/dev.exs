@@ -19,7 +19,7 @@ config :beta_sigma, BetaSigma.Repo,
 # Binding to loopback ipv4 address prevents access from other machines.
 config :beta_sigma, BetaSigmaWeb.Endpoint,
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
-  http: [port: 4210],
+  http: [port: 6110],
   check_origin: false,
   code_reloader: true,
   debug_errors: System.get_env("PHX_DEBUG_ERRORS") in ~w(true 1),
