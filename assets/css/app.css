@@ -47,6 +47,46 @@ html {
     line-height: 1.65;
   }
 
+  /* Internal app runs noticeably smaller than the marketing site */
+  #app-shell {
+    font-size: 0.875rem;
+  }
+
+  #app-shell .text-3xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  #app-shell .text-2xl {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+  }
+
+  #app-shell .text-xl {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  #app-shell .text-lg {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+
+  #app-shell .text-base {
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+  }
+
+  #app-shell .text-sm {
+    font-size: 0.75rem;
+    line-height: 1.125rem;
+  }
+
+  #app-shell .text-xs {
+    font-size: 0.6875rem;
+    line-height: 1rem;
+  }
+
   .landing-page :is(h1, h2, h3, h4, h5, h6) {
     font-family: var(--landing-font);
   }
