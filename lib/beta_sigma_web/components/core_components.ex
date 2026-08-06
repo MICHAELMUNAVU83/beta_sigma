@@ -441,10 +441,10 @@ defmodule BetaSigmaWeb.CoreComponents do
     ~H"""
     <header class={[@actions != [] && "flex items-center justify-between gap-6", @class]}>
       <div>
-        <h1 class="text-[32px] font-medium leading-[1.2] text-n100 sm:text-[38px] lg:text-[44px]">
+        <h1 class="text-xl font-medium leading-[1.2] text-n100 sm:text-2xl lg:text-[26px]">
           {render_slot(@inner_block)}
         </h1>
-        <p :if={@subtitle != []} class="mt-2 text-base text-n600">
+        <p :if={@subtitle != []} class="mt-2 text-sm text-n600">
           {render_slot(@subtitle)}
         </p>
       </div>
