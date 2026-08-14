@@ -51,6 +51,19 @@ defmodule BetaSigmaWeb.Router do
     end
   end
 
+  # Discovery is answered by the people we interview, who have no accounts.
+  # Deliberately open: no authentication, no page permission. It shares the
+  # marketing chrome so it reads as part of the public site.
+  scope "/", BetaSigmaWeb do
+    pipe_through :marketing
+
+    live_session :discovery, layout: {BetaSigmaWeb.Layouts, :marketing} do
+      live "/discovery", DiscoveryLive.Index, :index
+    end
+
+    get "/discovery/sessions/:id/export", DiscoveryExportController, :show
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", BetaSigmaWeb do
   #   pipe_through :api

@@ -5,7 +5,7 @@ defmodule BetaSigmaWeb.MarketingComponents do
   """
   use BetaSigmaWeb, :html
 
-  attr :active, :atom, default: nil, values: [nil, :home, :about, :contact]
+  attr :active, :atom, default: nil, values: [nil, :home, :about, :contact, :discovery]
 
   def marketing_header(assigns) do
     ~H"""
@@ -22,6 +22,18 @@ defmodule BetaSigmaWeb.MarketingComponents do
           </.link>
 
           <div class="flex items-center gap-6">
+            <.link
+              navigate={~p"/discovery"}
+              class={[
+                "hidden items-center gap-2 text-base transition-colors hover:text-accent sm:flex",
+                @active == :discovery && "text-accent",
+                @active != :discovery && "text-n100"
+              ]}
+              aria-current={@active == :discovery && "page"}
+            >
+              <span>Discovery</span>
+            </.link>
+
             <.link
               navigate={~p"/app/projects"}
               class="flex items-center gap-2 text-base text-n100 transition-colors hover:text-accent"
@@ -73,6 +85,15 @@ defmodule BetaSigmaWeb.MarketingComponents do
                       Contact
                     </.link>
                   </li>
+                  <li>
+                    <.link
+                      navigate={~p"/discovery"}
+                      class={["text-[22px] hover:text-accent", @active == :discovery && "text-accent", @active != :discovery && "text-n100"]}
+                      aria-current={@active == :discovery && "page"}
+                    >
+                      Discovery
+                    </.link>
+                  </li>
                 </ul>
               </div>
             </nav>
@@ -83,7 +104,7 @@ defmodule BetaSigmaWeb.MarketingComponents do
     """
   end
 
-  attr :active, :atom, default: nil, values: [nil, :home, :about, :contact]
+  attr :active, :atom, default: nil, values: [nil, :home, :about, :contact, :discovery]
 
   def marketing_footer(assigns) do
     ~H"""
@@ -140,6 +161,14 @@ defmodule BetaSigmaWeb.MarketingComponents do
                   class={if @active == :contact, do: "text-accent", else: "hover:text-n100"}
                 >
                   Contact
+                </.link>
+              </li>
+              <li>
+                <.link
+                  navigate={~p"/discovery"}
+                  class={if @active == :discovery, do: "text-accent", else: "hover:text-n100"}
+                >
+                  Discovery
                 </.link>
               </li>
             </ul>
