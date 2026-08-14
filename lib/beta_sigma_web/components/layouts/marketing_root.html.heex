@@ -4,18 +4,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title default="BeCorp - Building Businesses That Shape Africa's Future">
+    <.live_title default="BeCorp - Building industries That Shape Africa's Future">
       {assigns[:page_title]}
     </.live_title>
     <meta name="description" content={meta_description(assigns)} />
     <meta property="og:type" content="website" />
     <meta property="og:title" content={assigns[:page_title] || "BeCorp"} />
     <meta property="og:description" content={meta_description(assigns)} />
-    <meta property="og:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80" />
+    <meta
+      property="og:image"
+      content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80"
+    />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={assigns[:page_title] || "BeCorp"} />
     <meta name="twitter:description" content={meta_description(assigns)} />
-    <meta name="twitter:image" content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80" />
+    <meta
+      name="twitter:image"
+      content="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1200&q=80"
+    />
     <link rel="icon" href={~p"/images/becorp-logo.png"} />
     <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>

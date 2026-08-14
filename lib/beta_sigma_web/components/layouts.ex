@@ -23,6 +23,6 @@ defmodule BetaSigmaWeb.Layouts do
 
   def meta_description(assigns) do
     assigns[:meta_description] ||
-      "BeCorp is a diversified investment and operating company that builds, scales and manages high-growth businesses across strategic sectors in Africa."
+      "BeCorp is a diversified investment and operating company that builds, scales and manages high-growth industries across strategic sectors in Africa."
   end
 end
