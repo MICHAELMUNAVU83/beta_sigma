@@ -16,6 +16,7 @@ defmodule BetaSigma.Pages do
   alias BetaSigmaWeb.{
     AdminUsersLive,
     ChatLive,
+    DiscoveryLive,
     NotesLive,
     ProjectsLive,
     SprintsLive,
@@ -64,6 +65,16 @@ defmodule BetaSigma.Pages do
       default_roles: [:admin, :staff]
     },
     %{
+      key: :discovery,
+      label: "Discovery",
+      path: "/app/discovery",
+      section: :workspace,
+      badge: "Discovery",
+      # Respondent answers are sensitive, so only admins get this by default;
+      # staff can be granted it per user.
+      default_roles: [:admin]
+    },
+    %{
       key: :users,
       label: "Users",
       path: "/admin/users",
@@ -86,6 +97,8 @@ defmodule BetaSigma.Pages do
     {NotesLive.Index, :index} => :notes,
     {WorkspaceLive, :notifications} => :notifications,
     {ChatLive.Index, :index} => :chat,
+    {DiscoveryLive.Admin, :index} => :discovery,
+    {DiscoveryLive.Admin, :show} => :discovery,
     {AdminUsersLive.Index, :index} => :users
   }
 

@@ -131,6 +131,10 @@ defmodule BetaSigmaWeb.Router do
 
       live "/notifications", WorkspaceLive, :notifications
       live "/chat", ChatLive.Index, :index
+
+      # Read-back of the public discovery workspace.
+      live "/discovery", DiscoveryLive.Admin, :index
+      live "/discovery/:id", DiscoveryLive.Admin, :show
     end
   end
 

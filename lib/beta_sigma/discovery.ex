@@ -67,6 +67,115 @@ defmodule BetaSigma.Discovery do
 
   def get_session!(id), do: Session |> preload([:department, :created_by]) |> Repo.get!(id)
 
+  @doc """
+  Every session across every department, newest first — the internal review
+  list. Archived sessions are included so nothing captured can go missing.
+
+  Options:
+
+    * `:status` — only sessions with this status (atom or string)
+    * `:department_id` — only sessions for this department
+    * `:query` — matches interviewee, role, interviewer, or department name
+  """
+  def list_all_sessions(opts \\ []) do
+    Session
+    |> join(:inner, [session], department in Department, on: department.id == session.department_id)
+    |> filter_status(opts[:status])
+    |> filter_department(opts[:department_id])
+    |> filter_query(opts[:query])
+    |> order_by([session], desc: session.inserted_at, desc: session.id)
+    |> preload([:department, :created_by])
+    |> Repo.all()
+  end
+
+  defp filter_status(query, status) when status in [nil, "", "all"], do: query
+
+  defp filter_status(query, status) when is_binary(status) do
+    case Enum.find(Session.statuses(), &(Atom.to_string(&1) == status)) do
+      nil -> query
+      atom -> filter_status(query, atom)
+    end
+  end
+
+  defp filter_status(query, status) when is_atom(status) do
+    where(query, [session], session.status == ^status)
+  end
+
+  defp filter_department(query, department_id) when department_id in [nil, "", "all"], do: query
+
+  defp filter_department(query, department_id) when is_binary(department_id) do
+    case Integer.parse(department_id) do
+      {id, ""} -> filter_department(query, id)
+      _ -> query
+    end
+  end
+
+  defp filter_department(query, department_id) when is_integer(department_id) do
+    where(query, [session], session.department_id == ^department_id)
+  end
+
+  defp filter_query(query, term) when term in [nil, ""], do: query
+
+  defp filter_query(query, term) do
+    like = "%#{String.replace(term, "%", "\\%")}%"
+
+    where(
+      query,
+      [session, department],
+      ilike(session.interviewee, ^like) or
+        ilike(session.interviewee_role, ^like) or
+        ilike(session.interviewer, ^like) or
+        ilike(department.name, ^like)
+    )
+  end
+
+  @doc """
+  Answered-question counts for the given sessions, keyed by session id. One
+  query, so a long session list stays cheap.
+  """
+  def answered_counts(sessions) when is_list(sessions) do
+    session_ids = Enum.map(sessions, & &1.id)
+
+    Answer
+    |> where([answer], answer.session_id in ^session_ids)
+    |> where(
+      [answer],
+      fragment("coalesce(array_length(?, 1), 0) > 0", answer.values) or
+        fragment("coalesce(btrim(?), '') <> ''", answer.value)
+    )
+    |> group_by([answer], answer.session_id)
+    |> select([answer], {answer.session_id, count(answer.id)})
+    |> Repo.all()
+    |> Map.new()
+  end
+
+  @doc "Question totals per department id, for progress on the review list."
+  def question_counts_by_department do
+    Question
+    |> join(:inner, [question], module in DiscoveryModule, on: module.id == question.module_id)
+    |> group_by([_question, module], module.department_id)
+    |> select([question, module], {module.department_id, count(question.id)})
+    |> Repo.all()
+    |> Map.new()
+  end
+
+  @doc """
+  A session with everything needed to read it back: the department's modules
+  and questions in display order, and the answers keyed by question id.
+  """
+  def session_transcript(%Session{} = session) do
+    department =
+      Department
+      |> Repo.get!(session.department_id)
+      |> Repo.preload(modules: :questions)
+
+    %{
+      session: session,
+      department: department,
+      answers: answers_by_question(session)
+    }
+  end
+
   def create_session(attrs) do
     %Session{}
     |> Session.changeset(attrs)

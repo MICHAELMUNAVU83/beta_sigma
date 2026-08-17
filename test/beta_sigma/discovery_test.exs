@@ -105,6 +105,84 @@ defmodule BetaSigma.DiscoveryTest do
     end
   end
 
+  describe "internal review list" do
+    test "lists sessions across departments, newest first, including archived" do
+      finance = Discovery.get_department_with_bank!("finance")
+      hr = Discovery.get_department_with_bank!("hr")
+
+      {:ok, _older} =
+        Discovery.create_session(%{department_id: finance.id, interviewee: "Asha"})
+
+      {:ok, archived} =
+        Discovery.create_session(%{
+          department_id: hr.id,
+          interviewee: "Brian",
+          status: :archived
+        })
+
+      sessions = Discovery.list_all_sessions()
+
+      assert length(sessions) == 2
+      assert archived.id in Enum.map(sessions, & &1.id)
+      assert Enum.all?(sessions, &(&1.department.name != nil))
+    end
+
+    test "filters by status, department, and free text" do
+      finance = Discovery.get_department_with_bank!("finance")
+      hr = Discovery.get_department_with_bank!("hr")
+
+      {:ok, asha} =
+        Discovery.create_session(%{
+          department_id: finance.id,
+          interviewee: "Asha",
+          status: :complete
+        })
+
+      {:ok, brian} =
+        Discovery.create_session(%{department_id: hr.id, interviewee: "Brian"})
+
+      assert Enum.map(Discovery.list_all_sessions(status: "complete"), & &1.id) == [asha.id]
+      assert Enum.map(Discovery.list_all_sessions(status: :in_progress), & &1.id) == [brian.id]
+
+      assert Enum.map(Discovery.list_all_sessions(department_id: hr.id), & &1.id) == [brian.id]
+
+      assert Enum.map(Discovery.list_all_sessions(query: "ash"), & &1.id) == [asha.id]
+      assert Enum.map(Discovery.list_all_sessions(query: "Group HR"), & &1.id) == [brian.id]
+
+      assert Discovery.list_all_sessions(status: "all", department_id: "all", query: "") |> length() ==
+               2
+    end
+
+    test "answered counts and question totals back the progress column", %{user: user} do
+      department = Discovery.get_department_with_bank!("finance")
+      [one, two | _] = Enum.flat_map(department.modules, & &1.questions)
+      session = Discovery.current_session(department, %{created_by_id: user.id})
+
+      {:ok, _} = Discovery.upsert_answer(session, one, %{value: "QuickBooks Online"})
+      # Blank values and metadata alone must not count as answered.
+      {:ok, _} = Discovery.upsert_answer(session, two, %{value: "  ", note: "Ask again"})
+
+      assert Discovery.answered_counts([session]) == %{session.id => 1}
+
+      assert Map.fetch!(Discovery.question_counts_by_department(), department.id) ==
+               Discovery.question_count(department)
+    end
+
+    test "a transcript carries the bank and the answers keyed by question", %{user: user} do
+      department = Discovery.get_department_with_bank!("finance")
+      question = department.modules |> hd() |> Map.fetch!(:questions) |> hd()
+      session = Discovery.current_session(department, %{created_by_id: user.id})
+
+      {:ok, _} = Discovery.upsert_answer(session, question, %{value: "QuickBooks Online"})
+
+      transcript = Discovery.session_transcript(session)
+
+      assert transcript.department.id == department.id
+      assert Enum.all?(transcript.department.modules, &is_list(&1.questions))
+      assert %Answer{value: "QuickBooks Online"} = Map.fetch!(transcript.answers, question.id)
+    end
+  end
+
   describe "reporting" do
     test "the build backlog is ordered must-have first", %{user: user} do
       department = Discovery.get_department_with_bank!("finance")

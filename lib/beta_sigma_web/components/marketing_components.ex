@@ -192,7 +192,7 @@ defmodule BetaSigmaWeb.MarketingComponents do
           </div>
 
           <div class="w-full max-w-[522px]">
-            <div class="mb-6 text-xl font-bold text-n100">Subscribe to our newsletter</div>
+            <div class="mb-8 text-xl font-bold text-n100">Subscribe to our newsletter</div>
             <form class="relative" method="get" action="#">
               <label for="footer-email" class="sr-only">Email address</label>
               <input
@@ -201,11 +201,11 @@ defmodule BetaSigmaWeb.MarketingComponents do
                 type="email"
                 required
                 placeholder="Enter your email address"
-                class="w-full border-b border-n600 bg-transparent py-4 pr-40 text-n100 placeholder:text-n600 focus:border-accent focus:outline-none"
+                class="w-full border-b border-n600 bg-transparent py-5 pl-4 pr-44 text-n100 placeholder:text-n600 focus:border-accent focus:outline-none"
               />
               <button
                 type="submit"
-                class="group absolute right-0 top-1/2 flex -translate-y-1/2 items-center gap-2 border-b border-n100 pb-1 text-lg font-semibold text-n100 transition-colors hover:border-accent hover:text-accent"
+                class="group absolute right-4 top-1/2 flex -translate-y-1/2 items-center gap-3 border-b border-n100 px-1 pb-1 text-lg font-semibold text-n100 transition-colors hover:border-accent hover:text-accent"
               >
                 Subscribe
                 <svg

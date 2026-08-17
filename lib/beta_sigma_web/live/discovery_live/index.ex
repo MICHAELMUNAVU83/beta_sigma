@@ -564,7 +564,7 @@ defmodule BetaSigmaWeb.DiscoveryLive.Index do
         >{@export}</textarea>
         <div class="mt-4 flex justify-end gap-2">
           <a
-            href={~p"/app/discovery/sessions/#{@session.id}/export"}
+            href={~p"/discovery/sessions/#{@session.id}/export"}
             class="rounded-md border border-white/10 px-3 py-1.5 text-sm text-n600 hover:text-n100"
           >
             Download .md

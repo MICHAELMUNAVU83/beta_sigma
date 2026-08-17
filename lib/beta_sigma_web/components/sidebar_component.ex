@@ -347,6 +347,7 @@ defmodule BetaSigmaWeb.SidebarComponent do
   defp nav_icon(:notes), do: "hero-document-text"
   defp nav_icon(:notifications), do: "hero-bell"
   defp nav_icon(:chat), do: "hero-chat-bubble-left-right"
+  defp nav_icon(:discovery), do: "hero-magnifying-glass-circle"
   defp nav_icon(:users), do: "hero-user-group"
   defp nav_icon(_key), do: "hero-squares-2x2"
 
