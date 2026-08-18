@@ -718,7 +718,7 @@ defmodule BetaSigma.Chat do
   defp mention_link(_), do: "/app/chat"
 
   defp send_mention_email(user, sender_name, message, link) do
-    base_url = "https://vumbuzi-ai.com/"
+    base_url = "https://betasigmacorporation.com/"
     full_link = base_url <> link
 
     recipient_name = user.name || user.email

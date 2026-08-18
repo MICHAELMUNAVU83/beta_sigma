@@ -380,7 +380,7 @@ defmodule BetaSigma.Accounts do
 
   ## Reset password
 
-  @reset_password_base_url "https://vumbuzi-ai.com"
+  @reset_password_base_url "https://betasigmacorporation.com"
 
   @doc ~S"""
   Delivers the reset password email to the given user.
