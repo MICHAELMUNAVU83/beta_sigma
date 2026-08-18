@@ -43,18 +43,16 @@ defmodule BetaSigmaWeb.SidebarComponent do
 
     <aside
       id="app-sidebar"
-      class="fixed inset-y-0 left-0 z-50 flex h-screen w-[min(18rem,calc(100vw-1.5rem))] -translate-x-full border-r border-white/10 bg-ink text-n100 transition-transform duration-300 lg:z-30 lg:w-72 lg:translate-x-0 lg:overflow-hidden"
+      class="fixed inset-y-0 left-0 z-50 flex h-screen w-[min(18rem,calc(100vw-1.5rem))] -translate-x-full border-r border-neutral-200 bg-neutral-50 text-neutral-900 transition-transform duration-300 lg:z-30 lg:w-72 lg:translate-x-0 lg:overflow-hidden"
     >
       <div class="flex h-full w-full flex-col">
         <%!-- Toggle button row --%>
-        <div class="flex h-[53px] items-center justify-between border-b border-white/10 px-5">
-          <.link navigate={~p"/"} id="sidebar-logo" class="flex items-center gap-2">
-            <img
-              src={~p"/images/becorp-logo.png"}
-              alt="BΣ Corporation"
-              class="h-7 w-auto"
-              decoding="async"
-            />
+        <div class="flex h-[53px] items-center justify-between border-b border-neutral-200 px-4">
+          <.link navigate={~p"/"} id="sidebar-logo" class="flex items-center gap-2 text-neutral-950">
+            <span class="flex h-7 w-7 items-center justify-center rounded-md bg-neutral-950 text-xs font-bold text-white">
+              BΣ
+            </span>
+            <span class="text-sm font-semibold tracking-tight">BetaSigma</span>
           </.link>
           <button
             phx-click={close_mobile_sidebar()}
@@ -99,7 +97,7 @@ defmodule BetaSigmaWeb.SidebarComponent do
 
         <%!-- Collapsible content --%>
         <div id="sidebar-content" class="flex flex-1 flex-col overflow-hidden">
-          <nav class="flex-1 space-y-5 overflow-y-auto px-4 pb-5 pt-1">
+          <nav class="flex-1 space-y-5 overflow-y-auto px-3 pb-5 pt-3">
             <.nav_section
               :if={@workspace_links != []}
               title=""
@@ -123,29 +121,29 @@ defmodule BetaSigmaWeb.SidebarComponent do
             />
           </nav>
 
-          <div class="mt-auto shrink-0 border-t border-white/10 px-5 py-5">
+          <div class="mt-auto shrink-0 border-t border-neutral-200 px-4 py-4">
             <.link
               navigate={~p"/users/settings"}
-              class="flex min-w-0 items-center gap-3 py-2 transition hover:text-accent"
+              class="flex min-w-0 items-center gap-3 rounded-md p-2 transition hover:bg-neutral-100"
             >
               <.avatar user={@current_user} class="h-10 w-10 text-sm" />
               <div class="flex-1 min-w-0">
-                <p class="truncate text-base font-bold text-n100">
+                <p class="truncate text-sm font-medium text-neutral-900">
                   {display_name(@current_user)}
                 </p>
-                <p class="truncate text-sm font-semibold text-n600">
+                <p class="truncate text-xs text-neutral-500">
                   {@current_user.email}
                 </p>
               </div>
             </.link>
 
-            <.form action={~p"/users/log_out"} method="delete" class="mt-6">
+            <.form action={~p"/users/log_out"} method="delete" class="mt-2">
               <button
                 type="submit"
-                class="flex w-full items-center gap-4 py-2 text-lg font-bold text-n600 transition hover:text-accent"
+                class="flex w-full items-center gap-3 rounded-md px-2 py-1.5 text-sm font-medium text-neutral-500 transition hover:bg-neutral-100 hover:text-neutral-900"
               >
-                <.icon name="hero-arrow-right-on-rectangle" class="h-6 w-6 text-n600" />
-                <span>Sign out.</span>
+                <.icon name="hero-arrow-right-on-rectangle" class="h-4 w-4" />
+                <span>Sign out</span>
               </button>
             </.form>
           </div>
@@ -163,13 +161,10 @@ defmodule BetaSigmaWeb.SidebarComponent do
   defp nav_section(assigns) do
     ~H"""
     <section>
-      <p
-        :if={@title != ""}
-        class="px-3 text-sm uppercase tracking-[0.1em] text-n600"
-      >
+      <p :if={@title != ""} class="px-2 text-xs font-medium text-neutral-400">
         {@title}
       </p>
-      <div class={["space-y-2", @title != "" && "mt-3"]}>
+      <div class={["space-y-1", @title != "" && "mt-2"]}>
         <.nav_item
           :for={link <- @links}
           link={link}
@@ -188,13 +183,13 @@ defmodule BetaSigmaWeb.SidebarComponent do
   defp nav_group(assigns) do
     ~H"""
     <section>
-      <p class="px-3 text-sm uppercase tracking-[0.1em] text-n600">
+      <p class="px-2 text-xs font-medium text-neutral-400">
         {@title}
       </p>
       <div class="mt-3 space-y-4">
         <section :for={section <- @sections}>
           <div :if={section.title != ""} class="px-3">
-            <p class="text-xs uppercase tracking-[0.1em] text-n600/70">
+            <p class="text-xs font-medium text-neutral-400">
               {section.title}
             </p>
           </div>
@@ -319,22 +314,22 @@ defmodule BetaSigmaWeb.SidebarComponent do
 
   defp nav_link_class(true),
     do:
-      "flex min-h-14 items-center justify-between gap-3 px-5 py-3 text-lg font-semibold text-accent transition hover:bg-white/5"
+      "flex items-center justify-between gap-3 rounded-md bg-neutral-200 px-2 py-2 text-sm font-medium text-neutral-950 transition"
 
   defp nav_link_class(false),
     do:
-      "flex min-h-14 items-center justify-between gap-3 px-5 py-3 text-lg font-medium text-n500 transition hover:bg-white/5 hover:text-n100"
+      "flex items-center justify-between gap-3 rounded-md px-2 py-2 text-sm font-medium text-neutral-600 transition hover:bg-neutral-200 hover:text-neutral-950"
 
-  defp nav_icon_class(true), do: "h-6 w-6 shrink-0 text-accent"
-  defp nav_icon_class(false), do: "h-6 w-6 shrink-0 text-n600"
+  defp nav_icon_class(true), do: "h-4 w-4 shrink-0 text-neutral-950"
+  defp nav_icon_class(false), do: "h-4 w-4 shrink-0 text-neutral-400"
 
   defp nav_badge_class(true),
     do:
-      "ml-3 inline-flex h-8 min-w-8 shrink-0 items-center justify-center bg-accent px-2 text-base font-semibold text-n100"
+      "ml-3 inline-flex h-5 min-w-5 shrink-0 items-center justify-center rounded bg-neutral-950 px-1.5 text-xs font-medium text-white"
 
   defp nav_badge_class(false),
     do:
-      "ml-3 inline-flex h-7 min-w-7 shrink-0 items-center justify-center bg-accent px-2 text-sm font-semibold text-n100"
+      "ml-3 inline-flex h-5 min-w-5 shrink-0 items-center justify-center rounded bg-neutral-200 px-1.5 text-xs font-medium text-neutral-700"
 
   defp count_badge(count) when is_integer(count) and count > 0 do
     if count > 99, do: "99+", else: Integer.to_string(count)
