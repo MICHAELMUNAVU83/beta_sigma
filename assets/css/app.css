@@ -87,53 +87,6 @@ html {
     line-height: 1rem;
   }
 
-  /* Authenticated workspace: a deliberately quiet, monochrome surface. */
-  #app-shell {
-    color-scheme: light;
-    background: #ffffff;
-    color: #404040;
-  }
-
-  #app-shell :is(.bg-ink, .bg-n800) {
-    background-color: #ffffff !important;
-  }
-
-  #app-shell :is(.bg-white\/5, .bg-white\/10, .bg-white\/20) {
-    background-color: #f5f5f5 !important;
-  }
-
-  #app-shell :is(.hover\:bg-white\/5, .hover\:bg-white\/10, .hover\:bg-white\/20):hover {
-    background-color: #f5f5f5 !important;
-  }
-
-  #app-shell :is(.text-n100) {
-    color: #171717 !important;
-  }
-
-  #app-shell :is(.text-n400, .text-n500) {
-    color: #404040 !important;
-  }
-
-  #app-shell :is(.text-n600) {
-    color: #737373 !important;
-  }
-
-  #app-shell :is(.border-white\/5, .border-white\/10, .border-white\/20) {
-    border-color: #e5e5e5 !important;
-  }
-
-  #app-shell :is(.divide-white\/5, .divide-white\/10, .divide-white\/20) > :not([hidden]) ~ :not([hidden]) {
-    border-color: #e5e5e5 !important;
-  }
-
-  #app-shell :is(input, textarea, select) {
-    color-scheme: light;
-  }
-
-  #app-shell :is(input, textarea)::placeholder {
-    color: #a3a3a3 !important;
-  }
-
   .landing-page :is(h1, h2, h3, h4, h5, h6) {
     font-family: var(--landing-font);
   }
@@ -268,6 +221,57 @@ html {
   [data-avatar-crop-surface] cropper-selection::part(crosshair) {
     display: none;
   }
+}
+
+/*
+ * Authenticated workspace light theme.
+ * Keep this outside Tailwind's cascade layers so legacy dark utilities used by
+ * individual LiveViews cannot override the app-wide color scheme.
+ */
+#app-shell {
+  color-scheme: light;
+  background: #ffffff;
+  color: #404040;
+}
+
+#app-shell :is(.bg-ink, .bg-n800) {
+  background-color: #ffffff !important;
+}
+
+#app-shell :is(.bg-white\/5, .bg-white\/10, .bg-white\/20) {
+  background-color: #f5f5f5 !important;
+}
+
+#app-shell :is(.hover\:bg-white\/5, .hover\:bg-white\/10, .hover\:bg-white\/20):hover {
+  background-color: #f5f5f5 !important;
+}
+
+#app-shell .text-n100 {
+  color: #171717 !important;
+}
+
+#app-shell :is(.text-n400, .text-n500) {
+  color: #404040 !important;
+}
+
+#app-shell .text-n600 {
+  color: #737373 !important;
+}
+
+#app-shell :is(.border-white\/5, .border-white\/10, .border-white\/20) {
+  border-color: #e5e5e5 !important;
+}
+
+#app-shell :is(.divide-white\/5, .divide-white\/10, .divide-white\/20) > :not([hidden]) ~ :not([hidden]) {
+  border-color: #e5e5e5 !important;
+}
+
+#app-shell :is(input, textarea, select) {
+  color-scheme: light;
+}
+
+#app-shell :is(input, textarea)::placeholder {
+  color: #a3a3a3 !important;
 }
 
 .marquee-track-ltr {

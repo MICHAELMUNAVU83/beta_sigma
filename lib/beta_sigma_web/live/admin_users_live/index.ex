@@ -202,6 +202,30 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
     end
   end
 
+  def handle_event("delete_user", %{"id" => id}, socket) do
+    user = Accounts.get_user!(String.to_integer(id))
+
+    cond do
+      user.id == socket.assigns.current_user.id ->
+        {:noreply, put_flash(socket, :error, "You cannot delete your own account.")}
+
+      user.role == :admin and Accounts.admin_count() <= 1 ->
+        {:noreply, put_flash(socket, :error, "The final administrator cannot be deleted.")}
+
+      true ->
+        case Accounts.delete_user(user) do
+          {:ok, _user} ->
+            {:noreply,
+             socket
+             |> put_flash(:info, "#{user.email} was permanently deleted.")
+             |> load_page()}
+
+          {:error, _changeset} ->
+            {:noreply, put_flash(socket, :error, "Could not delete #{user.email}.")}
+        end
+    end
+  end
+
   def handle_info(%{event: event} = payload, socket)
       when event in [
              :notification_created,
@@ -375,6 +399,16 @@ defmodule BetaSigmaWeb.AdminUsersLive.Index do
                 class="rounded-md border border-white/10 bg-ink px-3 py-1.5 text-sm font-medium text-n600 transition hover:bg-white/10"
               >
                 Resend confirmation
+              </button>
+              <button
+                :if={user.id != @current_user.id}
+                type="button"
+                phx-click="delete_user"
+                phx-value-id={user.id}
+                data-confirm={"Permanently delete #{user.email}? Their account access will be removed immediately. This cannot be undone."}
+                class="rounded-md px-3 py-1.5 text-sm font-medium text-red-600 transition hover:bg-red-50"
+              >
+                Delete user
               </button>
             </div>
           </article>

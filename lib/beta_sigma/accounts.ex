@@ -74,6 +74,27 @@ defmodule BetaSigma.Accounts do
   def get_user!(id), do: Repo.get!(User, id)
 
   @doc """
+  Permanently deletes a user account.
+
+  Related session and membership records are removed by database constraints,
+  while authored workspace content is retained with no author attached.
+  """
+  def delete_user(%User{} = user) do
+    case Repo.delete(user) do
+      {:ok, deleted_user} = result ->
+        Uploads.delete_local_upload(deleted_user.avatar_url)
+        result
+
+      error ->
+        error
+    end
+  end
+
+  def admin_count do
+    Repo.aggregate(from(user in User, where: user.role == :admin), :count)
+  end
+
+  @doc """
   Lists staff users.
   """
   def list_staff do

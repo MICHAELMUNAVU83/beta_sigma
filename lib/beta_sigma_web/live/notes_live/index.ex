@@ -338,6 +338,7 @@ defmodule BetaSigmaWeb.NotesLive.Index do
                     type="button"
                     phx-click="delete_note"
                     phx-value-id={@selected_note.id}
+                    data-confirm={"Delete “#{@selected_note.title}”? This cannot be undone."}
                     class="rounded-md px-3 py-1.5 text-sm font-medium text-red-400 hover:bg-red-500/10"
                   >
                     Delete
@@ -474,7 +475,10 @@ defmodule BetaSigmaWeb.NotesLive.Index do
                 >
                   <.icon name="hero-x-mark" class="h-4 w-4" />
                 </button>
-                <p :for={err <- upload_errors(@uploads.note_files, entry)} class="text-xs text-red-400">
+                <p
+                  :for={err <- upload_errors(@uploads.note_files, entry)}
+                  class="text-xs text-red-400"
+                >
                   {upload_error_msg(err)}
                 </p>
               </div>
